@@ -350,8 +350,12 @@ int main(int argc, char* argv[]) {
         }
 
 #ifdef SOLUTION
-	nvshmem_float_put(a_new + (iy_end * nx), a_new + iy_start * nx, nx, top);
-	nvshmem_float_put(a_new, a_new + (iy_end - 1) * nx, nx, bottom);
+	//Simon: Currently produces rounding errors
+	//nvshmem_float_put(a_new + (iy_end * nx), a_new + iy_start * nx, nx, top);
+	//nvshmem_float_put(a_new, a_new + (iy_end - 1) * nx, nx, bottom);
+	 nvshmem_float_put(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top);
+	 nvshmem_float_put(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom);
+
 #else
         //TODO: Replace MPI communication with Host initiated NVSHMEM calls
         // Apply periodic boundary conditions

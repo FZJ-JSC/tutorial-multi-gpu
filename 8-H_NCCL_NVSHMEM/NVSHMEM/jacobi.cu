@@ -338,23 +338,15 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaGetLastError());
         CUDA_RT_CALL(cudaEventRecord(compute_done, compute_stream));
 
-#ifdef SOLUTION
-        nvshmemx_barrier_all_on_stream(compute_stream);
-#else
-        //TODO: add necessary inter PE synchronization
-#endif
-
         if (calculate_norm) {
             CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
                                          compute_stream));
         }
 
 #ifdef SOLUTION
-	//Simon: Currently produces rounding errors
-	//nvshmem_float_put(a_new + (iy_end * nx), a_new + iy_start * nx, nx, top);
-	//nvshmem_float_put(a_new, a_new + (iy_end - 1) * nx, nx, bottom);
-	 nvshmem_float_put(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top);
-	 nvshmem_float_put(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom);
+
+	nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, compute_stream);
+        nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  compute_stream);
 
 #else
         //TODO: Replace MPI communication with Host initiated NVSHMEM calls
@@ -368,6 +360,14 @@ int main(int argc, char* argv[]) {
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
         POP_RANGE
 #endif
+
+
+#ifdef SOLUTION
+        nvshmemx_barrier_all_on_stream(compute_stream);
+#else
+        //TODO: add necessary inter PE synchronization
+#endif
+
 
         if (calculate_norm) {
             CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));

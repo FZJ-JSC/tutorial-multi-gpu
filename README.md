@@ -4,7 +4,7 @@
 
 * Date: 14 November 2021
 * Occasion: SC21 Tutorial
-* Tutors: Simon Garcia, Andreas Herten, Markus Hrywniak, Jiri Kraus
+* Tutors: Simon Garcia (BSC), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
 
 ## Setup
 

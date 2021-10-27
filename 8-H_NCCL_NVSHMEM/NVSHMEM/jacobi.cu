@@ -283,25 +283,27 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaGetLastError());
     CUDA_RT_CALL(cudaDeviceSynchronize());
 
-#ifdef SOLUTION
     int leastPriority = 0;
     int greatestPriority = leastPriority;
     CUDA_RT_CALL(cudaDeviceGetStreamPriorityRange(&leastPriority, &greatestPriority));
     cudaStream_t compute_stream;
-    cudaStream_t push_top_stream;
-    cudaStream_t push_bottom_stream;
-
     CUDA_RT_CALL(cudaStreamCreateWithPriority(&compute_stream, cudaStreamDefault, leastPriority));
-    CUDA_RT_CALL(cudaStreamCreateWithPriority(&push_top_stream, cudaStreamDefault, greatestPriority));
-    CUDA_RT_CALL(cudaStreamCreateWithPriority(&push_bottom_stream, cudaStreamDefault, greatestPriority));
+    cudaStream_t push_stream;
+    CUDA_RT_CALL(
+        cudaStreamCreateWithPriority(&push_stream, cudaStreamDefault, greatestPriority));
 
-#else
-    //TODO: 
-    cudaStream_t compute_stream;
-    CUDA_RT_CALL(cudaStreamCreate(&compute_stream));
-    cudaEvent_t compute_done;
-    CUDA_RT_CALL(cudaEventCreateWithFlags(&compute_done, cudaEventDisableTiming));
-#endif
+    cudaEvent_t push_prep_done;
+    CUDA_RT_CALL(cudaEventCreateWithFlags(&push_prep_done, cudaEventDisableTiming));
+    cudaEvent_t push_done;
+    CUDA_RT_CALL(cudaEventCreateWithFlags(&push_done, cudaEventDisableTiming));
+    cudaEvent_t reset_l2norm_done;
+    CUDA_RT_CALL(cudaEventCreateWithFlags(&reset_l2norm_done, cudaEventDisableTiming));
+
+//    cudaStream_t compute_stream;
+//    CUDA_RT_CALL(cudaStreamCreate(&compute_stream));
+//    cudaEvent_t compute_done;
+//    CUDA_RT_CALL(cudaEventCreateWithFlags(&compute_done, cudaEventDisableTiming));
+
     real* l2_norm_d;
     CUDA_RT_CALL(cudaMalloc(&l2_norm_d, sizeof(real)));
     real* l2_norm_h;
@@ -344,42 +346,54 @@ int main(int argc, char* argv[]) {
     PUSH_RANGE("Jacobi solve", 0)
     while (l2_norm > tol && iter < iter_max) {
         CUDA_RT_CALL(cudaMemsetAsync(l2_norm_d, 0, sizeof(real), compute_stream));
+	CUDA_RT_CALL(cudaEventRecord(reset_l2norm_done, compute_stream));
 
+	CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
         jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, compute_stream>>>(
-            a_new, a, l2_norm_d, iy_start, iy_end, nx, calculate_norm);
-        CUDA_RT_CALL(cudaGetLastError());
-        CUDA_RT_CALL(cudaEventRecord(compute_done, compute_stream));
+            a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm);
+
+	jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
+            a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm);
+
+	jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
+            a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm);
+
+        //CUDA_RT_CALL(cudaGetLastError());
+        //CUDA_RT_CALL(cudaEventRecord(compute_done, compute_stream));
+	CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
 
         if (calculate_norm) {
+	    CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_prep_done, 0));
             CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
                                          compute_stream));
         }
 
 #ifdef SOLUTION
-
-	nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, compute_stream);
-        nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  compute_stream);
-
+	PUSH_RANGE("NVSHMEM", 5)
+	nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
+        nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  push_stream);
 #else
         //TODO: Replace MPI communication with Host initiated NVSHMEM calls
         // Apply periodic boundary conditions
-        CUDA_RT_CALL(cudaEventSynchronize(compute_done));
         PUSH_RANGE("MPI", 5)
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
                               MPI_STATUS_IGNORE));
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
-        POP_RANGE
 #endif
+	CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        POP_RANGE
 
 
 #ifdef SOLUTION
         nvshmemx_barrier_all_on_stream(compute_stream);
+	nvshmemx_barrier_all_on_stream(push_stream);
 #else
-        //TODO: add necessary inter PE synchronization
+        //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
+	//	for both streams
 #endif
 
 
@@ -423,7 +437,11 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
+#ifdef SOLUTION
+	    printf("nvshmem, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
+#else
             printf("mpi, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
+#endif
                    (stop - start), runtime_serial);
         } else {
             printf("Num GPUs: %d.\n", size);
@@ -434,7 +452,10 @@ int main(int argc, char* argv[]) {
                 runtime_serial / (size * (stop - start)) * 100);
         }
     }
-    CUDA_RT_CALL(cudaEventDestroy(compute_done));
+    CUDA_RT_CALL(cudaEventDestroy(reset_l2norm_done));
+    CUDA_RT_CALL(cudaEventDestroy(push_done));
+    CUDA_RT_CALL(cudaEventDestroy(push_prep_done));
+    CUDA_RT_CALL(cudaStreamDestroy(push_stream));
     CUDA_RT_CALL(cudaStreamDestroy(compute_stream));
 
     CUDA_RT_CALL(cudaFreeHost(l2_norm_h));

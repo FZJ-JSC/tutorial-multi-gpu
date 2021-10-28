@@ -31,7 +31,6 @@
 #include <sstream>
 
 #include <mpi.h>
-
 #define MPI_CALL(call)                                                                \
     {                                                                                 \
         int mpi_status = call;                                                        \
@@ -92,12 +91,14 @@ const int num_colors = sizeof(colors) / sizeof(uint32_t);
                     #call, __LINE__, __FILE__, cudaGetErrorString(cudaStatus), cudaStatus); \
     }
 #ifdef SOLUTION
+//TODO: include NCCL headers
 #include <nccl.h>
 #else
-	//TODO: include NCCL headers
+//TODO: include NCCL headers
 #endif
 
 #ifdef SOLUTION
+//TODO: Un-comment the following given NCCL_CALL definition to use in your code:
 #define NCCL_CALL(call)                                                                     \
     {                                                                                       \
         ncclResult_t  ncclStatus = call;                                                    \
@@ -129,6 +130,8 @@ const int num_colors = sizeof(colors) / sizeof(uint32_t);
 typedef double real;
 #define MPI_REAL_TYPE MPI_DOUBLE
 #ifdef SOLUTION
+//TODO:define NCCL_REAL_TYPE using its corresponding nccl double type
+//HINT:https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/api/types.html
 #define NCCL_REAL_TYPE ncclDouble
 #else
 //TODO:define NCCL_REAL_TYPE using its corresponding nccl double type
@@ -138,6 +141,8 @@ typedef double real;
 typedef float real;
 #define MPI_REAL_TYPE MPI_FLOAT
 #ifdef SOLUTION
+//TODO:define NCCL_REAL_TYPE using its corresponding nccl float type
+//HINT:https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/api/types.html
 #define NCCL_REAL_TYPE ncclFloat
 #else
 //TODO:define NCCL_REAL_TYPE using its corresponding nccl float type
@@ -186,13 +191,16 @@ int main(int argc, char* argv[]) {
     int size;
     MPI_CALL(MPI_Comm_size(MPI_COMM_WORLD, &size));
 #ifdef SOLUTION
+    //TODO: Create a ncclUniqueId, have rank 0 initize it by using the appropriate runtime call,
+    //      and remember to broadcast it to all ranks using MPI
+    //HINT: Remember to wrap your nccl calls using the above NCCL_CALL definition
     ncclUniqueId nccl_uid;
     if (rank == 0) NCCL_CALL(ncclGetUniqueId(&nccl_uid));
     MPI_CALL(MPI_Bcast(&nccl_uid, sizeof(ncclUniqueId), MPI_BYTE, 0, MPI_COMM_WORLD));
 #else
     //TODO: Create a ncclUniqueId, have rank 0 initize it by using the appropriate runtime call,
     //      and remember to broadcast it to all ranks using MPI
-    //HINT: Remember to wrap your nccl calls using the above NCCL_CALL definition :)
+    //HINT: Remember to wrap your nccl calls using the above NCCL_CALL definition
 #endif
 
     const int iter_max = get_argval<int>(argv, argv + argc, "-niter", 1000);
@@ -215,6 +223,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaSetDevice(local_rank));
     CUDA_RT_CALL(cudaFree(0));
 #ifdef SOLUTION
+    //TODO: Create a communicator (ncclComm_t), initialize it (ncclCommInitRank)
     ncclComm_t nccl_comm;
     NCCL_CALL(ncclCommInitRank(&nccl_comm, size, nccl_uid, rank));
     int nccl_version = 0;
@@ -354,6 +363,9 @@ int main(int argc, char* argv[]) {
 
         // Apply periodic boundary conditions
 #ifdef SOLUTION
+        //TODO: Modify the lable for the RANGE, and replace MPI_Sendrecv with ncclSend and ncclRecv calls
+        //      using the nccl communicator and push_stream.
+        //      Remember to use ncclGroupStart() and ncclGroupEnd()
         PUSH_RANGE("NCCL_LAUNCH", 5)
         NCCL_CALL(ncclGroupStart());
         NCCL_CALL(ncclRecv(a_new,                     nx, NCCL_REAL_TYPE, top,    nccl_comm, push_stream));
@@ -369,7 +381,6 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
                               MPI_STATUS_IGNORE));
-        CUDA_RT_CALL(cudaStreamSynchronize(push_bottom_stream));
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
 #endif
@@ -419,6 +430,7 @@ int main(int argc, char* argv[]) {
     if (rank == 0 && result_correct) {
         if (csv) {
 #ifdef SOLUTION
+ 	    //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
             printf("nccl_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #else
 	    //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap  
@@ -449,6 +461,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaFreeHost(a_h));
     CUDA_RT_CALL(cudaFreeHost(a_ref_h));
 #ifdef SOLUTION
+    //TODO: Destroy the nccl communicator
     NCCL_CALL(ncclCommDestroy(nccl_comm));
 #else
     //TODO: Destroy the nccl communicator

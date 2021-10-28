@@ -27,7 +27,7 @@
 #include <sstream>
 
 #include <mpi.h>
-
+#define SOLUTION
 #define MPI_CALL(call)                                                                \
     {                                                                                 \
         int mpi_status = call;                                                        \

@@ -2,7 +2,7 @@
 NP ?= 1
 NVCC=nvcc
 MPICXX=mpicxx
-MPIRUN ?= mpirun
+JSC_SUBMIT_CMD ?= srun --gres=gpu:4 --ntasks-per-node 4
 CUDA_HOME ?= /usr/local/cuda
 GENCODE_SM30	:= -gencode arch=compute_30,code=sm_30
 GENCODE_SM35	:= -gencode arch=compute_35,code=sm_35
@@ -29,13 +29,13 @@ jacobi_kernels.o: Makefile jacobi_kernels.cu
 
 .PHONY.: clean
 clean:
-	rm -f jacobi jacobi_kernels.o *.qdrep jacobi.*.compute-sanitizer.log
+	rm -f jacobi jacobi_kernels.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	$(MPIRUN) -np $(NP) compute-sanitizer --log-file jacobi.%q{OMPI_COMM_WORLD_RANK}.compute-sanitizer.log ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
-	$(MPIRUN) -np $(NP) ./jacobi
+	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	$(MPIRUN) -np $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{OMPI_COMM_WORLD_RANK} ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10

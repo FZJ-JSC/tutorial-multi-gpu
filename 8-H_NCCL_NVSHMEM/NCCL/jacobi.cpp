@@ -193,7 +193,7 @@ int main(int argc, char* argv[]) {
 #ifdef SOLUTION
     //TODO: Create a ncclUniqueId, have rank 0 initize it by using the appropriate runtime call,
     //      and remember to broadcast it to all ranks using MPI
-    //HINT: Remember to wrap your nccl calls using the above NCCL_CALL definition
+    //HINT: Best practice: wrap your nccl calls using the above NCCL_CALL macro to catch runtime errors early.
     ncclUniqueId nccl_uid;
     if (rank == 0) NCCL_CALL(ncclGetUniqueId(&nccl_uid));
     MPI_CALL(MPI_Bcast(&nccl_uid, sizeof(ncclUniqueId), MPI_BYTE, 0, MPI_COMM_WORLD));

@@ -321,7 +321,7 @@ int main(int argc, char* argv[]) {
                                          compute_stream));
         }
 
-	     //TODO: Compute top and bottom neighbour, use reflecting boundaries
+	     //TODO: Compute top and bottom neighbor, use reflecting boundaries
 #ifdef SOLUTION
         const int top = rank > 0 ? rank - 1 : (size - 1);
         const int bottom = (rank + 1) % size;
@@ -329,9 +329,8 @@ int main(int argc, char* argv[]) {
         const int top = 0;
         const int bottom = 0;
 #endif
-        // Apply periodic boundary conditions
-	      // TODO: Use MPI_Sendrecv to exchange the data with the top and bottom neighbours
 
+        // TODO: Use MPI_Sendrecv to exchange the data with the top and bottom neighbors
 #ifdef SOLUTION
         CUDA_RT_CALL(cudaEventSynchronize(compute_done));
         PUSH_RANGE("MPI", 5)

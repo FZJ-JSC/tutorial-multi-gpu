@@ -1,8 +1,8 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/H5-Multi-GPU-parallelization
-SOLUTIONDIR = ../../solutions/H5-Multi-GPU-parallelization
-OPT_SOLUTIONDIR = ../../solutions/H5-Multi-GPU-parallelization_opt
+TASKDIR = ../../tasks/H3-Multi-GPU-parallelization
+SOLUTIONDIR = ../../solutions/H3-Multi-GPU-parallelization
+OPT_SOLUTIONDIR = ../../solutions/H3-Multi-GPU-parallelization_opt
 
 PROCESSFILES = jacobi.cu
 COPYFILES = Makefile Instructions.ipynb Instructions.md

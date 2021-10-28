@@ -158,7 +158,9 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Comm_free(&local_comm));
     }
 
-    CUDA_RT_CALL(cudaSetDevice(local_rank));
+    int num_devices = 0;
+    CUDA_RT_CALL(cudaGetDeviceCount(&num_devices));
+    CUDA_RT_CALL(cudaSetDevice(local_rank%num_devices));
     CUDA_RT_CALL(cudaFree(0));
 
     real* a_ref_h;

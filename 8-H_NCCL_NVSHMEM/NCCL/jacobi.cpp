@@ -162,7 +162,7 @@ int main(int argc, char* argv[]) {
 
     //TODO: Create a ncclUniqueId, have rank 0 initize it by using the appropriate runtime call,
     //      and remember to broadcast it to all ranks using MPI
-    //HINT: Remember to wrap your nccl calls using the above NCCL_CALL definition
+    //HINT: Best practice: wrap your nccl calls using the above NCCL_CALL macro to catch runtime errors early.
 #ifdef SOLUTION
     ncclUniqueId nccl_uid;
     if (rank == 0) NCCL_CALL(ncclGetUniqueId(&nccl_uid));
@@ -187,7 +187,9 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Comm_free(&local_comm));
     }
 
-    CUDA_RT_CALL(cudaSetDevice(local_rank));
+    int num_devices = 0;
+    CUDA_RT_CALL(cudaGetDeviceCount(&num_devices));
+    CUDA_RT_CALL(cudaSetDevice(local_rank%num_devices));
     CUDA_RT_CALL(cudaFree(0));
 
     //TODO: Create a communicator (ncclComm_t), initialize it (ncclCommInitRank)

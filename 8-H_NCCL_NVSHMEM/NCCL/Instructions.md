@@ -15,8 +15,6 @@ The purpose of this task is to use the NCCL API instead of MPI to implement a mu
 
 - Initialize NVSHMEM:
   - Include NCCL headers.
-  - Un-comment NCCL\_CALL definition provided to handle NCCL errors
-  - Define NCCL\_REAL\_TYPE for both double and float types
   - Create a NCCL unique ID, and initialize it
   - Create a NCCL communicator and initilize it 
   - Replace MPI for the periodic boundary conditions with NCCL 

@@ -135,6 +135,7 @@ bool get_arg(char** begin, char** end, const std::string& arg) {
 }
 
 int main(int argc, char* argv[]) {
+    PUSH_RANGE("init", 0)
     MPI_CALL(MPI_Init(&argc, &argv));
     int rank;
     MPI_CALL(MPI_Comm_rank(MPI_COMM_WORLD, &rank));
@@ -167,7 +168,9 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaMallocHost(&a_ref_h, nx * ny * sizeof(real)));
     real* a_h;
     CUDA_RT_CALL(cudaMallocHost(&a_h, nx * ny * sizeof(real)));
+    PUSH_RANGE("single_gpu", 1)
     double runtime_serial = single_gpu(nx, ny, iter_max, a_ref_h, nccheck, !csv && (0 == rank));
+    POP_RANGE
 
     // ny - 2 rows are distributed amongst `size` ranks in such a way
     // that each rank gets either (ny - 2) / size or (ny - 2) / size + 1 rows.
@@ -264,6 +267,7 @@ int main(int argc, char* argv[]) {
     POP_RANGE
 
     CUDA_RT_CALL(cudaDeviceSynchronize());
+    POP_RANGE
 
     if (!csv && 0 == rank) {
         printf(
@@ -279,7 +283,11 @@ int main(int argc, char* argv[]) {
     MPI_CALL(MPI_Barrier(MPI_COMM_WORLD));
     double start = MPI_Wtime();
     PUSH_RANGE("Jacobi solve", 0)
+    char iter_str[64];
     while (l2_norm > tol && iter < iter_max) {
+        snprintf(iter_str, 64, "it_%03d", iter);
+        PUSH_RANGE(iter_str, 2)
+        PUSH_RANGE("kernel_and_memcpy", 3)
         CUDA_RT_CALL(cudaMemsetAsync(l2_norm_d, 0, sizeof(real), compute_stream));
 	CUDA_RT_CALL(cudaEventRecord(reset_l2norm_done, compute_stream));
 
@@ -333,6 +341,7 @@ int main(int argc, char* argv[]) {
 #else
 	CUDA_RT_CALL(cudaEventSynchronize(compute_done));
 #endif
+        POP_RANGE
         PUSH_RANGE("MPI", 5)
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
 				a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
@@ -346,6 +355,7 @@ int main(int argc, char* argv[]) {
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
         POP_RANGE
 
+        PUSH_RANGE("norm", 5)
         if (calculate_norm) {
             CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));
             MPI_CALL(MPI_Allreduce(l2_norm_h, &l2_norm, 1, MPI_REAL_TYPE, MPI_SUM, MPI_COMM_WORLD));
@@ -355,9 +365,11 @@ int main(int argc, char* argv[]) {
                 printf("%5d, %0.6f\n", iter, l2_norm);
             }
         }
+        POP_RANGE
 
         std::swap(a_new, a);
         iter++;
+        POP_RANGE
     }
     double stop = MPI_Wtime();
     POP_RANGE
@@ -474,7 +486,7 @@ double single_gpu(const int nx, const int ny, const int iter_max, real* const a_
     real l2_norm = 1.0;
 
     double start = MPI_Wtime();
-    PUSH_RANGE("Jacobi solve", 0)
+    PUSH_RANGE("Jacobi solve single", 0)
     while (l2_norm > tol && iter < iter_max) {
 	
 	CUDA_RT_CALL(cudaMemsetAsync(l2_norm_d, 0, sizeof(real), compute_stream));

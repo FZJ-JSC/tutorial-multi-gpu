@@ -7,7 +7,7 @@
 
 ## Hands-On 8\_NCCL: Using NCCL for inter-GPU communication
 
-### Task 0: Using NCCL device API
+### Task 0: Using NCCL
 
 #### Description
 

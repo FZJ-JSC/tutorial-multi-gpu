@@ -5,7 +5,7 @@
 -   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
 
 
-## Hands-ON 5: Multi GPU parallelization with CUDA-aware MPI
+## Hands-On 5: Multi-GPU Parallelization with CUDA-aware MPI
 
 ## Task 1: Parallelize the jacobi solver for multiple GPUs using CUDA-aware MPI
 

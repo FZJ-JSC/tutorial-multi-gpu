@@ -271,9 +271,9 @@ int main(int argc, char* argv[]) {
     int iy_start = 1; // My local start index for computation
     int iy_end = iy_start + chunk_size; //My local last index
 #else
-    int iy_start_global;  // My start index in the global array
-    int iy_end_global ; // My last index in the global array
-    int iy_start; // My local start index for computation
+    int iy_start_global = 1;  // My start index in the global array
+    int iy_end_global = ny-1; // My last index in the global array
+    int iy_start = 1; // My local start index for computation
     int iy_end = iy_start + chunk_size; //My local last index
 #endif
 

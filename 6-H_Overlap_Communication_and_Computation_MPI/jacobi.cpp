@@ -225,7 +225,6 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaEventCreateWithFlags(&push_top_done, cudaEventDisableTiming));
     cudaEvent_t push_bottom_done;
     CUDA_RT_CALL(cudaEventCreateWithFlags(&push_bottom_done, cudaEventDisableTiming));
-#else 
 #endif
     cudaStream_t compute_stream;
     cudaEvent_t compute_done;

@@ -13,7 +13,7 @@
 The purpose of this task is to use CUDA-aware MPI to parallelize a Jacobi solver. The starting point of this task is a skeleton `jacobi.cu`, in which the CUDA kernel is already defined and also some basic setup functions are present.
 There is also a single-GPU version with which the performance and numerical results are compared.
 Take some time to get familiar with the code. Some functions (like NVTX) will be explained in next sessions. They can be ignored for now (e.g. the `PUSH` and `POP` macros).
-Once you are familiar with the code,  you need to work on `TODOs` in `jacobi.cu`:
+Once you are familiar with the code, please work on the `TODOs` in `jacobi.cu`:
 
 - Initialize the MPI application
   - Include the MPI header file

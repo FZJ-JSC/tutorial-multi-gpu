@@ -107,7 +107,6 @@ const int num_colors = sizeof(colors) / sizeof(uint32_t);
                     "%s (%d).\n",                                                           \
                     #call, __LINE__, __FILE__, ncclGetErrorString(ncclStatus), ncclStatus); \
     }
-#else
 
 #ifdef USE_DOUBLE
 typedef double real;
@@ -275,16 +274,35 @@ int main(int argc, char* argv[]) {
     real* l2_norm_h;
     CUDA_RT_CALL(cudaMallocHost(&l2_norm_h, sizeof(real)));
 
+//TODO: Rename range
+#ifdef SOLUTION
+    PUSH_RANGE("NCCL_Warmup", 5)
+#else
     PUSH_RANGE("MPI_Warmup", 5)
+#endif
     for (int i = 0; i < 10; ++i) {
         const int top = rank > 0 ? rank - 1 : (size - 1);
         const int bottom = (rank + 1) % size;
+        //TODO: Replace the MPI_Sendrecv calls with ncclRecv and ncclSend calls using the nccl communicator 
+        //      on the compute_stream.
+        //      Remeber that a group of ncclRecv and ncclSend should be within a ncclGroupStart() and ncclGroupEnd()
+        //      Also, Rember to stream synchronize on the compute_stream at the end
+#ifdef SOLUTION
+        NCCL_CALL(ncclGroupStart());
+        NCCL_CALL(ncclRecv(a_new,                     nx, NCCL_REAL_TYPE, top,    nccl_comm, compute_stream));
+        NCCL_CALL(ncclSend(a_new + (iy_end - 1) * nx, nx, NCCL_REAL_TYPE, bottom, nccl_comm, compute_stream));
+        NCCL_CALL(ncclRecv(a_new + (iy_end * nx),     nx, NCCL_REAL_TYPE, bottom, nccl_comm, compute_stream));
+        NCCL_CALL(ncclSend(a_new + iy_start * nx,     nx, NCCL_REAL_TYPE, top,    nccl_comm, compute_stream));
+        NCCL_CALL(ncclGroupEnd());
+        CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));
+#else
 	MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
                               MPI_STATUS_IGNORE));
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
       	                      MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
-        std::swap(a_new, a);
+#endif
+	std::swap(a_new, a);
     }
     POP_RANGE
 

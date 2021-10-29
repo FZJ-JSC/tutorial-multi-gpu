@@ -11,12 +11,13 @@
 
 #### Description
 
-The purpose of this task is to use the NCCL API instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cu`:
+The purpose of this task is to use the NCCL instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cu`:
 
 - Initialize NVSHMEM:
   - Include NCCL headers.
   - Create a NCCL unique ID, and initialize it
-  - Create a NCCL communicator and initilize it 
+  - Create a NCCL communicator and initilize it
+  - Replace the MPI\_Sendrecv calls with ncclRecv and ncclSend calls for the warmup stage
   - Replace MPI for the periodic boundary conditions with NCCL 
   - Fix output message to indicate nccl rather than mpi
   - Destroy NCCL comunicator

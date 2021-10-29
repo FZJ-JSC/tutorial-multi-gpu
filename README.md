@@ -17,7 +17,7 @@ Curriculum:
 3. Hands-on: Multi-GPU Parallelization
 4. Lecture: Performance / Debugging Tools *Markus*
 5. Lecture: Optimization Techniques for Multi-GPU Applications *Jiri*
-6. Hands-on: Overlap Communication and Communication with MPI
+6. Hands-on: Overlap Communication and Computation with MPI
 7. Lecture: Overview of NCCL and NVSHMEN in MPI *Lena*
 8. Hands-on: Using NCCL and NVSHMEM
 9. Lecture: Device-initiated Communication with NVSHMEM *Jiri*

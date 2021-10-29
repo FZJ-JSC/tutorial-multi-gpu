@@ -213,9 +213,9 @@ int main(int argc, char* argv[]) {
     launch_initialize_boundaries(a, a_new, PI, iy_start_global - 1, nx, (chunk_size + 2), ny);
     CUDA_RT_CALL(cudaDeviceSynchronize());
 
-    //TODO:
-    //*Set least and greates Priority Range
-    //*Create top and bottom cuda streams variables and corresponding cuda events
+    // TODO:
+    // * Query the priority range between least/greatest priority
+    // * Create top and bottom CUDA streams, variables, and corresponding CUDA events
 #ifdef SOLUTION
     int leastPriority = 0;
     int greatestPriority = leastPriority;
@@ -235,9 +235,9 @@ int main(int argc, char* argv[]) {
     cudaEvent_t reset_l2norm_done;
     CUDA_RT_CALL(cudaEventCreateWithFlags(&reset_l2norm_done, cudaEventDisableTiming));
 
-    //TODO:
-    //Create cuda streams with Greates Priority for top and bottom streams
-    //Modify the cudaStreamCreate call for the compute stream to have the Least Priority
+    // TODO:
+    // * Create CUDA streams with "Greatest" priority for top and bottom streams
+    // * Modify the cudaStreamCreate call for the compute stream to have the "Least" priority
 #ifdef SOLUTION
     CUDA_RT_CALL(cudaStreamCreateWithPriority(&compute_stream, cudaStreamDefault, leastPriority));
     CUDA_RT_CALL(
@@ -293,13 +293,13 @@ int main(int argc, char* argv[]) {
 
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-        //TODO:
-        //*Launch two additional jacobi kernels for the top and bottom regions using
-        // the top and bottom streams after modifying and launching the original jacobi kernel on
-        // ONLY the center region.
-        //*Remember to wait on the for l2_norm_done cuda event before launching each top and bottom jacobi kernels
-        // using the cudaStreamWaitEvent() call.
-        //*Remember to record when the top and bottom regions are done using the cudaEventRecord() call
+        // TODO:
+        // * Launch two additional Jacobi kernels for the top and bottom (halo) regions using
+        //   the top and bottom streams after modifying and launching the original Jacobi kernel on
+        //   ONLY the center (bulk) region.
+        // * Remember to wait on the reset_l2norm_done CUDA event using the cudaStreamWaitEvent() call, before
+        //   before launching the top and bottom Jacobi kernels.
+        // * Remember to record when the top and bottom regions are done using the cudaEventRecord() call.
 #ifdef SOLUTION
         launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx,
                              calculate_norm, compute_stream);
@@ -321,8 +321,7 @@ int main(int argc, char* argv[]) {
 #endif
 
         if (calculate_norm) {
-            //TODO:
-            //Wait on both the top and bottom cuda events
+            // TODO: Wait on both the top and bottom cuda events
 #ifdef SOLUTION
             CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_top_done, 0));
             CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_bottom_done, 0));
@@ -335,7 +334,7 @@ int main(int argc, char* argv[]) {
         const int bottom = (rank + 1) % size;
 
         // Apply periodic boundary conditions
-        //TODO: Modify the synchronization on the compute stream to be on the top stream
+        // TODO: Modify the synchronization on the compute stream to be on the top stream
 #ifdef SOLUTION
         CUDA_RT_CALL(cudaStreamSynchronize(push_top_stream));
 #else
@@ -347,7 +346,7 @@ int main(int argc, char* argv[]) {
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
                               MPI_STATUS_IGNORE));
 
-        //TODO: Add additional synchronization on the bottom stream
+        // TODO: Add additional synchronization on the bottom stream
 #ifdef SOLUTION
         CUDA_RT_CALL(cudaStreamSynchronize(push_bottom_stream));
 #endif
@@ -410,7 +409,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    //TODO: Destroy the additional top and bottom stream as well as their correspoinding events
+    // TODO: Destroy the additional top and bottom streams, as well as their corresponding events
 #ifdef SOLUTION
     CUDA_RT_CALL(cudaEventDestroy(push_bottom_done));
     CUDA_RT_CALL(cudaEventDestroy(push_top_done));

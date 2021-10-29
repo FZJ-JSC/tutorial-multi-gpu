@@ -313,14 +313,14 @@ int main(int argc, char* argv[]) {
 #endif
 
         if (calculate_norm) {
-		//TODO:
-                //Wait on both the top and bottom cuda events
+            //TODO:
+            //Wait on both the top and bottom cuda events
 #ifdef SOLUTION
-            	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_top_done, 0));
-            	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_bottom_done, 0));
+            CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_top_done, 0));
+            CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_bottom_done, 0));
 #endif
-            	CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
-                                         compute_stream));
+            CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
+                                            compute_stream));
         }
 
         const int top = rank > 0 ? rank - 1 : (size - 1);

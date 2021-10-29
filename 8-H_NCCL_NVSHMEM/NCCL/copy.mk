@@ -3,8 +3,9 @@
 TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NCCL/
 SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NCCL 
 
+
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile Instructions.ipynb Instructions.md
+COPYFILES = Makefile jacobi.cpp Instructions.ipynb Instructions.md
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))

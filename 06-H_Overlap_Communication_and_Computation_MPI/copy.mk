@@ -1,11 +1,10 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NCCL
-SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NCCL
-
+TASKDIR = ../tasks/06-H_Overlap_Communication_and_Computation_MPI
+SOLUTIONDIR = ../solutions/06-H_Overlap_Communication_and_Computation_MPI
 
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile jacobi_kernels.cpp Instructions.ipynb Instructions.md
+COPYFILES = Makefile Instructions.ipynb jacobi_kernels.cu
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))
@@ -13,7 +12,7 @@ TASKCOPYFILES = $(addprefix $(TASKDIR)/,$(COPYFILES))
 SOLUTIONPROCCESFILES = $(addprefix $(SOLUTIONDIR)/,$(PROCESSFILES))
 SOLUTIONCOPYFILES = $(addprefix $(SOLUTIONDIR)/,$(COPYFILES))
 
-.PHONY: all task
+.PHONY: all task clean
 all: task
 task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES}
 
@@ -38,4 +37,7 @@ ${SOLUTIONCOPYFILES}: $(COPYFILES)
 %.ipynb: %.md
 	pandoc $< -o $@
 	# add metadata so this is seen as python
-	jq -s '.[0] * .[1]' $@ ../template.json | sponge $@
+	jq -s '.[0] * .[1]' $@ ../.template.json | sponge $@
+
+clean:
+	rm -f Instructions.ipynb

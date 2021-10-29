@@ -7,7 +7,7 @@
 
 ## Hands-On 10: Device-initiated Communication with NVSHMEM
 
-### Task 0: Using NVSHMEM device API
+### Task: Using NVSHMEM device API
 
 #### Description
 
@@ -39,7 +39,7 @@ make run
 Study the performance by glimpsing at the profile generated with
 `make profile`. For `make run` and `make profile` the environment variable `NP` can be set to change the number of processes.
 
-### Task 1: Use `nvshmemx_float_put_nbi_block`
+### Advanced Task: Use `nvshmemx_float_put_nbi_block`
 
 #### Description
 

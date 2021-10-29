@@ -1,10 +1,11 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NVSHMEM
-SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NVSHMEM
+TASKDIR = ../../tasks/08-H_NCCL_NVSHMEM/NCCL
+SOLUTIONDIR = ../../solutions/08-H_NCCL_NVSHMEM/NCCL
 
-PROCESSFILES = jacobi.cu
-COPYFILES = Makefile Instructions.ipynb Instructions.md
+
+PROCESSFILES = jacobi.cpp
+COPYFILES = Makefile jacobi_kernels.cu Instructions.ipynb Instructions.md
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))
@@ -37,4 +38,4 @@ ${SOLUTIONCOPYFILES}: $(COPYFILES)
 %.ipynb: %.md
 	pandoc $< -o $@
 	# add metadata so this is seen as python
-	jq -s '.[0] * .[1]' $@ ../template.json | sponge $@
+	jq -s '.[0] * .[1]' $@ ../../.template.json | sponge $@

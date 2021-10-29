@@ -5,9 +5,9 @@
 -   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
 
 
-## Hands-On 8\_NCCL: Using NCCL for inter-GPU communication
+## Hands-On 8-NCCL: Using NCCL for Inter-GPU Communication
 
-### Task 0: Using NCCL
+### Task: Using NCCL
 
 #### Description
 

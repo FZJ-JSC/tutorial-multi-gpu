@@ -5,7 +5,7 @@
 -   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
 
 
-## Hands-On 6: Overlap Communication and Computation with MPI 
+## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,
 and applying them to implement overlapping MPI with GPU kernels. 
@@ -40,7 +40,7 @@ Use the Nsight System profiler to profile the starting point version non-Overlap
     - Hint: Try navigating with the NVTX ranges.
 
 
-### Task 1: Implement Communication/Computation overlap 
+### Task 1: Implement Communication/Computation overlap
 
 Realize the optimization potential you discovered in the previous task and reduce the whitespace between kernel calls on the GPU profile by implementing communication/computation overlap.
 

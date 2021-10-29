@@ -5,9 +5,9 @@
 -   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
 
 
-## Hands-On 8\_NVSHMEM: Host-initiated Communication with NVSHMEM
+## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
 
-### Task 0: Using NVSHMEM device API
+### Task: Using NVSHMEM device API
 
 #### Description
 

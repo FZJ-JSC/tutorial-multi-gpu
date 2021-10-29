@@ -5,9 +5,9 @@
 -   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
 
 
-## Hands-On 5: Multi-GPU Parallelization with CUDA-aware MPI
+## Hands-On 3: Multi-GPU Parallelization with CUDA-aware MPI
 
-### Task 1: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPI
+### Task: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPI
 
 #### Description
 The purpose of this task is to use CUDA-aware MPI to parallelize a Jacobi solver. The starting point of this task is a skeleton `jacobi.cu`, in which the CUDA kernel is already defined and also some basic setup functions are present.
@@ -39,7 +39,7 @@ make run
 
 ## Advanced Task: Optimize Load Balancingg
 
-### Description 
+### Description
 - The work distribution of the first task is not ideal, because it can lead to the process with the last rank having to calculate significantly more than all the others. Therefore, the load distribution is to be optimized in this task.
 - Compute the `chunk_size` that each rank gets either (ny - 2) / size or (ny - 2) / size + 1 rows.
 - Compute how many processes get  (ny - 2) / size resp (ny - 2) / size + 1 rows

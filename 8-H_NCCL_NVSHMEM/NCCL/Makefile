@@ -1,7 +1,7 @@
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
 NP ?= 1
 NVCC=nvcc
-JSC_SUBMIT_CMD ?= srun --gres=gpu:4 --ntasks-per-node 4
+JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 MPICXX=mpicxx
 CUDA_HOME ?= /usr/local/cuda
 NCCL_HOME ?= /usr

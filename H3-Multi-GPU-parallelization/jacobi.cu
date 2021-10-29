@@ -199,9 +199,7 @@ int main(int argc, char* argv[]) {
     const int ny = get_argval<int>(argv, argv + argc, "-ny", 16384);
     const bool csv = get_arg(argv, argv + argc, "-csv");
 
-    //TODO: Each MPI process should be assigned exactly one GPU. Add code here, to
-    // assing GPUs to processes
-#ifdef SOLUTION
+
     int local_rank = -1;
     {
         MPI_Comm local_comm;
@@ -213,10 +211,12 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Comm_free(&local_comm));
     }
     int num_devices = 0;
+    // TODO: Get the available GPU devices into `num_devices` and use it and the current rank to set the active GPU.
+#ifdef SOLUTION
     CUDA_RT_CALL(cudaGetDeviceCount(&num_devices));
     CUDA_RT_CALL(cudaSetDevice(local_rank%num_devices));
-    CUDA_RT_CALL(cudaFree(0));
 #endif
+    CUDA_RT_CALL(cudaFree(0));
 
     real* a_ref_h;
     CUDA_RT_CALL(cudaMallocHost(&a_ref_h, nx * ny * sizeof(real)));

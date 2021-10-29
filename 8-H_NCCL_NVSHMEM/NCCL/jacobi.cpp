@@ -444,7 +444,6 @@ int main(int argc, char* argv[]) {
     //TODO: Destroy the nccl communicator
 #ifdef SOLUTION
     NCCL_CALL(ncclCommDestroy(nccl_comm));
-#else
 #endif
 
     MPI_CALL(MPI_Finalize());

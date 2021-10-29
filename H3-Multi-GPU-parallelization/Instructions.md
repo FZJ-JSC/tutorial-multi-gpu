@@ -7,7 +7,7 @@
 
 ## Hands-On 5: Multi-GPU Parallelization with CUDA-aware MPI
 
-### Task 1: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPII
+### Task 1: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPI
 
 #### Description
 The purpose of this task is to use CUDA-aware MPI to parallelize a Jacobi solver. The starting point of this task is a skeleton `jacobi.cu`, in which the CUDA kernel is already defined and also some basic setup functions are present.

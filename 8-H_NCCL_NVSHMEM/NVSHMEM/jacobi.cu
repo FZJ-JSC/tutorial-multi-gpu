@@ -27,7 +27,6 @@
 #include <sstream>
 
 #include <mpi.h>
-#define SOLUTION
 #define MPI_CALL(call)                                                                \
     {                                                                                 \
         int mpi_status = call;                                                        \
@@ -51,11 +50,10 @@
 
 #include <cuda_runtime.h>
 
+//TODO: Include NVSHMEM headers
 #ifdef SOLUTION
 #include <nvshmem.h>
 #include <nvshmemx.h>
-#else
-//TODO: Include NVSHMEM headers
 #endif
 
 #ifdef HAVE_CUB
@@ -155,6 +153,18 @@ __global__ void jacobi_kernel(real* __restrict__ const a_new, const real* __rest
     }
 }
 
+void launch_jacobi_kernel(real* __restrict__ const a_new, const real* __restrict__ const a,
+                          real* __restrict__ const l2_norm, const int iy_start, const int iy_end,
+                          const int nx, const bool calculate_norm, cudaStream_t stream) {
+    constexpr int dim_block_x = 32;
+    constexpr int dim_block_y = 32;
+    dim3 dim_grid((nx + dim_block_x - 1) / dim_block_x,
+                  ((iy_end - iy_start) + dim_block_y - 1) / dim_block_y, 1);
+    jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, stream>>>(
+        a_new, a, l2_norm, iy_start, iy_end, nx, calculate_norm);
+    CUDA_RT_CALL(cudaGetLastError());
+}
+
 double single_gpu(const int nx, const int ny, const int iter_max, real* const a_ref_h,
                   const int nccheck, const bool print);
 
@@ -206,6 +216,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaSetDevice(local_rank%num_devices));
     CUDA_RT_CALL(cudaFree(0));
 
+    //TODO: Initialize NVSHMEM using nvshmemx_init_attr
 #ifdef SOLUTION
     MPI_Comm mpi_comm = MPI_COMM_WORLD;
     nvshmemx_init_attr_t attr;
@@ -214,8 +225,6 @@ int main(int argc, char* argv[]) {
 
     assert( size == nvshmem_n_pes() );
     assert( rank == nvshmem_my_pe() );
-#else
-    //TODO: Initialize NVSHMEM using nvshmemx_init_attr
 #endif
 
     real* a_ref_h;
@@ -240,12 +249,12 @@ int main(int argc, char* argv[]) {
     else
         chunk_size = chunk_size_high;
 
+    //TODO: Allocate a and a_new from the NVSHMEM symmetric heap instead of using cudaMalloc
+    //      Note: size needs to be the same on all PEs but chunk_size might not be!
 #ifdef SOLUTION
     real* a = (real*) nvshmem_malloc(nx * (chunk_size_high + 2) * sizeof(real));
     real* a_new = (real*) nvshmem_malloc(nx * (chunk_size_high + 2) * sizeof(real));
 #else
-    //TODO: Allocate a and a_new from the NVSHMEM symmetric heap
-    //      Note: size needs to be the same on all PEs but chunk_size might not be!
     real* a;
     CUDA_RT_CALL(cudaMalloc(&a, nx * (chunk_size + 2) * sizeof(real)));
     real* a_new;
@@ -271,11 +280,10 @@ int main(int argc, char* argv[]) {
     const int top = rank > 0 ? rank - 1 : (size - 1);
     const int bottom = (rank + 1) % size;
 
+    //TODO: calculate halo/boundary row index of top and bottom neighbors
 #ifdef SOLUTION
     const int iy_top_lower_boundary_idx = (top < num_ranks_low) ? (chunk_size_low + 1) : (chunk_size_high + 1);
     const int iy_bottom_upper_boundary_idx = 0;
-#else
-    //TODO: calculate halo/boundary row index of top and bottom neighbors
 #endif
 
     // Set diriclet boundary conditions on left and right boarder
@@ -351,14 +359,20 @@ int main(int argc, char* argv[]) {
 	CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-        jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, compute_stream>>>(
-            a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm);
+        //jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, compute_stream>>>(
+        //    a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm);
 
-	jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
-            a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm);
+	launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
 
-	jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
-            a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm);
+	//jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
+        //    a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm);
+	
+	launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
+	
+	//jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
+        //    a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm);
+
+	launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
 
         //CUDA_RT_CALL(cudaGetLastError());
         //CUDA_RT_CALL(cudaEventRecord(compute_done, compute_stream));
@@ -370,13 +384,13 @@ int main(int argc, char* argv[]) {
                                          compute_stream));
         }
 
+	//TODO: Replace MPI communication with Host initiated NVSHMEM calls
+        // Apply periodic boundary conditions
 #ifdef SOLUTION
 	PUSH_RANGE("NVSHMEM", 5)
 	nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
         nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  push_stream);
 #else
-        //TODO: Replace MPI communication with Host initiated NVSHMEM calls
-        // Apply periodic boundary conditions
         PUSH_RANGE("MPI", 5)
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
@@ -388,12 +402,11 @@ int main(int argc, char* argv[]) {
         POP_RANGE
 
 
+	//TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
+        //      for both streams
 #ifdef SOLUTION
         nvshmemx_barrier_all_on_stream(compute_stream);
-	nvshmemx_barrier_all_on_stream(push_stream);
-#else
-        //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
-	//	for both streams
+	//nvshmemx_barrier_all_on_stream(push_stream);
 #endif
 
 
@@ -406,10 +419,11 @@ int main(int argc, char* argv[]) {
                 printf("%5d, %0.6f\n", iter, l2_norm);
             }
         }
-
+	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
         std::swap(a_new, a);
         iter++;
     }
+    CUDA_RT_CALL(cudaDeviceSynchronize());
     double stop = MPI_Wtime();
     POP_RANGE
 
@@ -461,11 +475,11 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaFreeHost(l2_norm_h));
     CUDA_RT_CALL(cudaFree(l2_norm_d));
 
+    //TODO: Deallocated a_new and a from the NVSHMEM symmetric heap instead of using cudaFree()
 #ifdef SOLUTION
     nvshmem_free(a_new);
     nvshmem_free(a);
 #else
-    //TODO: Deallocated a_new and a from the NVSHMEM symmetric heap
     CUDA_RT_CALL(cudaFree(a_new));
     CUDA_RT_CALL(cudaFree(a));
 #endif
@@ -473,11 +487,11 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaFreeHost(a_h));
     CUDA_RT_CALL(cudaFreeHost(a_ref_h));
 
+    //TODO: Finalize NVSHMEM
 #ifdef SOLUTION
     nvshmem_finalize();
-#else
-    //TODO: Finalize NVSHMEM
 #endif
+
     MPI_CALL(MPI_Finalize());
     return (result_correct == 1) ? 0 : 1;
 }

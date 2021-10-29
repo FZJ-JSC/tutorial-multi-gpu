@@ -15,13 +15,13 @@ The purpose of this task is to use the NVSHMEM host API instead of MPI to implem
 
 - Initialize NVSHMEM:
   - Include NVSHMEM headers.
-  - Initialize and shutdown NVSHMEM using `MPI_COMM_WORLD`.
+  - Initialize NVSHMEM using `MPI_COMM_WORLD`.
   - Allocate work arrays `a` and `a_new` from the NVSHMEM symmetric heap. Take care of passing in a consistent size!
   - Calculate halo/boundary row index of top and bottom neighbors.
   - Add necessary inter PE synchronization.
-  - Pass in halo/boundary row index of top and bottom neighbors.
-  - Use `nvshmem_float_p` to directly push values needed by top and bottom neighbors from the host.
-  - Remove no longer needed MPI communication.
+  - Replace MPI periodic boundary conditions with `nvshmemx_float_put_on_stream` to directly push values needed by top and bottom neighbors.
+  - Deallocate memory from the NVSHMEM symetric heap.
+  - Finalize NVSHMEM before existing the application
 
 Compile with
 

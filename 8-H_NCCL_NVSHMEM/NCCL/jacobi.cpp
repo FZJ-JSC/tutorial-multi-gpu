@@ -201,7 +201,6 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Finalize());
         return 1;
     }
-#else
 #endif
 
     real* a_ref_h;

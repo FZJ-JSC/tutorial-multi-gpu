@@ -1,7 +1,7 @@
 # Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
 NP ?= 4
 NVCC=nvcc
-JSC_SUBMIT_CMD ?= srun --gres=gpu:4 --ntasks-per-node 4
+JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 CUDA_HOME ?= /usr/local/cuda
 ifndef NVSHMEM_HOME
 $(error NVSHMEM_HOME is not set)
@@ -31,7 +31,7 @@ jacobi: Makefile jacobi.cu
 
 .PHONY.: clean
 clean:
-	rm -f jacobi jacobi.o *.qdrep jacobi.*.compute-sanitizer.log
+	rm -f jacobi jacobi.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
 	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10

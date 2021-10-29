@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NVSHMEM/
-SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NVSHMEM 
+TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NVSHMEM
+SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NVSHMEM
 
 PROCESSFILES = jacobi.cu
 COPYFILES = Makefile Instructions.ipynb Instructions.md

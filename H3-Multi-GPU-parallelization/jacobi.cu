@@ -3,11 +3,7 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-
-//TODO: Include MPI headers
-#ifdef SOLUTION
 #include <mpi.h>
-#endif
 
 #ifdef HAVE_CUB
 #include <cub/block/block_reduce.cuh>
@@ -186,12 +182,11 @@ bool get_arg(char** begin, char** end, const std::string& arg) {
 int main(int argc, char* argv[]) {
 
     int size, rank;
-    //TODO: Initialize MPI and compute rank and size (number of processes)
-#ifdef SOLUTION
+
     MPI_CALL(MPI_Init(&argc, &argv));
     MPI_CALL(MPI_Comm_rank(MPI_COMM_WORLD, &rank));
     MPI_CALL(MPI_Comm_size(MPI_COMM_WORLD, &size));
-#endif
+
 
     const int iter_max = get_argval<int>(argv, argv + argc, "-niter", 1000);
     const int nccheck = get_argval<int>(argv, argv + argc, "-nccheck", 1);
@@ -199,7 +194,7 @@ int main(int argc, char* argv[]) {
     const int ny = get_argval<int>(argv, argv + argc, "-ny", 16384);
     const bool csv = get_arg(argv, argv + argc, "-csv");
 
-
+    //This code gets your local rank on a node 
     int local_rank = -1;
     {
         MPI_Comm local_comm;
@@ -224,8 +219,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaMallocHost(&a_h, nx * ny * sizeof(real)));
     double runtime_serial = single_gpu(nx, ny, iter_max, a_ref_h, nccheck, !csv && (0 == rank));
 
-    // TODO: Compute the local chunk_size for y so that ny - 2 rows are distributed amongst  `size` ranks
-#ifdef SOLUTION
+
     int chunk_size = (ny-2) / size;
     if(rank==size-1)
       chunk_size += (ny-2) % size;
@@ -242,9 +236,7 @@ int main(int argc, char* argv[]) {
     else
         chunk_size = chunk_size_high;
 #endif
-#else
-    int chunk_size = ny-2;
-#endif
+
     real* a;
     CUDA_RT_CALL(cudaMalloc(&a, nx * (chunk_size + 2) * sizeof(real)));
     real* a_new;
@@ -253,9 +245,6 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaMemset(a, 0, nx * (chunk_size + 2) * sizeof(real)));
     CUDA_RT_CALL(cudaMemset(a_new, 0, nx * (chunk_size + 2) * sizeof(real)));
 
-    // TODO: Calculate local and global domain boundaries
-
-#ifdef SOLUTION
 #ifdef SOLUTION_OPT
     int iy_start_global;  // My start index in the global array
     if (rank < num_ranks_low) {
@@ -270,12 +259,6 @@ int main(int argc, char* argv[]) {
     int iy_end_global = iy_start_global + chunk_size - 1;  // My last index in the global array
     int iy_start = 1; // My local start index for computation
     int iy_end = iy_start + chunk_size; //My local last index
-#else
-    int iy_start_global = 1;  // My start index in the global array
-    int iy_end_global = ny-1; // My last index in the global array
-    int iy_start = 1; // My local start index for computation
-    int iy_end = iy_start + chunk_size; //My local last index
-#endif
 
     // Set diriclet boundary conditions on left and right boarder
     launch_initialize_boundaries(a, a_new, PI, iy_start_global - 1, nx, (chunk_size + 2), ny);
@@ -321,7 +304,8 @@ int main(int argc, char* argv[]) {
                                          compute_stream));
         }
 
-	     //TODO: Compute top and bottom neighbor, use reflecting boundaries
+        //TODO: Compute top and bottom neighbor, use reflecting/periodic boundaries. This means rank 0 and rank (size-1)
+        // exchange data 
 #ifdef SOLUTION
         const int top = rank > 0 ? rank - 1 : (size - 1);
         const int bottom = (rank + 1) % size;
@@ -330,7 +314,14 @@ int main(int argc, char* argv[]) {
         const int bottom = 0;
 #endif
 
-        // TODO: Use MPI_Sendrecv to exchange the data with the top and bottom neighbors
+        // TODO: Use MPI_Sendrecv to exchange the data with the top and bottom neighbors 
+        // Use CUDA-aware MPI here, i.e. receive the data directly in a_new on the GPU and send it from there 
+        // without manually copying the data. 
+
+        // The first newly calculated row ('iy_start') is sent to the top neigbor and the bottom boundary row
+        // (`iy_end`) is received from the bottom process.
+        // The last calculated row (`iy_end-1`) is send to the bottom process and the top boundary (`0`) is received from the top
+        // Don't forget to synchronize the computation on the GPU before starting the data transfer
 #ifdef SOLUTION
         CUDA_RT_CALL(cudaEventSynchronize(compute_done));
         PUSH_RANGE("MPI", 5)
@@ -404,10 +395,8 @@ int main(int argc, char* argv[]) {
 
     CUDA_RT_CALL(cudaFreeHost(a_h));
     CUDA_RT_CALL(cudaFreeHost(a_ref_h));
-//TODO Finalize MPI
-#ifdef SOLUTION
+
     MPI_CALL(MPI_Finalize());
-#endif
     return (result_correct == 1) ? 0 : 1;
 }
 

@@ -522,4 +522,3 @@ double single_gpu(const int nx, const int ny, const int iter_max, real* const a_
     return (stop - start);
 }
 
-//TODO

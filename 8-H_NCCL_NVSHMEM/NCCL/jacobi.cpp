@@ -165,7 +165,6 @@ int main(int argc, char* argv[]) {
     ncclUniqueId nccl_uid;
     if (rank == 0) NCCL_CALL(ncclGetUniqueId(&nccl_uid));
     MPI_CALL(MPI_Bcast(&nccl_uid, sizeof(ncclUniqueId), MPI_BYTE, 0, MPI_COMM_WORLD));
-#else
 #endif
 
     const int iter_max = get_argval<int>(argv, argv + argc, "-niter", 1000);

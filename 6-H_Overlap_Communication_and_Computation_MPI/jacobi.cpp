@@ -318,7 +318,6 @@ int main(int argc, char* argv[]) {
 #ifdef SOLUTION
             	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_top_done, 0));
             	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_bottom_done, 0));
-#else
 #endif
             	CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
                                          compute_stream));

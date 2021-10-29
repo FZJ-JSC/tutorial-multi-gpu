@@ -15,7 +15,7 @@ There is also a single-GPU version with which the performance and numerical resu
 Take some time to get familiar with the code. Some functions (like NVTX) will be explained in next sessions. They can be ignored for now (e.g. the `PUSH` and `POP` macros).
 Once you are familiar with the code, please work on the `TODOs` in `jacobi.cu`:
 
-   - Get the available GPU devices  and use it and the local rank to set the active GPU for each process 
+   - Get the available GPU devices and use it and the local rank to set the active GPU for each process 
    - Compute the top and bottom neigbhors. We are using reflecting/periodic boundaries on top and bottom, so rank0's Top neighbor is (size-1) and rank(size-1) bottom neighbor is rank 0
   - Use MPI_Sendrecv to exchange data between the neighbors
     - use CUDA-aware MPI, so the send - and the receive buffers are located in GPU-memory 

@@ -94,7 +94,6 @@ const int num_colors = sizeof(colors) / sizeof(uint32_t);
 //TODO: include NCCL headers
 #ifdef SOLUTION
 #include <nccl.h>
-#else
 #endif
 
 #define NCCL_CALL(call)                                                                     \

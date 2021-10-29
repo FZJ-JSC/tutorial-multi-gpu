@@ -18,6 +18,7 @@ Once you are familiar with the code,  you need to work on `TODOs` in `jacobi.cu`
 - Initialize the MPI application
   - Include the MPI header file
   - Determine the local rank and the number of MPI processes
+  - Query the number of GPUs visible to the calling process.
   - Use a local communicator to assign one GPU to each MPI process
   - Finalize MPI at the end of the application
 - Compute the 1-D domain decomposition

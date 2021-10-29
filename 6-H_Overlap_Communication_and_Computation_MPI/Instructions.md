@@ -25,17 +25,21 @@ Use the Nsight System profiler to profile the starting point version non-Overlap
     - Hint: Try navigating with the NVTX ranges.
 
 
-### Task 1: Overlap Communication and Computation using high priority streams and hide launch time for halo processing kernels
+### Task 1: Implement Communication/Computation overlap 
 
-#### Description
+Realize the optimization potential you discovered in the previous task and reduce the whitespace between kernel calls on the GPU profile by implementing communication/computation overlap.
 
-The purpose of this task is to overlap computation and communication based on the profiling done during the previus task. The starting point of this task is the non-Overlap MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cu`:
+You will need to use high-priority streams and separately calculate the boundary 
+regions for the halo exchange.
 
-- Initialize a priority range to be used by the CUDA streams
+The starting point of this task is the non-overlapping MPI variant of the Jacobi solver.
+Follow the `TODO`s in `jacobi.cpp`:
+
+- Query the priority range to be used by the CUDA streams
 - Create new top and bottom CUDA streams and corresponding CUDA events
 - Initialize all streams using priorities
-- Modify the original jacobi kernel launch to not compute the top and bottom regions 
-- Launch additional jacobi kernels for the top and bottom regions using the high-priority streams
+- Modify the original call to `launch_jacobi_kernel` to not compute the top and bottom regions 
+- Add additional calls to `launch_jacobi_kernel` for the top and bottom regions using the high-priority streams
 - Wait on both top and bottom streams when calculating the norm
 - Synchronize top and bottom streams before applying the periodic boundary conditions using MPI
 - Destroy the additional cuda streams and events before ending the application

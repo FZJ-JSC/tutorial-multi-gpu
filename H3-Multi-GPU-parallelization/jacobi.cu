@@ -243,7 +243,7 @@ int main(int argc, char* argv[]) {
         chunk_size = chunk_size_high;
 #endif
 #else
-    int chunk_size;
+    int chunk_size = ny-2;
 #endif
     real* a;
     CUDA_RT_CALL(cudaMalloc(&a, nx * (chunk_size + 2) * sizeof(real)));

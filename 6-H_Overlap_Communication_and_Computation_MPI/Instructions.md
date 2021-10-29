@@ -10,6 +10,21 @@
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,
 and applying them to implement overlapping MPI with GPU kernels. 
 
+Compile with
+
+``` {.bash}
+make
+```
+
+Submit your compiled application to the batch system with
+
+``` {.bash}
+make run
+```
+
+Study the performance by glimpsing at the profile generated with
+`make profile`. For `make run` and `make profile` the environment variable `NP` can be set to change the number of processes.
+
 ### Task 0: Profile the non-overlap MPI-CUDA version of the code
 
 Use the Nsight System profiler to profile the starting point version non-Overlap MPI jacobi solver. The objective is to become familiar in navigating the GUI identify possible areas to overlap computation and communication. 
@@ -44,18 +59,4 @@ Follow the `TODO`s in `jacobi.cpp`:
 - Synchronize top and bottom streams before applying the periodic boundary conditions using MPI
 - Destroy the additional cuda streams and events before ending the application
 
-Compile with
-
-``` {.bash}
-make
-```
-
-Submit your compiled application to the batch system with
-
-``` {.bash}
-make run
-```
-
-Study the performance by glimpsing at the profile generated with
-`make profile`. For `make run` and `make profile` the environment variable `NP` can be set to change the number of processes.
 

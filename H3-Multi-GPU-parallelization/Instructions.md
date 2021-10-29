@@ -27,7 +27,7 @@ Once you are familiar with the code,  you need to work on `TODOs` in `jacobi.cu`
   - determine the global (`iy_start_global, iy_end_global`) and local (`iy_start, iy_end`) start and end points in the 2-dimensional grid.
 - Use MPI to exchange the boundaries
   - Compute the top and the bottom neighbor
-    - we are using reflecting boundaries on top and bottom, so rank0's Top neighbor is (size-1) and rank(size-1) bottom neighbor is rank 0
+    - we are using reflecting/periodic boundaries on top and bottom, so rank0's Top neighbor is (size-1) and rank(size-1) bottom neighbor is rank 0
   - Use MPI_Sendrecv to exchange data between the neighbors
     - use the self-defined MPI_REAL_TYPE. This allows an easy switch between single- and double precision
 

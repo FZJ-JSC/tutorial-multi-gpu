@@ -1,11 +1,11 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NCCL/
-SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NCCL 
+TASKDIR = ../../tasks/8-H_NCCL_NVSHMEM/NCCL
+SOLUTIONDIR = ../../solutions/8-H_NCCL_NVSHMEM/NCCL
 
 
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile jacobi.cpp Instructions.ipynb Instructions.md
+COPYFILES = Makefile jacobi_kernels.cpp Instructions.ipynb Instructions.md
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))

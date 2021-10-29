@@ -339,11 +339,6 @@ int main(int argc, char* argv[]) {
             iter_max, ny, nx, nccheck);
     }
 
-    constexpr int dim_block_x = 32;
-    constexpr int dim_block_y = 32;
-    dim3 dim_grid((nx + dim_block_x - 1) / dim_block_x,
-                  ((iy_end - iy_start) + dim_block_y - 1) / dim_block_y, 1);
-
     int iter = 0;
     real l2_norm = 1.0;
     bool calculate_norm;  // boolean to store whether l2 norm will be calculated in
@@ -354,28 +349,17 @@ int main(int argc, char* argv[]) {
     PUSH_RANGE("Jacobi solve", 0)
     while (l2_norm > tol && iter < iter_max) {
         CUDA_RT_CALL(cudaMemsetAsync(l2_norm_d, 0, sizeof(real), compute_stream));
-	CUDA_RT_CALL(cudaEventRecord(reset_l2norm_done, compute_stream));
+        CUDA_RT_CALL(cudaEventRecord(reset_l2norm_done, compute_stream));
 
-	CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
+        CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
-
-        //jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, compute_stream>>>(
-        //    a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm);
 
 	launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
 
-	//jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
-        //    a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm);
-	
 	launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
 	
-	//jacobi_kernel<dim_block_x, dim_block_y><<<dim_grid, {dim_block_x, dim_block_y, 1}, 0, push_stream>>>(
-        //    a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm);
-
 	launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
 
-        //CUDA_RT_CALL(cudaGetLastError());
-        //CUDA_RT_CALL(cudaEventRecord(compute_done, compute_stream));
 	CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
 
         if (calculate_norm) {
@@ -401,6 +385,7 @@ int main(int argc, char* argv[]) {
 	CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
         POP_RANGE
 
+        CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
 
 	//TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
         //      for both streams
@@ -408,7 +393,6 @@ int main(int argc, char* argv[]) {
         nvshmemx_barrier_all_on_stream(compute_stream);
 	//nvshmemx_barrier_all_on_stream(push_stream);
 #endif
-
 
         if (calculate_norm) {
             CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));
@@ -419,7 +403,6 @@ int main(int argc, char* argv[]) {
                 printf("%5d, %0.6f\n", iter, l2_norm);
             }
         }
-	CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
         std::swap(a_new, a);
         iter++;
     }
@@ -451,6 +434,7 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
+//TODO: Replace MPI with NVSHMEM for your output
 #ifdef SOLUTION
 	    printf("nvshmem, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #else

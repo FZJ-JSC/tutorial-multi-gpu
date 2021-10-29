@@ -44,7 +44,7 @@ Use the Nsight System profiler to profile the starting point version non-Overlap
 
 Realize the optimization potential you discovered in the previous task and reduce the whitespace between kernel calls on the GPU profile by implementing communication/computation overlap.
 
-You will need to use high-priority streams and separately calculate the boundary 
+You will need to separately calculate the boundary, and you should use high-priority streams. A less efficient (problem size-dependent) alternative to high-priority streams would be to launch the boundary processing kernels before the bulk kernel.
 regions for the halo exchange.
 
 The starting point of this task is the non-overlapping MPI variant of the Jacobi solver.

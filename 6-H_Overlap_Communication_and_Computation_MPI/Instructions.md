@@ -7,12 +7,23 @@
 
 ## Hands-On 6: Overlap Communication and Computation with MPI 
 
-### Task 0: Profile the non-Overlap MPI-CUDA version of the code using Nsight Systems to discover areas of possible compute/communication overlap
+You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,
+and applying them to implement overlapping MPI with GPU kernels. 
 
-#### Description
-The purpose of this task is to use the Nsight System profiler to profile the starting point version non-Overlap MPI jacobi solver. The objective is to become familiar in navigating the GUI identify possible areas to overlap computation and communication. 
+### Task 0: Profile the non-overlap MPI-CUDA version of the code
 
-- STEPS TO BE ADDED HERE
+Use the Nsight System profiler to profile the starting point version non-Overlap MPI jacobi solver. The objective is to become familiar in navigating the GUI identify possible areas to overlap computation and communication. 
+
+1. Start by compiling and running the application with `make run`
+1. Record an Nsight Systems profile, using the appropriate Makefile target (`make profile`)
+1. Open the recorded profile in the GUI
+    - Either: Install Nsight Systems locally, and transfer the .qdrep/.nsys-rep file
+    - Or: By running Xpra in your browser: In Jupyter, select "File > New Launcher" and "Xpra Desktop", which will open in a new tab. Don't forget to source the environment in your `xterm`.
+1. Familiarize yourself with the different rows and the traces they represent. 
+    - See if you can correlate a CUDA API kernel launch call and the resulting kernel execution on the device
+1. Follow the lecture steps and identify the relevant section with overlap potential in your code
+    - Hint: Try navigating with the NVTX ranges.
+
 
 ### Task 1: Overlap Communication and Computation using high priority streams and hide launch time for halo processing kernels
 

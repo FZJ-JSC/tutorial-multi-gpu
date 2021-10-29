@@ -343,7 +343,6 @@ int main(int argc, char* argv[]) {
 	//TODO: Add additional synchronization on the bottom stream
 #ifdef SOLUTION
 	CUDA_RT_CALL(cudaStreamSynchronize(push_bottom_stream));
-#else
 #endif
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));

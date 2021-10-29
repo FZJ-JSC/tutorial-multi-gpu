@@ -391,7 +391,6 @@ int main(int argc, char* argv[]) {
         //      for both streams
 #ifdef SOLUTION
         nvshmemx_barrier_all_on_stream(compute_stream);
-	//nvshmemx_barrier_all_on_stream(push_stream);
 #endif
 
         if (calculate_norm) {

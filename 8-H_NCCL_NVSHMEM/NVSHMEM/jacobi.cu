@@ -388,7 +388,6 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
 
 	//TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
-        //      for both streams
 #ifdef SOLUTION
         nvshmemx_barrier_all_on_stream(compute_stream);
 #endif

@@ -404,7 +404,6 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaEventDestroy(push_top_done));
     CUDA_RT_CALL(cudaStreamDestroy(push_bottom_stream));
     CUDA_RT_CALL(cudaStreamDestroy(push_top_stream));
-#else
 #endif
     CUDA_RT_CALL(cudaEventDestroy(reset_l2norm_done));
     CUDA_RT_CALL(cudaEventDestroy(compute_done));

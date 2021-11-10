@@ -37,7 +37,7 @@ Submit your compiled application to the batch system with
 make run
 ```
 
-## Advanced Task: Optimize Load Balancingg
+## Advanced Task: Optimize Load Balancing
 
 ### Description
 - The work distribution of the first task is not ideal, because it can lead to the process with the last rank having to calculate significantly more than all the others. Therefore, the load distribution is to be optimized in this task.

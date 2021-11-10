@@ -1,7 +1,9 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../tasks/06-H_Overlap_Communication_and_Computation_MPI
-SOLUTIONDIR = ../solutions/06-H_Overlap_Communication_and_Computation_MPI
+TASKDIR = ../tasks/
+SOLUTIONDIR = ../solutions/
+
+IYPNB_TEMPLATE = ../../.template.json
 
 PROCESSFILES = jacobi.cpp
 COPYFILES = Makefile Instructions.ipynb jacobi_kernels.cu
@@ -37,7 +39,7 @@ ${SOLUTIONCOPYFILES}: $(COPYFILES)
 %.ipynb: %.md
 	pandoc $< -o $@
 	# add metadata so this is seen as python
-	jq -s '.[0] * .[1]' $@ ../.template.json | sponge $@
+	jq -s '.[0] * .[1]' $@ $(IYPNB_TEMPLATE) | sponge $@
 
 clean:
 	rm -f Instructions.ipynb

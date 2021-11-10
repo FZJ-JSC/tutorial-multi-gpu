@@ -1,8 +1,10 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../tasks/03-H_Multi_GPU_Parallelization
-SOLUTIONDIR = ../solutions/03-H_Multi_GPU_Parallelization
-OPT_SOLUTIONDIR = ../solutions/03-H_Multi_GPU_Parallelization_opt
+TASKDIR = ../tasks/
+SOLUTIONDIR = ../solutions/
+OPT_SOLUTIONDIR = ../solutions/advanced
+
+IYPNB_TEMPLATE = ../../.template.json
 
 PROCESSFILES = jacobi.cu
 COPYFILES = Makefile Instructions.ipynb Instructions.md
@@ -48,4 +50,4 @@ ${OPT_SOLUTIONCOPYFILES}: $(COPYFILES)
 %.ipynb: %.md
 	pandoc $< -o $@
 	# add metadata so this is seen as python
-	jq -s '.[0] * .[1]' $@ ../.template.json | sponge $@
+	jq -s '.[0] * .[1]' $@ $(IYPNB_TEMPLATE) | sponge $@

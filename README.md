@@ -8,7 +8,7 @@
 
 ## Setup
 
-The tutorial is an interactive tutorial with introducing lectures and practical exercises to apply knowledge.
+The tutorial is an interactive tutorial with introducing lectures and practical exercises to apply knowledge. The exercises have been derived from the Jacobi solver implementations available in [NVIDIA/multi-gpu-programming-models](https://github.com/NVIDIA/multi-gpu-programming-models).
 
 Curriculum:
 

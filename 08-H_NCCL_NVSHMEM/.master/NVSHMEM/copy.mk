@@ -1,7 +1,9 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../../tasks/08-H_NCCL_NVSHMEM/NVSHMEM
-SOLUTIONDIR = ../../solutions/08-H_NCCL_NVSHMEM/NVSHMEM
+TASKDIR = ../../tasks/NVSHMEM
+SOLUTIONDIR = ../../solutions/NVSHMEM
+
+IYPNB_TEMPLATE = ../../../.template.json
 
 PROCESSFILES = jacobi.cu
 COPYFILES = Makefile Instructions.ipynb Instructions.md
@@ -37,4 +39,4 @@ ${SOLUTIONCOPYFILES}: $(COPYFILES)
 %.ipynb: %.md
 	pandoc $< -o $@
 	# add metadata so this is seen as python
-	jq -s '.[0] * .[1]' $@ ../../.template.json | sponge $@
+	jq -s '.[0] * .[1]' $@ $(IYPNB_TEMPLATE) | sponge $@

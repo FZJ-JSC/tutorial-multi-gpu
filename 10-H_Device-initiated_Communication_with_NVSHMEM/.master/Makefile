@@ -2,6 +2,7 @@
 NP ?= 4
 NVCC=nvcc
 JSC_SUBMIT_CMD ?= srun --gres=gpu:4 --ntasks-per-node 4
+C_V_D ?= 0,1,2,3
 CUDA_HOME ?= /usr/local/cuda
 ifndef NVSHMEM_HOME
 $(error NVSHMEM_HOME is not set)
@@ -34,10 +35,10 @@ clean:
 	rm -f jacobi jacobi.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10

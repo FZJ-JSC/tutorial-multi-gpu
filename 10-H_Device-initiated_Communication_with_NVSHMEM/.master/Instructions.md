@@ -39,6 +39,10 @@ make run
 Study the performance by glimpsing at the profile generated with
 `make profile`. For `make run` and `make profile` the environment variable `NP` can be set to change the number of processes.
 
+#### Note
+
+The Slurm installation on JUWELS-Booster sets `CUDA_VISIBLE_DEVICES` automatically so that each spawned process only sees the GPU it should use (see [GPU Devices](https://apps.fz-juelich.de/jsc/hps/juwels/booster-overview.html#gpu-devices) in the JUWELS Booster Overview documentation). This is not supported for NVSHMEM. The automatic setting of `CUDA_VISIBLE_DEVICES` can be disabled by setting `CUDA_VISIBLE_DEVICES=0,1,2,3` in the shell that executes srun. With `CUDA_VISIBLE_DEVICES` set all spawned processes can see all GPUs listed. This is automatically done for the `sanitize`, `run` and `profile` make targets.
+
 ### Advanced Task: Use `nvshmemx_float_put_nbi_block`
 
 #### Description

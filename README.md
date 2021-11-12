@@ -41,5 +41,6 @@ Visual onboarding instructions can be found in the subfolder of the according le
   ```
   source $PROJECT_training2125/env.sh
   ```
+* Sync course material to your home directory with `jsc-material-sync`.
 
 You can also access JSC's facilities via SSH. In that case you need to add your SSH key through JuDoor. You need to restrict access from certain IPs/IP ranges via the `from` clause, as explained [in the documentation](https://apps.fz-juelich.de/jsc/hps/juwels/access.html#ssh-login). We recommend using Jupyter JSC for its simplicity, especially during such a short day that is the tutorial day.

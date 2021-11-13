@@ -35,7 +35,7 @@ Visual onboarding instructions can be found in the subfolder of the according le
 * Accept the Usage Agreement of JUWELS
 * Wait for wheels to turn as your information is pushed through the systems (about 15 minutes)
 * Access JUWELS Booster via [JSC's Jupyter portal](https://jupyter-jsc.fz-juelich.de/)
-* Create a Jupyter instance using `LoginNodeBooster` and the `training2125` allocation on JUWELS
+* Create a Jupyter v2 instance using `LoginNodeBooster` and the `training2125` allocation on JUWELS
 * When started, launch a browser-based Shell in Jupyter
 * Source the course environment to introduce commands and helper script to environment
   ```

@@ -5,7 +5,7 @@
 .PHONY: all
 all: tut138-multi-gpu.tar.gz
 
-SOURCES=$(shell gfind . -maxdepth 1 -mindepth 1 -not -path "./.*" -not -name "tut138-multi-gpu.tar.gz" -not -name "*-H_*" -printf '%P\n' | sort -h)
+SOURCES=$(shell gfind . -maxdepth 1 -mindepth 1 -not -path "./.*" -not -name "tut138-multi-gpu.tar.gz" -printf '%P\n' | sort -h)
 
 tut138-multi-gpu.tar.gz: $(shell find . -not -name "tut138-multi-gpu.tar.gz")
 # 	if ! grep -q "Please check Github"; then \

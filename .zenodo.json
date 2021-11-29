@@ -1,0 +1,49 @@
+{
+    "creators": [
+        {   
+            "orcid": "0000-0002-5699-1793",
+            "affiliation": "Barcelona Supercomputing Center",
+            "name": "Garcia de Gonzalo, Simon"
+        },
+        {   
+            "orcid": "0000-0002-1825-0097",
+            "affiliation": "Jülich Supercomputing Centre",
+            "name": "Herten, Andreas"
+        },
+        {   
+            "orcid": "0000-0002-6015-8788",
+            "affiliation": "NVIDIA",
+            "name": "Hrywniak, Markus"
+        },
+        {   
+            "orcid": "0000-0002-5240-3317",
+            "affiliation": "NVIDIA",
+            "name": "Kraus, Jiri"
+        },
+        {   
+            "orcid": "0000-0002-9670-5296",
+            "affiliation": "FernUni Hagen",
+            "name": "Oden, Lena"
+        }
+    ],    
+
+    "title": "Efficient Distributed GPU Programming for Exascale",
+
+    "publication_date": "2021-11-14",
+
+    "description": "<p>Over the past years, GPUs became ubiquitous in HPC installations around the world. Today, they provide the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in upcoming pre-exascale and exascale systems (LUMI, Leonardo; Frontier): GPUs are chosen as the core computing devices to enter this next era of HPC.</p><p>To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the proper skills and tools to understand, manage, and optimize distributed GPU applications.</p><p>In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced techniques and models (NCCL, NVSHMEM, …) are presented. Tools for analysis are used to motivate implementation of performance optimizations. The tutorial combines lectures and hands-on exercises, using Europe’s fastest supercomputer, JUWELS Booster with NVIDIA A100 GPUs.</p>",
+
+    "notes": "Slides and exercises of tutorial presented virtually at SC21 (International Conference for High Performance Computing, Networking, Storage, and Analysis); https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188",
+
+    "access_right": "open",
+
+    "conference_title": "Supercomputing Conference 2021",
+    "conference_acronym": "SC21",
+    "conference_dates": "14-19 November 2021",
+    "conference_place": "St. Louis, MO, USA and virtual",
+    "conference_url": "https://sc21.supercomputing.org/",
+    "conference_session": "Tutorials",
+    "conference_session_part": "Day 1",
+
+    "upload_type": "lesson"
+}

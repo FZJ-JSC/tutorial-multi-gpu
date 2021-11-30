@@ -1,5 +1,7 @@
 # SC21 Tutorial: Efficient Distributed GPU Programming for Exascale
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5745505.svg)](https://doi.org/10.5281/zenodo.5745505)
+
 Repository with talks and exercises of our [Efficient Distributed GPU Programming for Exascale](https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188). The tutorial was held virtually, partly recorded, partly live, using JUWELS Booster at JSC.
 
 ## Coordinates

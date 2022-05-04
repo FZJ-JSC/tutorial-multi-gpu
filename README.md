@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5745505.svg)](https://doi.org/10.5281/zenodo.5745505) (*old*)
 
-Repository with talks and exercises of our [Efficient GPU Programming for Exascale](https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2).
+Repository with talks and exercises of our [Efficient GPU Programming for Exascale](https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2) tutorial.
 
 ## Coordinates
 

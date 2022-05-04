@@ -8,7 +8,7 @@ Repository with talks and exercises of our [Efficient GPU Programming for Exasca
 
 * Date: 29 May 2022
 * Occasion: ISC22 Tutorial
-* Tutors: Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
+* Tutors: Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen) (and Simon Garcia (BSC), helping from afar)
 
 ## Setup
 

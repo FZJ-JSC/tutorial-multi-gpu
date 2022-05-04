@@ -271,6 +271,7 @@ int main(int argc, char* argv[]) {
     real* l2_norm_h;
     CUDA_RT_CALL(cudaMallocHost(&l2_norm_h, sizeof(real)));
 
+    //TODO: Remove unnecessary MPI communication
     PUSH_RANGE("MPI_Warmup", 5)
     for (int i = 0; i < 10; ++i) {
         const int top = rank > 0 ? rank - 1 : (size - 1);

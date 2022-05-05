@@ -1,8 +1,20 @@
+################################################
+# JSC Course bashrc
+#
+# This file is usually called "env.sh" and is to be loaded as the very first part of a course; it setups environment variables and commands which are relied upon in the course.
+#
+# There are a number of opportunities to steer variables in this script from the outside.
+#  * $JSCCOURSE_DIR_LOCAL_BASE: If this variable is set, it will be used within the target to rsync the material to. In this folder, the course folder will be created. It defaults to $HOME
+#  * $partition: If this variable is set, it will be used to specify the partition to run on. It has a system-specific default
+#  * $_JSCCOURSE_OVERRIDE_LOCALE: If this variable is set (to anything), this env.sh will not set all locale stuff to en_US.UTF-8
+#
+# Andreas Herten, >2017
+################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2125"
+	project="training2214"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=$HOME/SC21-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC22-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"
@@ -11,10 +23,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 	res=""
 	currentday=$(date +%d)
-	if [[ "$currentday" == "14" ]]; then
-		res="--reservation multi-gpu-tutorial-2021-11-14"
-	elif [[ "$currentday" == "15" ]]; then
-		res="--reservation multi-gpu-tutorial-2021-11-14"
+	if [[ "$currentday" == "29" ]]; then
+		res="--reservation multi-gpu-tutorial-2022-05-29"
 	fi
 	
 	export SLURM_NTASKS=1
@@ -28,11 +38,17 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			export NP=2
 			export PSP_CUDA_ENFORCE_STAGING=1
 			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--ntasks-per-node 1"
-			partition=gpus
+			partition=${partition:-gpus}
 			;;
-		juwels|juwelsbooster|jureca)
+		juwels|juwelsbooster)
 			ngpus=4
 			export NP=4
+			partition=${partition:-booster}
+			;;
+		jurecadc)
+			ngpus=4
+			export NP=4
+			partition=${partition:-dc-gpu}
 			;;
 		*)
 			echo "This system is not yet tested, setting ngpus=4"
@@ -40,7 +56,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			;;
 	esac
 
-	export JSC_BATCH_CONFIG="$res --partition ${partition:-booster} --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
+	export JSC_BATCH_CONFIG="$res --partition ${partition} --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
 	export JSC_ALLOC_CMD="salloc $JSC_BATCH_CONFIG" 
 	export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
 	
@@ -49,6 +65,12 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 
 	export PS1="\[\033[0;34m\]Ⓒ\[\033[0m\] $PS1"
+
+	if [[ -z "${_JSCCOURSE_OVERRIDE_LOCALE}" ]]; then
+		export LC_ALL=en_US.UTF-8
+		export LANG=en_US.UTF-8
+		export LANGUAGE=en_US.UTF-8
+	fi
 
 	# export UCX_WARN_UNUSED_ENV_VARS=n
 
@@ -86,7 +108,7 @@ if [[ $- =~ "i" ]]; then
 
 	echo ""
 	echo "*******************************************************************************"
-	echo "       Welcome to the SC21 Tutorial on Multi-GPU Computing for Exascale!       "
+	echo "       Welcome to the ISC22 Tutorial on Multi-GPU Computing for Exascale!       "
 	# echo " A default call to get a batch system allocation is stored in \$JSC_ALLOC_CMD!"
 	# echo " Use it with \`eval \$JSC_ALLOC_CMD\`. The value of \$JSC_ALLOC_CMD is:"
 	# echo -n "  "

@@ -1,1 +1,1 @@
-rsync --archive --exclude="deploy.sh" --verbose . judac:/p/project/training2125/common/environment/
+rsync --archive --exclude="deploy.sh" --verbose . judac:/p/project/training2216/common/environment/

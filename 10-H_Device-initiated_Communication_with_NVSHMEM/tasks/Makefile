@@ -1,7 +1,7 @@
 # Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
 NP ?= 4
 NVCC=nvcc
-JSC_SUBMIT_CMD ?= srun --gres=gpu:4 --ntasks-per-node 4
+JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 C_V_D ?= 0,1,2,3
 CUDA_HOME ?= /usr/local/cuda
 ifndef NVSHMEM_HOME
@@ -25,7 +25,7 @@ else
         NVCC_FLAGS = -DHAVE_CUB
 endif
 NVCC_FLAGS += -dc -Xcompiler -fopenmp -lineinfo -DUSE_NVTX -lnvToolsExt $(GENCODE_FLAGS) -std=c++14 -I$(NVSHMEM_HOME)/include -I$(MPI_HOME)/include
-NVCC_LDFLAGS = -ccbin=mpic++ -L$(NVSHMEM_HOME)/lib -lnvshmem -L$(MPI_HOME)/lib -lmpi -L$(CUDA_HOME)/lib64 -lcuda -lcudart -lnvToolsExt
+NVCC_LDFLAGS = -ccbin=mpic++ -L$(NVSHMEM_HOME)/lib -lnvshmem -L$(MPI_HOME)/lib -lmpi -L$(CUDA_HOME)/lib64 -lcuda -lcudart -lnvToolsExt -lnvidia-ml
 jacobi: Makefile jacobi.cu
 	$(NVCC) $(NVCC_FLAGS) jacobi.cu -c -o jacobi.o
 	$(NVCC) $(GENCODE_FLAGS) jacobi.o -o jacobi $(NVCC_LDFLAGS)

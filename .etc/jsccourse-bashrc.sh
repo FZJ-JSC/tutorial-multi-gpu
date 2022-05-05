@@ -11,7 +11,7 @@
 # Andreas Herten, >2017
 ################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2214"
+	project="training2216"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
 	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC22-Multi-GPU-Tutorial

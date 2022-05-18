@@ -56,7 +56,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			;;
 	esac
 
-	export JSC_BATCH_CONFIG="$res --partition ${partition} --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
+	export JSC_BATCH_CONFIG="$res --partition ${partition} --cpu-bind=sockets --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
 	export JSC_ALLOC_CMD="salloc $JSC_BATCH_CONFIG" 
 	export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
 	

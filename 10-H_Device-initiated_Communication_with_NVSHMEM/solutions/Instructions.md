@@ -5,7 +5,6 @@
 -   Program Link:
     https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2
 
-
 ## Hands-On 10: Device-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API

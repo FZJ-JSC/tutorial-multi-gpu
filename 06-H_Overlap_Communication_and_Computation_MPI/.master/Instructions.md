@@ -1,9 +1,9 @@
-# SC21 Tutorial: Efficient Distributed GPU Programming for Exascale
+# ISC22 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Sunday, 14 November 2021 8AM - 5PM CST
--   Location: *online*
--   Program Link: https://sc21.supercomputing.org/presentation/?id=tut138&sess=sess188
-
+-   Time: Sunday, 29 May 2022 9AM - 6PM CEST
+-   Location: Hall Y6, Congress Center Hamburg (CCH)
+-   Program Link:
+    https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2
 
 ## Hands-On 6: Overlap Communication and Computation with MPI
 

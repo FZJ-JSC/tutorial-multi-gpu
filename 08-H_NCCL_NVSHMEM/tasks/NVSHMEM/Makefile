@@ -1,6 +1,7 @@
 # Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
 NP ?= 4
 NVCC=nvcc
+N_D_C_VMM=1 #Enabled to hide warning and errors only found in  NVSHMEM/2.5.0 to be fixed in next release
 JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 C_V_D ?= 0,1,2,3
 CUDA_HOME ?= /usr/local/cuda
@@ -25,7 +26,7 @@ else
         NVCC_FLAGS = -DHAVE_CUB
 endif
 NVCC_FLAGS += -dc -Xcompiler -fopenmp -lineinfo -DUSE_NVTX -lnvToolsExt $(GENCODE_FLAGS) -std=c++14 -I$(NVSHMEM_HOME)/include -I$(MPI_HOME)/include
-NVCC_LDFLAGS = -ccbin=mpic++ -L$(NVSHMEM_HOME)/lib -lnvshmem -L$(MPI_HOME)/lib -lmpi -L$(CUDA_HOME)/lib64 -lcuda -lcudart -lnvToolsExt
+NVCC_LDFLAGS = -ccbin=mpic++ -L$(NVSHMEM_HOME)/lib -lnvshmem -L$(MPI_HOME)/lib -lmpi -L$(CUDA_HOME)/lib64 -lcuda -lcudart -lnvToolsExt -lnvidia-ml
 jacobi: Makefile jacobi.cu
 	$(NVCC) $(NVCC_FLAGS) jacobi.cu -c -o jacobi.o
 	$(NVCC) $(GENCODE_FLAGS) jacobi.o -o jacobi $(NVCC_LDFLAGS)
@@ -35,10 +36,10 @@ clean:
 	rm -f jacobi jacobi.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
-	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
+	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10

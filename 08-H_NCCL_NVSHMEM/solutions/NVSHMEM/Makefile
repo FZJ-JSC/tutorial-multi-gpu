@@ -36,10 +36,10 @@ clean:
 	rm -f jacobi jacobi.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
-	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	NVSHMEM_DISABLE_CUDA_VMM=$(N_D_C_VMM) CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10

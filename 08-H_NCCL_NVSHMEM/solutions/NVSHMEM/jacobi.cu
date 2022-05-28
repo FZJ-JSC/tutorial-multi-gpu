@@ -304,19 +304,6 @@ int main(int argc, char* argv[]) {
     real* l2_norm_h;
     CUDA_RT_CALL(cudaMallocHost(&l2_norm_h, sizeof(real)));
 
-    PUSH_RANGE("MPI_Warmup", 5)
-    for (int i = 0; i < 10; ++i) {
-        const int top = rank > 0 ? rank - 1 : (size - 1);
-        const int bottom = (rank + 1) % size;
-        MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
-                              a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
-                              MPI_STATUS_IGNORE));
-        MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
-                              MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
-        std::swap(a_new, a);
-    }
-    POP_RANGE
-
     CUDA_RT_CALL(cudaDeviceSynchronize());
 
     if (!csv && 0 == rank) {

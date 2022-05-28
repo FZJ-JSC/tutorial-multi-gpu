@@ -27,3 +27,24 @@ Curriculum:
 9. Lecture: Device-initiated Communication with NVSHMEM *Jiri*
 10. Hands-on: Using Device-Initiated Communication with NVSHMEM
 11. Lecture: Conclusion and Outline of Advanced Topics *Andreas*
+
+## Onboarding
+
+The supercomputer used for the exercises is [JUWELS Booster](https://apps.fz-juelich.de/jsc/hps/juwels/booster-overview.html), a system located a Jülich Supercomputing Centre (Germany) with about 3700 NVIDIA A100 GPUs.
+
+Visual onboarding instructions can be found in the subfolder of the according lecture, `01b-H-Onboarding/`. Here follows the textual description:
+
+* Register for an account at [JuDoor](https://judoor.fz-juelich.de/login)
+* Sign-up for the [`training2216` project](https://judoor.fz-juelich.de/projects/join/training2216)
+* Accept the Usage Agreement of JUWELS
+* Wait for wheels to turn as your information is pushed through the systems (about 15 minutes)
+* Access JUWELS Booster via [JSC's Jupyter portal](https://jupyter-jsc.fz-juelich.de/)
+* Create a Jupyter v2 instance using `LoginNodeBooster` and the `training2216` allocation on JUWELS
+* When started, launch a browser-based Shell in Jupyter
+* Source the course environment to introduce commands and helper script to environment
+  ```
+  source $PROJECT_training2216/env.sh
+  ```
+* Sync course material to your home directory with `jsc-material-sync`.
+
+You can also access JSC's facilities via SSH. In that case you need to add your SSH key through JuDoor. You need to restrict access from certain IPs/IP ranges via the `from` clause, as explained [in the documentation](https://apps.fz-juelich.de/jsc/hps/juwels/access.html#ssh-login). We recommend using Jupyter JSC for its simplicity, especially during such a short day that is the tutorial day.

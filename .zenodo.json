@@ -6,7 +6,7 @@
             "name": "Garcia de Gonzalo, Simon"
         },
         {   
-            "orcid": "0000-0002-1825-0097",
+            "orcid": "0000-0002-7150-2505",
             "affiliation": "Jülich Supercomputing Centre",
             "name": "Herten, Andreas"
         },
@@ -29,21 +29,21 @@
 
     "title": "Efficient Distributed GPU Programming for Exascale",
 
-    "publication_date": "2022-05-29",
+    "publication_date": "2022-11-14",
 
     "description": "<p>Over the past years, GPUs became ubiquitous in HPC installations around the world. Today, they provide the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the pre-exascale and exascale systems (LUMI, Leonardo; Perlmutter, Frontier): GPUs are chosen as the core computing devices to enter this next era of HPC.</p><p>To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the propers skills and tools to understand, manage, and optimize distributed GPU applications. In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, advanced tuning techniques and complementary programming models like NCCL and NVSHMEM are presented as well. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial is a combination of lectures and hands-on exercises, using Europe’s fastest supercomputer, JUWELS Booster with NVIDIA GPUs, for interactive learning and discovery.</p>",
 
-    "notes": "Slides and exercises of tutorial presented virtually at ISC22 (ISC High Performance 2022); https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2",
+    "notes": "Slides and exercises of tutorial presented virtually at SC22 (The International Conference for High Performance Computing, Networking, Storage, and Analysis); https://sc22.supercomputing.org/presentation/?id=tut102&sess=sess196",
 
     "access_right": "open",
 
-    "conference_title": "ISC HPC 2022",
-    "conference_acronym": "ISC22",
-    "conference_dates": "29 May-02 June 2022",
-    "conference_place": "Hamburg, Germany",
-    "conference_url": "https://www.isc-hpc.com/",
+    "conference_title": "The International Conference for High Performance Computing, Networking, Storage, and Analysis 2022",
+    "conference_acronym": "SC22",
+    "conference_dates": "13 November-18 November 2022",
+    "conference_place": "Dallas, TX, USA",
+    "conference_url": "https://sc22.supercomputing.org/",
     "conference_session": "Tutorials",
-    "conference_session_part": "Day 1",
+    "conference_session_part": "Day 2",
 
     "upload_type": "lesson"
 }

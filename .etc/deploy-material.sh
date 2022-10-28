@@ -1,1 +1,1 @@
-rsync --archive --exclude=".*" --verbose ../ judac:/p/project/training2216/common/material/
+rsync --archive --exclude=".*" --verbose ../ judac:/p/project/training2232/common/material/

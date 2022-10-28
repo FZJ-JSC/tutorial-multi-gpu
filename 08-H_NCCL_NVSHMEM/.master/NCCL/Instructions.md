@@ -1,9 +1,9 @@
-# ISC22 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC22 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Sunday, 29 May 2022 9AM - 6PM CEST
--   Location: Hall Y6, Congress Center Hamburg (CCH)
+-   Time: Monday, 14 November 2022 8:30AM - pPM CST
+-   Location: D163, Kay Bailey Hutchison Convention Center Dallas
 -   Program Link:
-    https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2
+    https://sc22.supercomputing.org/presentation/?id=tut102&sess=sess196
 
 ## Hands-On 8-NCCL: Using NCCL for Inter-GPU Communication
 

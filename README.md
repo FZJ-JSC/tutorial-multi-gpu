@@ -1,14 +1,14 @@
-# ISC22 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC22 Tutorial: Efficient Distributed GPU Programming for Exascale
 
 [![DOI](https://zenodo.org/badge/409504932.svg)](https://zenodo.org/badge/latestdoi/409504932)
 
-Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, last held at [ISC22](https://app.swapcard.com/widget/event/isc-high-performance-2022/planning/UGxhbm5pbmdfODYxMTQ2).
+Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, last held at [SC22](https://sc22.supercomputing.org/presentation/?id=tut102&sess=sess196).
 
 ## Coordinates
 
-* Date: 29 May 2022
-* Occasion: ISC22 Tutorial
-* Tutors: Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen) (and Simon Garcia (BSC), helping from afar)
+* Date: 14 November 2022
+* Occasion: SC22 Tutorial
+* Tutors: Simon Garcia (SNL), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
 
 ## Setup
 

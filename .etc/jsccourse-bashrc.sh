@@ -11,10 +11,10 @@
 # Andreas Herten, >2017
 ################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2216"
+	project="training2232"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC22-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC22-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"
@@ -23,8 +23,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 	res=""
 	currentday=$(date +%d)
-	if [[ "$currentday" == "29" ]]; then
-		res="--reservation multi-gpu-tutorial-2022-05-29"
+	if [[ "$currentday" == "14" ]]; then
+		res="--reservation multi-gpu-tutorial-2022-11-14"
 	fi
 	
 	export SLURM_NTASKS=1
@@ -108,7 +108,7 @@ if [[ $- =~ "i" ]]; then
 
 	echo ""
 	echo "*******************************************************************************"
-	echo "       Welcome to the ISC22 Tutorial on Multi-GPU Computing for Exascale!       "
+	echo "       Welcome to the SC22 Tutorial on Multi-GPU Computing for Exascale!       "
 	# echo " A default call to get a batch system allocation is stored in \$JSC_ALLOC_CMD!"
 	# echo " Use it with \`eval \$JSC_ALLOC_CMD\`. The value of \$JSC_ALLOC_CMD is:"
 	# echo -n "  "

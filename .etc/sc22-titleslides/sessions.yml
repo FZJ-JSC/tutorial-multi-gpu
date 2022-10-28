@@ -1,0 +1,18 @@
+01:
+  title: 'Distributed GPU Programming for Exascale'
+  author: 'Andreas Herten, JSC'
+01b:
+  title: 'Onboarding JUWELS Booster'
+  author: 'Andreas Herten, JSC'
+04:
+  title: 'Peformance and Debugging Tools'
+  author: 'Markus Hrywniak, NVIDIA'
+05:
+  title: 'Optimization Techniques for Multi-GPU Applications'
+  author: 'Jiri Kraus, NVIDIA'
+09:
+  title: 'Device-Initiated Communication with NVSHMEM'
+  author: 'Jiri Kraus, NVIDIA'
+11:
+  title: 'Summary and Advanced Topics'
+  author: 'Andreas Herten, JSC'

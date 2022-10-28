@@ -45,3 +45,5 @@
 # minted/tcolorbox/fancyvrb
 _minted-*/*
 *.listing
+
+title-slide.*.*

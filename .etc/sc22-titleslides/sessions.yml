@@ -11,7 +11,7 @@
   title: 'Optimization Techniques for Multi-GPU Applications'
   author: 'Jiri Kraus, NVIDIA'
 09:
-  title: 'Device-Initiated Communication with NVSHMEM'
+  title: 'CUDA Graphs and Device-initiated Communication with NVSHMEM'
   author: 'Jiri Kraus, NVIDIA'
 11:
   title: 'Summary and Advanced Topics'

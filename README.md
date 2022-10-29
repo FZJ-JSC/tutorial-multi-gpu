@@ -17,7 +17,7 @@ The tutorial is an interactive tutorial with introducing lectures and practical 
 Curriculum:
 
 1. Lecture: Tutorial Overview, Introduction to System + Onboarding *Andreas*
-2. Lecture: MPI-Distributed Computing with GPUs *Lena*
+2. Lecture: MPI-Distributed Computing with GPUs *Simon*
 3. Hands-on: Multi-GPU Parallelization
 4. Lecture: Performance / Debugging Tools *Markus*
 5. Lecture: Optimization Techniques for Multi-GPU Applications *Jiri*

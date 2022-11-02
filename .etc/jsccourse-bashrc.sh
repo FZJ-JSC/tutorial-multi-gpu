@@ -24,7 +24,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	res=""
 	currentday=$(date +%d)
 	if [[ "$currentday" == "14" ]]; then
-		res="--reservation multi-gpu-tutorial-2022-11-14"
+		res="--reservation sc22-tutorial-2022-11-14"
 	fi
 	
 	export SLURM_NTASKS=1

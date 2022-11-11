@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../tasks/
-SOLUTIONDIR = ../solutions/
+TASKDIR = ../../tasks/Device-initiated_Communication_with_NVSHM
+EM
+SOLUTIONDIR = ../../solutions/Device-initiated_Communication_with_NVSHMEM
 
-IYPNB_TEMPLATE = ../../.template.json
+IYPNB_TEMPLATE = ../../../.template.json
 
 PROCESSFILES = jacobi.cu
 COPYFILES = Makefile Instructions.ipynb Instructions.md

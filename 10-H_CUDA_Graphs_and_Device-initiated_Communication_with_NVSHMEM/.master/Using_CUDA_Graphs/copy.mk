@@ -1,9 +1,9 @@
 #!/usr/bin/make -f
 # Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
-TASKDIR = ../tasks
-SOLUTIONDIR = ../solutions
+TASKDIR = ../../tasks/Using_CUDA_Graphs
+SOLUTIONDIR = ../../solutions/Using_CUDA_Graphs
 
-IYPNB_TEMPLATE = ../../.template.json
+IYPNB_TEMPLATE = ../../../.template.json
 
 PROCESSFILES = jacobi.cpp
 COPYFILES = Makefile jacobi_kernels.cu Instructions.ipynb Instructions.md

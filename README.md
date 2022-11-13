@@ -49,5 +49,6 @@ Visual onboarding instructions can be found in the subfolder of the according le
   ```
 * Sync course material to your home directory with `jsc-material-sync`.
 * *Recommended*: Install [Nsight Systems profiler](https://developer.nvidia.com/gameworksdownload#?dn=nsight-systems-2022-4) for third session (also available via [package managers](https://developer.download.nvidia.com/devtools/repos))
+* **Slido**: [SC22_sess196](https://app.sli.do/event/gJM6zs4JMsoYT4fcJ3oWeP)
 
 You can also access JSC's facilities via SSH. In that case you need to add your SSH key through JuDoor. You need to restrict access from certain IPs/IP ranges via the `from` clause, as explained [in the documentation](https://apps.fz-juelich.de/jsc/hps/juwels/access.html#ssh-login). We recommend using Jupyter JSC for its simplicity, especially during such a short day that is the tutorial day.

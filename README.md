@@ -37,7 +37,7 @@ The supercomputer used for the exercises is [JUWELS Booster](https://apps.fz-jue
 Visual onboarding instructions can be found in the subfolder of the according lecture, `01b-H-Onboarding/`. Here follows the textual description:
 
 * Register for an account at [JuDoor](https://judoor.fz-juelich.de/login)
-* Sign-up for the [`training2232` project](https://judoor.fz-juelich.de/projects/join/training2125)
+* Sign-up for the [`training2232` project](https://judoor.fz-juelich.de/projects/join/training2232)
 * Accept the Usage Agreement of JUWELS
 * Wait for wheels to turn as your information is pushed through the systems (about 15 minutes)
 * Access JUWELS Booster via [JSC's Jupyter portal](https://jupyter-jsc.fz-juelich.de/)

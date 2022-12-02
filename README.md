@@ -2,7 +2,6 @@
 
 [![DOI](https://zenodo.org/badge/409504932.svg)](https://zenodo.org/badge/latestdoi/409504932)
 
-**Joining from SC22? See [_Onboarding_](#onboarding) below!**
 
 Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, last held at [SC22](https://sc22.supercomputing.org/presentation/?id=tut102&sess=sess196).
 

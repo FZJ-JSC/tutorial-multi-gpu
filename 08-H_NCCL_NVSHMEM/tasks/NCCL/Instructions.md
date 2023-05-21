@@ -13,7 +13,7 @@
 
 The purpose of this task is to use NCCL instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cpp`:
 
-- Initialize NVSHMEM:
+- Initialize NCCL:
   - Include NCCL headers.
   - Create a NCCL unique ID, and initialize it
   - Create a NCCL communicator and initilize it

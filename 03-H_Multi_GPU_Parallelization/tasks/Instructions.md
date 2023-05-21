@@ -1,4 +1,4 @@
-# SC22 Tutorial: Efficient Distributed GPU Programming for Exascale
+# ISC23 Tutorial: Efficient Distributed GPU Programming for Exascale
 
 -   Time: Monday, 14 November 2022 8:30AM - 5PM CST
 -   Location: D163, Kay Bailey Hutchison Convention Center Dallas

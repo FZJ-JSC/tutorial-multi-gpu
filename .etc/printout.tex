@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[a4paper,margin=1cm,landscape]{geometry}
+
+\usepackage{fontspec}
+\setmainfont{PT Sans}
+\newfontfamily{\ptsansnarrow}{PT Sans Narrow}
+\newfontfamily{\ptsanscaption}{PT Sans Caption}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{relsize}
+\renewcommand\RSlargest{50pt}
+
+\usepackage{lipsum}
+\usepackage{verbatim}
+\pagenumbering{gobble}
+
+\definecolor{fzjblue}{RGB}{2,61,107} % first color
+\definecolor{fzjlightblue}{RGB}{173,189,227} % second color
+\definecolor{fzjgray}{RGB}{235,235,235} % third color
+\definecolor{fzjred}{RGB}{235, 95, 115}  % FZJ raspberry red
+\definecolor{fzjgreen}{RGB}{185, 210, 95}  % FZJ grass green
+\definecolor{fzjyellow}{RGB}{250, 235, 90}  % FZJ citrus yellow
+\definecolor{fzjviolet}{RGB}{175, 130, 185}  % FZJ Hyacinth violet
+\definecolor{fzjorange}{RGB}{250, 180, 90}  % FZJ apricot orange
+
+\newcommand{\highlight}[1]{\textcolor{fzjblue}{#1}}
+
+\begin{document}
+\relsize{4}
+\setlength{\parindent}{0pt}
+% \centering
+	% {\larger[3]\tikz{\node at (0, 0) [fill=black, text=white, text depth=0.25ex, font=\ptsansnarrow] {\textbf{Onboarding}};}
+
+	% \vspace*{0.3\baselineskip}
+	% \emph{\textbf{Efficient Distributed GPU Programming for Exascale}}}
+
+	\begin{tikzpicture}[every node/.style={outer sep=0pt}]
+		\node (onboarding) [fill=fzjblue, text=white, text depth=0.5ex, font=\ptsansnarrow\relsize{4}, yscale=2] {\textbf{Onboarding}};
+		\renewcommand{\baselinestretch}{0.9} 
+		\node (title) [right=of onboarding, font=\relsize{4}\bfseries, text width=0.66\pagewidth, color=fzjblue] {\emph{Efficient Distributed GPU\\Programming for Exascale}};
+		\node [draw=fzjblue, fit=(onboarding) (title), inner sep=0pt, outer sep=0pt, thick] {};
+	\end{tikzpicture}
+
+
+	\vspace*{1\baselineskip}
+	The tutorial uses HPC resources at \textcolor{fzjred}{Jülich Supercomputing Centre}. The following steps need to be done to access the JUWELS Booster machine. Feel free to start them as soon as you sit down, ask the Tutors in the room for help.\\
+	Tutorial repository (incl. slides): \href{https://go.fzj.de/mg-gh}{\texttt{go.fzj.de/mg-gh}}
+
+	\vspace*{1\baselineskip}
+	\begin{enumerate}
+		\item Create \highlight{\emph{JuDoor}} account, \highlight{join} \texttt{training2313} project: \href{https://go.fzj.de/mg-jd}{\texttt{go.fzj.de/mg-jd}}
+		\item Fill \highlight{usage agreement}; wait at least 15 min for synchronization
+		\item Login to \highlight{Jupyter}: \href{https://jupyter-jsc.fz-juelich.de}{\texttt{jupyter-jsc.fz-juelich.de}} (JuDoor credentials)
+		\item Create new Jupyter \highlight{instance} on \texttt{LoginNode\textbf{Booster}} with training project
+		\item Start Jupyter Terminal, \highlight{source} course environment\\
+		\verb|source $PROJECT_training2313/env.sh|
+		\item \highlight{Sync} course material: \verb|jsc-material-sync|
+	\end{enumerate}
+\end{document}

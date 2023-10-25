@@ -8,14 +8,16 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{sc-background.png}}
 
-\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{normal text}{fg=black}
 \begin{document}
 
 \newcommand{\mytitle}{INSERT TITLE HERE}
 \newcommand{\myauthor}{Insert Author Here}
 \begin{frame}[plain, t]
-\vspace*{0.5\paperheight}\LARGE
-\textbf{\mytitle}\\\large
-\myauthor
+	\begin{tikzpicture}[overlay, remember picture, align=left, text width=0.85\paperwidth]
+		\coordinate (main anchor) at ([yshift=0.4\paperheight,xshift=0.06\paperwidth]current page.south west);
+		\node (title) at (main anchor) [anchor=south west, font=\LARGE\bfseries] {\mytitle};
+		\node (subtitle) at ([yshift=-0.05\paperheight]main anchor) [anchor=north west, font=\large, text=white] {\myauthor};
+	\end{tikzpicture}
 \end{frame}
 \end{document}

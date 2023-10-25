@@ -4,11 +4,17 @@
 01b:
   title: 'Onboarding JUWELS Booster'
   author: 'Andreas Herten, JSC'
+02:
+  title: 'Introduction to MPI-Distributed Computing with GPUs'
+  author: 'Simon Garcia, SNL'
 04:
   title: 'Peformance and Debugging Tools'
   author: 'Markus Hrywniak, NVIDIA'
 05:
   title: 'Optimization Techniques for Multi-GPU Applications'
+  author: 'Simon Garcia, SNL'
+07:
+  title: 'NCCL and Host-Initiated NVSHMEM'
   author: 'Jiri Kraus, NVIDIA'
 09:
   title: 'CUDA Graphs and Device-initiated Communication with NVSHMEM'

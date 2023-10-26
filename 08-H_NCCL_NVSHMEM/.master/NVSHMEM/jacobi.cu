@@ -355,11 +355,11 @@ int main(int argc, char* argv[]) {
                                          compute_stream));
         }
 
-    //TODO: Replace MPI communication with Host initiated NVSHMEM calls
+        //TODO: Replace MPI communication with Host initiated NVSHMEM calls
         // Apply periodic boundary conditions
 #ifdef SOLUTION
-    PUSH_RANGE("NVSHMEM", 5)
-    nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
+        PUSH_RANGE("NVSHMEM", 5)
+        nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
         nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  push_stream);
 #else
         PUSH_RANGE("MPI", 5)
@@ -369,12 +369,12 @@ int main(int argc, char* argv[]) {
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
 #endif
-    CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
         POP_RANGE
 
         CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
 
-    //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
+        //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
 #ifdef SOLUTION
         nvshmemx_barrier_all_on_stream(compute_stream);
 #endif
@@ -419,9 +419,9 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
-//TODO: Replace MPI with NVSHMEM for your output
+            //TODO: Replace MPI with NVSHMEM for your output
 #ifdef SOLUTION
-        printf("nvshmem, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
+            printf("nvshmem, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #else
             printf("mpi, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #endif

@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
     real* l2_norm_h;
     CUDA_RT_CALL(cudaMallocHost(&l2_norm_h, sizeof(real)));
 
-//TODO: Rename range
+    //TODO: Rename range
     PUSH_RANGE("NCCL_Warmup", 5)
     for (int i = 0; i < 10; ++i) {
         const int top = rank > 0 ? rank - 1 : (size - 1);
@@ -281,7 +281,7 @@ int main(int argc, char* argv[]) {
         NCCL_CALL(ncclSend(a_new + iy_start * nx,     nx, NCCL_REAL_TYPE, top,    nccl_comm, compute_stream));
         NCCL_CALL(ncclGroupEnd());
         CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));
-    std::swap(a_new, a);
+        std::swap(a_new, a);
     }
     POP_RANGE
 
@@ -328,7 +328,7 @@ int main(int argc, char* argv[]) {
         const int bottom = (rank + 1) % size;
 
         // Apply periodic boundary conditions
-    //TODO: Modify the lable for the RANGE, and replace MPI_Sendrecv with ncclSend and ncclRecv calls
+        //TODO: Modify the lable for the RANGE, and replace MPI_Sendrecv with ncclSend and ncclRecv calls
         //      using the nccl communicator and push_stream.
         //      Remember to use ncclGroupStart() and ncclGroupEnd()
         PUSH_RANGE("NCCL_LAUNCH", 5)
@@ -338,7 +338,7 @@ int main(int argc, char* argv[]) {
         NCCL_CALL(ncclRecv(a_new + (iy_end * nx),     nx, NCCL_REAL_TYPE, bottom, nccl_comm, push_stream));
         NCCL_CALL(ncclSend(a_new + iy_start * nx,     nx, NCCL_REAL_TYPE, top,    nccl_comm, push_stream));
         NCCL_CALL(ncclGroupEnd());
-    CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
         POP_RANGE
 
         if (calculate_norm) {
@@ -383,9 +383,9 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
-        //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
+            //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
             printf("nccl_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
-        (stop - start), runtime_serial);
+                    (stop - start), runtime_serial);
         } else {
             printf("Num GPUs: %d.\n", size);
             printf(

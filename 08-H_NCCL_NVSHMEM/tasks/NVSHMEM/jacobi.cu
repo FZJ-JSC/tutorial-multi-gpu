@@ -319,13 +319,13 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
+        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
 
-    launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
+        launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
     
-    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
+        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
 
-    CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
+        CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
 
         if (calculate_norm) {
         CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_prep_done, 0));
@@ -333,7 +333,7 @@ int main(int argc, char* argv[]) {
                                          compute_stream));
         }
 
-    //TODO: Replace MPI communication with Host initiated NVSHMEM calls
+        //TODO: Replace MPI communication with Host initiated NVSHMEM calls
         // Apply periodic boundary conditions
         PUSH_RANGE("MPI", 5)
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
@@ -341,12 +341,12 @@ int main(int argc, char* argv[]) {
                               MPI_STATUS_IGNORE));
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
-    CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
         POP_RANGE
 
         CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
 
-    //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
+        //TODO: add necessary inter PE synchronization using the nvshmemx_barrier_all_on_stream(...) 
 
         if (calculate_norm) {
             CUDA_RT_CALL(cudaStreamSynchronize(compute_stream));
@@ -388,7 +388,7 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
-//TODO: Replace MPI with NVSHMEM for your output
+            //TODO: Replace MPI with NVSHMEM for your output
             printf("mpi, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
                    (stop - start), runtime_serial);
         } else {

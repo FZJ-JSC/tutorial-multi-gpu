@@ -1,9 +1,9 @@
-# ISC23 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC23 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Sunday, 21 May 2023 9:00 - 18:00 CEST
--   Location: Hall Y8, Congress Center Hamburg, Germany
+-   Time: Monday, 13 November 2023 8:30am - 5pm MST
+-   Location: 405, Colorado Convention Center, Denver, CO
 -   Program Link:
-    https://app.swapcard.com/widget/event/isc-high-performance-2023/planning/UGxhbm5pbmdfMTIyMDc5OA==
+    https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242
 
 ## Hands-On 8-NCCL: Using NCCL for Inter-GPU Communication
 
@@ -13,14 +13,13 @@
 
 The purpose of this task is to use NCCL instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cpp`:
 
-- Initialize NVSHMEM:
-  - Include NCCL headers.
-  - Create a NCCL unique ID, and initialize it
-  - Create a NCCL communicator and initilize it
-  - Replace the MPI\_Sendrecv calls with ncclRecv and ncclSend calls for the warmup stage
-  - Replace MPI for the periodic boundary conditions with NCCL 
-  - Fix output message to indicate nccl rather than mpi
-  - Destroy NCCL comunicator
+- Include NCCL headers.
+- Create a NCCL unique ID, and initialize it
+- Create a NCCL communicator and initialize it
+- Replace the MPI\_Sendrecv calls with ncclRecv and ncclSend calls for the warmup stage
+- Replace MPI for the periodic boundary conditions with NCCL 
+- Fix output message to indicate nccl rather than mpi
+- Destroy NCCL communicator
 
 Compile with
 

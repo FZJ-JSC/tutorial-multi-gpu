@@ -1,9 +1,9 @@
-# ISC23 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC23 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Sunday, 21 May 2023 9:00 - 18:00 CEST
--   Location: Hall Y8, Congress Center Hamburg, Germany
+-   Time: Monday, 13 November 2023 8:30am - 5pm MST
+-   Location: 405, Colorado Convention Center, Denver, CO
 -   Program Link:
-    https://app.swapcard.com/widget/event/isc-high-performance-2023/planning/UGxhbm5pbmdfMTIyMDc5OA==
+    https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242
 
 ## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
 
@@ -13,15 +13,14 @@
 
 The purpose of this task is to use the NVSHMEM host API instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cu`:
 
-- Initialize NVSHMEM:
-  - Include NVSHMEM headers.
-  - Initialize NVSHMEM using `MPI_COMM_WORLD`.
-  - Allocate work arrays `a` and `a_new` from the NVSHMEM symmetric heap. Take care of passing in a consistent size!
-  - Calculate halo/boundary row index of top and bottom neighbors.
-  - Add necessary inter PE synchronization.
-  - Replace MPI periodic boundary conditions with `nvshmemx_float_put_on_stream` to directly push values needed by top and bottom neighbors.
-  - Deallocate memory from the NVSHMEM symetric heap.
-  - Finalize NVSHMEM before existing the application
+- Include NVSHMEM headers.
+- Initialize NVSHMEM using `MPI_COMM_WORLD`.
+- Allocate work arrays `a` and `a_new` from the NVSHMEM symmetric heap. Take care of passing in a consistent size!
+- Calculate halo/boundary row index of top and bottom neighbors.
+- Add necessary inter PE synchronization.
+- Replace MPI periodic boundary conditions with `nvshmemx_float_put_on_stream` to directly push values needed by top and bottom neighbors.
+- Deallocate memory from the NVSHMEM symmetric heap.
+- Finalize NVSHMEM before existing the application
 
 Compile with
 

@@ -271,7 +271,7 @@ int main(int argc, char* argv[]) {
     real* l2_norm_h;
     CUDA_RT_CALL(cudaMallocHost(&l2_norm_h, sizeof(real)));
 
-//TODO: Rename range
+    //TODO: Rename range
 #ifdef SOLUTION
     PUSH_RANGE("NCCL_Warmup", 5)
 #else
@@ -326,7 +326,7 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm,
+        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm,
                              compute_stream);
 
         launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm,
@@ -346,7 +346,7 @@ int main(int argc, char* argv[]) {
         const int bottom = (rank + 1) % size;
 
         // Apply periodic boundary conditions
-    //TODO: Modify the lable for the RANGE, and replace MPI_Sendrecv with ncclSend and ncclRecv calls
+        //TODO: Modify the lable for the RANGE, and replace MPI_Sendrecv with ncclSend and ncclRecv calls
         //      using the nccl communicator and push_stream.
         //      Remember to use ncclGroupStart() and ncclGroupEnd()
 #ifdef SOLUTION
@@ -358,14 +358,14 @@ int main(int argc, char* argv[]) {
         NCCL_CALL(ncclSend(a_new + iy_start * nx,     nx, NCCL_REAL_TYPE, top,    nccl_comm, push_stream));
         NCCL_CALL(ncclGroupEnd());
 #else
-    PUSH_RANGE("MPI", 5)
+        PUSH_RANGE("MPI", 5)
         MPI_CALL(MPI_Sendrecv(a_new + iy_start * nx, nx, MPI_REAL_TYPE, top, 0,
                               a_new + (iy_end * nx), nx, MPI_REAL_TYPE, bottom, 0, MPI_COMM_WORLD,
                               MPI_STATUS_IGNORE));
         MPI_CALL(MPI_Sendrecv(a_new + (iy_end - 1) * nx, nx, MPI_REAL_TYPE, bottom, 0, a_new, nx,
                               MPI_REAL_TYPE, top, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE));
 #endif
-    CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
         POP_RANGE
 
         if (calculate_norm) {
@@ -410,13 +410,13 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
-        //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
+            //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
 #ifdef SOLUTION
             printf("nccl_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #else
-        printf("mpi_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
+            printf("mpi_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
 #endif
-        (stop - start), runtime_serial);
+                    (stop - start), runtime_serial);
         } else {
             printf("Num GPUs: %d.\n", size);
             printf(

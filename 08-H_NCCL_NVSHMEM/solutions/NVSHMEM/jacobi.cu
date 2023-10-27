@@ -328,27 +328,27 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
+    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm, compute_stream);
 
-        launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
+    launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm, push_stream);
     
-        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
+    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_end - 1), iy_end, nx, calculate_norm, push_stream);
 
-        CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
+    CUDA_RT_CALL(cudaEventRecord(push_prep_done, push_stream));
 
         if (calculate_norm) {
-            CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_prep_done, 0));
+        CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_prep_done, 0));
             CUDA_RT_CALL(cudaMemcpyAsync(l2_norm_h, l2_norm_d, sizeof(real), cudaMemcpyDeviceToHost,
                                          compute_stream));
         }
 
-       //TODO: Replace MPI communication with Host initiated NVSHMEM calls
-       // Apply periodic boundary conditions
-       PUSH_RANGE("NVSHMEM", 5)
-       nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
-       nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  push_stream);
-       CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
-       POP_RANGE
+        //TODO: Replace MPI communication with Host initiated NVSHMEM calls
+        // Apply periodic boundary conditions
+        PUSH_RANGE("NVSHMEM", 5)
+        nvshmemx_float_put_on_stream(a_new + iy_top_lower_boundary_idx * nx, a_new + iy_start * nx, nx, top, push_stream);
+        nvshmemx_float_put_on_stream(a_new + iy_bottom_upper_boundary_idx * nx, a_new + (iy_end - 1) * nx, nx, bottom,  push_stream);
+        CUDA_RT_CALL(cudaEventRecord(push_done, push_stream));
+        POP_RANGE
 
         CUDA_RT_CALL(cudaStreamWaitEvent(compute_stream, push_done, 0));
 

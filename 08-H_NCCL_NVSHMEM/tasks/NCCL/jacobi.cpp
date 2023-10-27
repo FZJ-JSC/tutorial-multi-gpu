@@ -292,7 +292,7 @@ int main(int argc, char* argv[]) {
         CUDA_RT_CALL(cudaStreamWaitEvent(push_stream, reset_l2norm_done, 0));
         calculate_norm = (iter % nccheck) == 0 || (!csv && (iter % 100) == 0);
 
-    launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm,
+        launch_jacobi_kernel(a_new, a, l2_norm_d, (iy_start + 1), (iy_end - 1), nx, calculate_norm,
                              compute_stream);
 
         launch_jacobi_kernel(a_new, a, l2_norm_d, iy_start, (iy_start + 1), nx, calculate_norm,
@@ -366,9 +366,9 @@ int main(int argc, char* argv[]) {
 
     if (rank == 0 && result_correct) {
         if (csv) {
-        //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
-        printf("mpi_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
-                (stop - start), runtime_serial);
+            //TODO: Dont forget to change your output lable from mpi_overlap to nccl_overlap 
+            printf("mpi_overlap, %d, %d, %d, %d, %d, 1, %f, %f\n", nx, ny, iter_max, nccheck, size,
+                    (stop - start), runtime_serial);
         } else {
             printf("Num GPUs: %d.\n", size);
             printf(

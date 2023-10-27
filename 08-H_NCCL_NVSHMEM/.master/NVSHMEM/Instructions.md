@@ -1,10 +1,9 @@
 # SC23 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Monday, 13 November 2023 8:30am - 5pm MST
--   Location: 405, Colorado Convention Center, Denver, CO
+-   Time: Monday, 13 November 2023 8:30 - 17:00 MST
+-   Location: 405, Denver Congress Centre, USA
 -   Program Link:
     https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242
-
 ## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API

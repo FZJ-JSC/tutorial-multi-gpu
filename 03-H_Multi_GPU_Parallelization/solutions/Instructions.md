@@ -1,10 +1,9 @@
-# ISC23 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC23 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Sunday, 21 May 2023 9:00 - 18:00 CEST
--   Location: Hall Y8, Congress Center Hamburg, Germany
+-   Time: Monday, 13 November 2023 8:30 - 17:00 MST
+-   Location: 405, Denver Congress Centre, USA
 -   Program Link:
-    https://app.swapcard.com/widget/event/isc-high-performance-2023/planning/UGxhbm5pbmdfMTIyMDc5OA==
-
+    https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242
 ## Hands-On 3: Multi-GPU Parallelization with CUDA-aware MPI
 
 ### Task: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPI

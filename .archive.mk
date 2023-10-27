@@ -10,7 +10,7 @@ all: tut140-multi-gpu.tar.gz
 
 SOURCES=$(shell gfind . -maxdepth 1 -mindepth 1 -not -path "./.*" -not -name "tut140-multi-gpu.tar.gz" -printf '%P\n' | sort -h)
 
-tut1140-multi-gpu.tar.gz: $(shell find . -not -name "tut140-multi-gpu.tar.gz")
+tut140-multi-gpu.tar.gz: $(shell find . -not -name "tut140-multi-gpu.tar.gz")
 	sed -i '1 i***Please check GitHub repo for latest version of slides: https://github.com/FZJ-JSC/tutorial-multi-gpu/ ***\n' README.md
 	tar czf $@ --transform 's,^,SC23-tut140-Multi-GPU/,' --exclude=".*" $(SOURCES)
 	tar xf $@

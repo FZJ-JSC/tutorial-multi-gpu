@@ -6,7 +6,7 @@ SOLUTIONDIR = ../solutions/
 IYPNB_TEMPLATE = ../../.template.json
 
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile Instructions.ipynb jacobi_kernels.cu
+COPYFILES = Makefile Instructions.ipynb Instructions.md jacobi_kernels.cu
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))

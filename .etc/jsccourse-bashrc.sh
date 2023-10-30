@@ -24,7 +24,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	res=""
 	currentday=$(date +%d)
 	if [[ "$currentday" == "13" ]]; then
-		res="--reservation sc23-tutorial-2023-11-13"
+		res="--reservation sc-tutorial"
 	fi
 	
 	export SLURM_NTASKS=1

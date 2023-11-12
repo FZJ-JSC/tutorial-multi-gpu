@@ -14,7 +14,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	project="training2332"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC23-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC23-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"
@@ -56,9 +56,10 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			;;
 	esac
 
-	export JSC_BATCH_CONFIG="$res --partition ${partition} --cpu-bind=sockets --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
+	export JSC_BATCH_CONFIG="$res --partition ${partition} --disable-dcgm --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
 	export JSC_ALLOC_CMD="salloc $JSC_BATCH_CONFIG" 
-	export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
+	# export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
+	export JSC_SUBMIT_CMD="salloc $JSC_BATCH_CONFIG srun --cpu-bind=sockets --pty"
 	
 	export _JSC_MATERIAL_SYNC="rsync --archive --update --exclude='.*' --exclude='.*/' $JSCCOURSE_DIR_GROUP/common/material/ $JSCCOURSE_DIR_LOCAL"
 	export _JSC_MATERIAL_SYNC_FORCE="rsync --archive --exclude='.*' --exclude='.*/' $JSCCOURSE_DIR_GROUP/common/material/ $JSCCOURSE_DIR_LOCAL"

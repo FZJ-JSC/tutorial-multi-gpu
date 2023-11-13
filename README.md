@@ -11,9 +11,18 @@ Repository with talks and exercises of our Efficient GPU Programming for Exascal
 * Occasion: SC23 Tutorial
 * Tutors: Simon Garcia (SNL), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
 
+
 ## Setup
 
 The tutorial is an interactive tutorial with introducing lectures and practical exercises to apply knowledge. The exercises have been derived from the Jacobi solver implementations available in [NVIDIA/multi-gpu-programming-models](https://github.com/NVIDIA/multi-gpu-programming-models).
+
+Walk-through:
+
+* Sign up at JuDoor: https://go.fzj.de/mg-jd
+* Open Jupyter JSC: https://jupyter-jsc.fz-juelich.de
+* Create new Jupyter instance on JUWELS, using training2332 account, on **LoginNodeBooster**
+* Source course environment: `source $PROJECT_training2332/env.sh`
+* Sync material: `jsc-material-sync`
 
 Curriculum:
 

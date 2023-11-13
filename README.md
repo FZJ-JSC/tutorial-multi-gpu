@@ -23,6 +23,7 @@ Walk-through:
 * Create new Jupyter instance on JUWELS, using training2332 account, on **LoginNodeBooster**
 * Source course environment: `source $PROJECT_training2332/env.sh`
 * Sync material: `jsc-material-sync`
+* Locally install NVIDIA Nsight Systems: https://developer.nvidia.com/nsight-systems
 
 Curriculum:
 

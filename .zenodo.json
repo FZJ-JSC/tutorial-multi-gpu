@@ -29,21 +29,21 @@
 
     "title": "Efficient Distributed GPU Programming for Exascale",
 
-    "publication_date": "2023-05-21",
+    "publication_date": "2023-11-13",
 
     "description": "<p>Over the past years, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the recently deployed and upcoming Pre-Exascale and Exascale systems (LUMI, Leonardo; Frontier, Perlmutter): GPUs are chosen as the core computing devices to enter this next era of HPC.</p><p>To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the propers skills and tools to understand, manage, and optimize distributed GPU applications. In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using one of Europe’s fastest supercomputers, JUWELS Booster, for interactive learning and discovery.</p>",
 
-    "notes": "Slides and exercises of tutorial presented at ISC23 (ISC High Performance 2023); https://app.swapcard.com/widget/event/isc-high-performance-2023/planning/UGxhbm5pbmdfMTIyMDc5OA==",
+    "notes": "Slides and exercises of tutorial presented at SC23 (The International Conference for High Performance Computing, Networking, Storage, and Analysis); https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242",
 
     "access_right": "open",
 
-    "conference_title": "ISC High Performance 2023",
-    "conference_acronym": "ISC23",
-    "conference_dates": "21 May-25 May 2023",
-    "conference_place": "Hamburg, Germany",
-    "conference_url": "https://www.isc-hpc.com/",
+    "conference_title": "The International Conference for High Performance Computing, Networking, Storage, and Analysis 2023",
+    "conference_acronym": "SC23",
+    "conference_dates": "12 - 17 Nov 2023",
+    "conference_place": "Denver, CO, USA",
+    "conference_url": "https://sc23.supercomputing.org/",
     "conference_session": "Tutorials",
-    "conference_session_part": "Day 1",
+    "conference_session_part": "Day 2",
 
     "upload_type": "lesson"
 }

@@ -1,9 +1,9 @@
-# SC23 Tutorial: Efficient Distributed GPU Programming for Exascale
+# ISC24 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Time: Monday, 13 November 2023 8:30 - 17:00 MST
--   Location: 405, Denver Congress Centre, USA
+-   Sunday, May 12, 2024 9:00 AM to 6:00 PM CEST
+-   Location: Hall Y8 - 2nd floor, Congress Center Hamburg, Germany
 -   Program Link:
-    https://sc23.supercomputing.org/presentation/?id=tut140&sess=sess242
+    https://app.swapcard.com/widget/event/isc-high-performance-2024/planning/UGxhbm5pbmdfMTgyNTY0MQ==
 ## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,

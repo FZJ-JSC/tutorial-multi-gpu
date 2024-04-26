@@ -9,7 +9,7 @@ Repository with talks and exercises of our Efficient GPU Programming for Exascal
 
 * Date: 12 May 2024
 * Occasion: ISC24 Tutorial
-* Tutors: Simon Garcia (SNL), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
+* Tutors: Simon Garcia de Gonzalo (SNL), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
 
 
 ## Setup

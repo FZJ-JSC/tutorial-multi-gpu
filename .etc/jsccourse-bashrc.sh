@@ -11,10 +11,10 @@
 # Andreas Herten, >2017
 ################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2332"
+	project="training2414"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC23-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC24-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"

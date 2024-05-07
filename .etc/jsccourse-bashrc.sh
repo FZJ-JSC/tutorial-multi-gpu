@@ -109,7 +109,7 @@ if [[ $- =~ "i" ]]; then
 
 	echo ""
 	echo "*******************************************************************************"
-	echo "       Welcome to the SC23 Tutorial on Multi-GPU Computing for Exascale!       "
+	echo "       Welcome to the ISC24 Tutorial on Multi-GPU Computing for Exascale!      "
 	# echo " A default call to get a batch system allocation is stored in \$JSC_ALLOC_CMD!"
 	# echo " Use it with \`eval \$JSC_ALLOC_CMD\`. The value of \$JSC_ALLOC_CMD is:"
 	# echo -n "  "

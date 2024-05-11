@@ -23,8 +23,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 	res=""
 	currentday=$(date +%d)
-	if [[ "$currentday" == "13" ]]; then
-		res="--reservation sc-tutorial"
+	if [[ "$currentday" == "12" ]]; then
+		res="--reservation isc-multi-gpu"
 	fi
 	
 	export SLURM_NTASKS=1
@@ -59,7 +59,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	export JSC_BATCH_CONFIG="$res --partition ${partition} --disable-dcgm --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
 	export JSC_ALLOC_CMD="salloc $JSC_BATCH_CONFIG" 
 	# export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
-	export JSC_SUBMIT_CMD="salloc $JSC_BATCH_CONFIG srun --cpu-bind=sockets --pty"
+	export JSC_SUBMIT_CMD="${JSC_ALLOC_CMD} srun --cpu-bind=sockets --pty"
 	
 	export _JSC_MATERIAL_SYNC="rsync --archive --update --exclude='.*' --exclude='.*/' $JSCCOURSE_DIR_GROUP/common/material/ $JSCCOURSE_DIR_LOCAL"
 	export _JSC_MATERIAL_SYNC_FORCE="rsync --archive --exclude='.*' --exclude='.*/' $JSCCOURSE_DIR_GROUP/common/material/ $JSCCOURSE_DIR_LOCAL"

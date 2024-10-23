@@ -35,8 +35,9 @@ identifiers:
     description: Year-agnostic Zenodo Identifier
 repository-code: 'https://github.com/FZJ-JSC/tutorial-multi-gpu/'
 abstract: >-
-  Over the past years, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the recently deployed and upcoming Pre-Exascale and Exascale systems (LUMI, Leonardo; Frontier, Perlmutter): GPUs are chosen as the core computing devices to enter this next era of HPC.
-  To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the propers skills and tools to understand, manage, and optimize distributed GPU applications. In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using one of Europe’s fastest supercomputers, JUWELS Booster, for interactive learning and discovery.
+  Over the past decade, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the recently deployed and upcoming Pre-Exascale and Exascale systems (JUPITER, LUMI, Leonardo; El Capitan, Frontier, Aurora): GPUs are chosen as the core computing devices to enter this next era of HPC.
+  To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the proper skills and tools to understand, manage, and optimize distributed GPU applications.
+  In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using a development system for JUPITER (JEDI), for interactive learning and discovery.
 keywords:
   - NVIDIA
   - GPU
@@ -47,5 +48,5 @@ keywords:
   - NVSHMEM
   - Distributed Programming
 license: MIT
-version: '6.0-isc24'
-date-released: '2024-05-16'
+version: '7.0-sc24'
+date-released: '2024-11-17'

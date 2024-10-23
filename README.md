@@ -1,4 +1,4 @@
-# ISC24 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC24 Tutorial: Efficient Distributed GPU Programming for Exascale
 
 [![DOI](https://zenodo.org/badge/409504932.svg)](https://zenodo.org/badge/latestdoi/409504932)
 
@@ -7,8 +7,8 @@ Repository with talks and exercises of our Efficient GPU Programming for Exascal
 
 ## Coordinates
 
-* Date: 12 May 2024
-* Occasion: ISC24 Tutorial
+* Date: 17 November 2024
+* Occasion: SC24 Tutorial
 * Tutors: Simon Garcia de Gonzalo (SNL), Andreas Herten (JSC), Markus Hrywniak (NVIDIA), Jiri Kraus (NVIDIA), Lena Oden (Uni Hagen)
 
 
@@ -20,8 +20,8 @@ Walk-through:
 
 * Sign up at JuDoor: https://go.fzj.de/mg-jd
 * Open Jupyter JSC: https://jupyter-jsc.fz-juelich.de
-* Create new Jupyter instance on JUWELS, using training2414 account, on **LoginNodeBooster**
-* Source course environment: `source $PROJECT_training2414/env.sh`
+* Create new Jupyter instance on JUWELS, using training2442 account, on **LoginNodeBooster**
+* Source course environment: `source $PROJECT_training2442/env.sh`
 * Sync material: `jsc-material-sync`
 * Locally install NVIDIA Nsight Systems: https://developer.nvidia.com/nsight-systems
 

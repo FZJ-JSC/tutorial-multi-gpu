@@ -14,7 +14,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	project="training2414"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC24-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC24-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"
@@ -109,7 +109,7 @@ if [[ $- =~ "i" ]]; then
 
 	echo ""
 	echo "*******************************************************************************"
-	echo "       Welcome to the ISC24 Tutorial on Multi-GPU Computing for Exascale!      "
+	echo "       Welcome to the SC24 Tutorial on Multi-GPU Computing for Exascale!       "
 	# echo " A default call to get a batch system allocation is stored in \$JSC_ALLOC_CMD!"
 	# echo " Use it with \`eval \$JSC_ALLOC_CMD\`. The value of \$JSC_ALLOC_CMD is:"
 	# echo -n "  "

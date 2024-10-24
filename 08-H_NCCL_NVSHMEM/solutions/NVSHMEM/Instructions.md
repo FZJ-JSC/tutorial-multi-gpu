@@ -1,9 +1,9 @@
-# ISC24 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC24 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Sunday, May 12, 2024 9:00 AM to 6:00 PM CEST
--   Location: Hall Y8 - 2nd floor, Congress Center Hamburg, Germany
+-   Sunday, November 17, 2024 8:30 AM to 5:30 PM
+-   Location: B211, Atlanta Convention Center, Georgia, USA
 -   Program Link:
-    https://app.swapcard.com/widget/event/isc-high-performance-2024/planning/UGxhbm5pbmdfMTgyNTY0MQ==
+    https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
 ## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API

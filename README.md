@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/409504932.svg)](https://zenodo.org/badge/latestdoi/409504932)
 
 
-Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, to be held at [ISC24](https://app.swapcard.com/widget/event/isc-high-performance-2024/planning/UGxhbm5pbmdfMTgyNTY0MQ==).
+Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, to be held at [SC24](https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412).
 
 ## Coordinates
 

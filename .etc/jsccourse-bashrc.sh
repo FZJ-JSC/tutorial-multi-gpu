@@ -11,7 +11,7 @@
 # Andreas Herten, >2017
 ################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2414"
+	project="training2446"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
 	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC24-Multi-GPU-Tutorial
@@ -23,8 +23,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 	res=""
 	currentday=$(date +%d)
-	if [[ "$currentday" == "12" ]]; then
-		res="--reservation isc-multi-gpu"
+	if [[ "$currentday" == "17" ]]; then
+		res="--reservation sc24-multi-gpu"
 	fi
 	
 	export SLURM_NTASKS=1

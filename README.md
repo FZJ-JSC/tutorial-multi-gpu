@@ -20,8 +20,8 @@ Walk-through:
 
 * Sign up at JuDoor: https://go.fzj.de/mg-jd
 * Open Jupyter JSC: https://jupyter-jsc.fz-juelich.de
-* Create new Jupyter instance on JUWELS, using training2442 account, on **LoginNodeBooster**
-* Source course environment: `source $PROJECT_training2442/env.sh`
+* Create new Jupyter instance on JUWELS, using training2446 account, on **LoginNodeBooster**
+* Source course environment: `source $PROJECT_training2446/env.sh`
 * Sync material: `jsc-material-sync`
 * Locally install NVIDIA Nsight Systems: https://developer.nvidia.com/nsight-systems
 

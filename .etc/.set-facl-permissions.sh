@@ -3,8 +3,8 @@
 set -x
 
 for user in haghighimood1 kraus1 hrywniak1 oden1 garciadegonzalo1 badwaik1 john2; do
-	setfacl -m u:$user:rwx -R $PROJECT_training2414/common/
-	setfacl -m u:$user:rwx -R $PROJECT_training2414/env.sh
+	setfacl -m u:$user:rwx -R $PROJECT_training2446/common/
+	setfacl -m u:$user:rwx -R $PROJECT_training2446/env.sh
 done
 
 set +x

@@ -5,6 +5,8 @@ module load Stages/2024
 module load GCC/12.3.0
 module load CUDA/12
 module load ParaStationMPI/5.9.2-1
+# export MPI_HOME=$EBROOTOPENMPI
+export MPI_HOME=$EBROOTPSMPI
 module load NCCL/default-CUDA-12
 module load NVSHMEM/2.11.0-CUDA-12
 module load Nsight-Systems/2024.2.1

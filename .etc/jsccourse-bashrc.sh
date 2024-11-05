@@ -37,18 +37,20 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			ngpus=1
 			export NP=2
 			export PSP_CUDA_ENFORCE_STAGING=1
-			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--ntasks-per-node 1"
+			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--ntasks-per-node 1 --disable-dcgm"
 			partition=${partition:-gpus}
 			;;
 		juwels|juwelsbooster)
 			ngpus=4
 			export NP=4
 			partition=${partition:-booster}
+			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--disable-dcgm"
 			;;
 		jurecadc)
 			ngpus=4
 			export NP=4
 			partition=${partition:-dc-gpu}
+			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--disable-dcgm"
 			;;
 		jedi)
 			ngpus=4
@@ -62,7 +64,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			;;
 	esac
 
-	export JSC_BATCH_CONFIG="$res --partition ${partition} --disable-dcgm --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
+	export JSC_BATCH_CONFIG="$res --partition ${partition} --gres=gpu:$ngpus $JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS --time 0:10:00"
 	export JSC_ALLOC_CMD="salloc $JSC_BATCH_CONFIG" 
 	# export JSC_SUBMIT_CMD="srun $JSC_BATCH_CONFIG --pty"
 	export JSC_SUBMIT_CMD="${JSC_ALLOC_CMD} srun --cpu-bind=sockets --pty"

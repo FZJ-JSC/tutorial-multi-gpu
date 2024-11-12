@@ -54,9 +54,9 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			;;
 		jedi)
 			ngpus=4
-			export NP4
+			export NP=4
 			partition=${parittion:-all}
-			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--gpus-per-task=1"
+			# JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--gpus-per-task=1"
 			;;
 		*)
 			echo "This system is not yet tested, setting ngpus=4"

@@ -29,6 +29,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	
 	export SLURM_NTASKS=1
 
+	export _JSCCOURSE_GPU_ARCH='80'
     JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS=""
 	# export SLURM_GRES=gpu:4
 	# SALLOC_GRES and SBATCH_GRES are not yet available
@@ -39,8 +40,9 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			export PSP_CUDA_ENFORCE_STAGING=1
 			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--ntasks-per-node 1 --disable-dcgm"
 			partition=${partition:-gpus}
+			export _JSCCOURSE_GPU_ARCH='70'
 			;;
-		juwels|juwelsbooster)
+		juwelsbooster)
 			ngpus=4
 			export NP=4
 			partition=${partition:-booster}
@@ -57,6 +59,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			export NP=4
 			partition=${parittion:-all}
 			# JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--gpus-per-task=1"
+			export _JSCCOURSE_GPU_ARCH='90'
 			;;
 		*)
 			echo "This system is not yet tested, setting ngpus=4"

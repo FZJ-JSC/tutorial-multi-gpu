@@ -11,4 +11,6 @@ module load NCCL/default-CUDA-12
 module load NVSHMEM/2.10.1-CUDA-12
 module load Nsight-Systems/2024.4.1
 module load MPI-settings/CUDA
-# module use $JSCCOURSE_DIR_GROUP/common/modulefiles
+export USERINSTALLATIONS=${JSCCOURSE_DIR_GROUP}
+module update # will also load different NCCL
+module load NVSHMEM/3.1.7-CUDA-12

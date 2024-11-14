@@ -5,6 +5,7 @@ JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 MPICXX=mpicxx
 CUDA_HOME ?= /usr/local/cuda
 NCCL_HOME ?= /usr
+_JSCCOURSE_GPU_ARCH?=80
 GENCODE_SM30	:= -gencode arch=compute_30,code=sm_30
 GENCODE_SM35	:= -gencode arch=compute_35,code=sm_35
 GENCODE_SM37	:= -gencode arch=compute_37,code=sm_37

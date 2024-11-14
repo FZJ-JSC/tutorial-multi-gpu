@@ -5,6 +5,7 @@ JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
 MPICXX=mpicxx
 CUDA_HOME ?= /usr/local/cuda
 NCCL_HOME ?= /usr
+_JSCCOURSE_GPU_ARCH?=80
 GENCODE_SM30	:= -gencode arch=compute_30,code=sm_30
 GENCODE_SM35	:= -gencode arch=compute_35,code=sm_35
 GENCODE_SM37	:= -gencode arch=compute_37,code=sm_37
@@ -14,7 +15,7 @@ GENCODE_SM60    := -gencode arch=compute_60,code=sm_60
 GENCODE_SM70    := -gencode arch=compute_70,code=sm_70
 GENCODE_SM80    := -gencode arch=compute_80,code=sm_80 -gencode arch=compute_80,code=compute_80
 GENCODE_SM90    := -gencode arch=compute_90,code=sm_90 -gencode arch=compute_90,code=compute_90
-GENCODE_FLAGS	:= $(GENCODE_SM80) $(GENCODE_SM90)
+GENCODE_FLAGS	:= $(GENCODE_SM$(_JSCCOURSE_GPU_ARCH))
 ifdef DISABLE_CUB
         NVCC_FLAGS = -Xptxas --optimize-float-atomics
 else

@@ -1,4 +1,6 @@
 # Copyright (c) 2021,2022, NVIDIA CORPORATION. All rights reserved.
+THIS_TASK := 10H-Graphs-sol
+OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1
 NVCC=nvcc
 JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
@@ -35,10 +37,10 @@ clean:
 	rm -f jacobi jacobi_kernels.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file $(OUTPUT_NAME).%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
 	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx --cuda-graph-trace=node -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx --cuda-graph-trace=node -o $(OUTPUT_NAME).%q{SLURM_PROCID} ./jacobi -niter 10

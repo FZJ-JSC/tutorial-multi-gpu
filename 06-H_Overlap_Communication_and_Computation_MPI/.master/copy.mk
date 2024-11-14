@@ -6,18 +6,23 @@ SOLUTIONDIR = ../solutions/
 IYPNB_TEMPLATE = ../../.template.json
 
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile Instructions.ipynb Instructions.md jacobi_kernels.cu
+COPYFILES = Instructions.ipynb Instructions.md jacobi_kernels.cu
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))
 TASKCOPYFILES = $(addprefix $(TASKDIR)/,$(COPYFILES))
 SOLUTIONPROCCESFILES = $(addprefix $(SOLUTIONDIR)/,$(PROCESSFILES))
 SOLUTIONCOPYFILES = $(addprefix $(SOLUTIONDIR)/,$(COPYFILES))
+MAKEFILES = $(addsuffix /Makefile,$(TASKDIR) $(SOLUTIONDIR))
 
 .PHONY: all task clean
 all: task
-task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES}
+task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES} ${MAKEFILES}
 
+$(TASKDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/task/' $< > $@
+$(SOLUTIONDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/sol/' $< > $@
 
 ${TASKPROCCESFILES}: $(PROCESSFILES)
 	mkdir -p $(TASKDIR)/

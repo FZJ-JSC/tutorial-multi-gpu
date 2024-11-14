@@ -1,4 +1,6 @@
 # Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
+THIS_TASK := 10H-NVSHMEM-sol
+OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 4
 NVCC=nvcc
 JSC_SUBMIT_CMD ?= srun --cpu-bind=socket --gres=gpu:4 --ntasks-per-node 4
@@ -37,10 +39,10 @@ clean:
 	rm -f jacobi jacobi.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file $(OUTPUT_NAME).%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
 	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	CUDA_VISIBLE_DEVICES=$(C_V_D) $(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o $(OUTPUT_NAME).%q{SLURM_PROCID} ./jacobi -niter 10

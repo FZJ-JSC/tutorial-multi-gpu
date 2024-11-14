@@ -2,12 +2,12 @@
 # Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
 TASKDIR = ../tasks/
 SOLUTIONDIR = ../solutions/
-OPT_SOLUTIONDIR = ../solutions/advanced
+OPT_SOLUTIONDIR = ../solutions/advanced/
 
 IYPNB_TEMPLATE = ../../.template.json
 
 PROCESSFILES = jacobi.cu
-COPYFILES = Makefile Instructions.ipynb Instructions.md
+COPYFILES = Instructions.ipynb Instructions.md
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))
@@ -16,12 +16,19 @@ SOLUTIONPROCCESFILES = $(addprefix $(SOLUTIONDIR)/,$(PROCESSFILES))
 OPT_SOLUTIONPROCCESFILES = $(addprefix $(OPT_SOLUTIONDIR)/,$(PROCESSFILES))
 SOLUTIONCOPYFILES = $(addprefix $(SOLUTIONDIR)/,$(COPYFILES))
 OPT_SOLUTIONCOPYFILES = $(addprefix $(OPT_SOLUTIONDIR)/,$(COPYFILES))
+MAKEFILES = $(addsuffix /Makefile,$(TASKDIR) $(SOLUTIONDIR) $(OPT_SOLUTIONDIR))
 
 
 .PHONY: all task
 all: task
-task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES} ${OPT_SOLUTIONPROCCESFILES} ${OPT_SOLUTIONCOPYFILES}
+task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES} ${OPT_SOLUTIONPROCCESFILES} ${OPT_SOLUTIONCOPYFILES} ${MAKEFILES}
 
+$(TASKDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/task/' $< > $@
+$(SOLUTIONDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/sol/' $< > $@
+$(OPT_SOLUTIONDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/solopt/' $< > $@
 
 ${TASKPROCCESFILES}: $(PROCESSFILES)
 	mkdir -p $(TASKDIR)/

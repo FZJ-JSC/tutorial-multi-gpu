@@ -1,4 +1,6 @@
 # Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
+THIS_TASK := 06H-task
+OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1
 NVCC=nvcc
 MPICXX=mpicxx
@@ -34,10 +36,10 @@ clean:
 	rm -f jacobi jacobi_kernels.o *.nsys-rep jacobi.*.compute-sanitizer.log
 
 sanitize: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file jacobi.%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) compute-sanitizer --log-file $(OUTPUT_NAME).%q{SLURM_PROCID}.compute-sanitizer.log ./jacobi -niter 10
 
 run: jacobi
 	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
 
 profile: jacobi
-	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o jacobi.%q{SLURM_PROCID} ./jacobi -niter 10
+	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o $(OUTPUT_NAME).%q{SLURM_PROCID} ./jacobi -niter 10

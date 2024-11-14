@@ -31,7 +31,8 @@ Use the Nsight System profiler to profile the starting point version non-Overlap
 1. Start by compiling and running the application with `make run`
 1. Record an Nsight Systems profile, using the appropriate Makefile target (`make profile`)
 1. Open the recorded profile in the GUI
-    - Either: Install Nsight Systems locally, and transfer the .qdrep/.nsys-rep file
+    - Either: Install Nsight Systems locally, and transfer the .nsys-rep file.
+      - *Note*: Right-click in file-browser, choose "Download" from context menu
     - Or: By running Xpra in your browser: In Jupyter, select "File > New Launcher" and "Xpra Desktop", which will open in a new tab. Don't forget to source the environment in your `xterm`.
 1. Familiarize yourself with the different rows and the traces they represent. 
     - See if you can correlate a CUDA API kernel launch call and the resulting kernel execution on the device

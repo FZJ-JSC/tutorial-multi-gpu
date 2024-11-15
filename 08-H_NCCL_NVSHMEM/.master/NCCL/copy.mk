@@ -1,23 +1,28 @@
 #!/usr/bin/make -f
-# Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2021-2024, NVIDIA CORPORATION. All rights reserved.
 TASKDIR = ../../tasks/NCCL
 SOLUTIONDIR = ../../solutions/NCCL
 
 IYPNB_TEMPLATE = ../../../.template.json
 
 PROCESSFILES = jacobi.cpp
-COPYFILES = Makefile jacobi_kernels.cu Instructions.ipynb Instructions.md
+COPYFILES = jacobi_kernels.cu Instructions.ipynb Instructions.md
 
 
 TASKPROCCESFILES = $(addprefix $(TASKDIR)/,$(PROCESSFILES))
 TASKCOPYFILES = $(addprefix $(TASKDIR)/,$(COPYFILES))
 SOLUTIONPROCCESFILES = $(addprefix $(SOLUTIONDIR)/,$(PROCESSFILES))
 SOLUTIONCOPYFILES = $(addprefix $(SOLUTIONDIR)/,$(COPYFILES))
+MAKEFILES = $(addsuffix /Makefile,$(TASKDIR) $(SOLUTIONDIR))
 
 .PHONY: all task
 all: task
-task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES}
+task: ${TASKPROCCESFILES} ${TASKCOPYFILES} ${SOLUTIONPROCCESFILES} ${SOLUTIONCOPYFILES} ${MAKEFILES}
 
+$(TASKDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/task/' $< > $@
+$(SOLUTIONDIR)/Makefile: Makefile.in
+	sed -e 's/@@TASKSOL@@/sol/' $< > $@
 
 ${TASKPROCCESFILES}: $(PROCESSFILES)
 	mkdir -p $(TASKDIR)/

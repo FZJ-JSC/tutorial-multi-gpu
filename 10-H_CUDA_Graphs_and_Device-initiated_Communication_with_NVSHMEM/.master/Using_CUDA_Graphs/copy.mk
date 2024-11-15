@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2022-2024, NVIDIA CORPORATION. All rights reserved.
 TASKDIR = ../../tasks/Using_CUDA_Graphs
 SOLUTIONDIR = ../../solutions/Using_CUDA_Graphs
 

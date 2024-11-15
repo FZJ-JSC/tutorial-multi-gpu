@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2018, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2017-2024, NVIDIA CORPORATION. All rights reserved.
 THIS_TASK := 10H-NVSHMEM-sol
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 4

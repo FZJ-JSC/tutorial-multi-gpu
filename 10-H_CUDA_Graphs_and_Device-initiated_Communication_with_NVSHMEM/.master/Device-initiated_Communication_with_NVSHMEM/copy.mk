@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Copyright (c) 2021, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2021-2024, NVIDIA CORPORATION. All rights reserved.
 TASKDIR = ../../tasks/Device-initiated_Communication_with_NVSHMEM
 SOLUTIONDIR = ../../solutions/Device-initiated_Communication_with_NVSHMEM
 

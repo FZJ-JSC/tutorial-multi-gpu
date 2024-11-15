@@ -1,4 +1,4 @@
-# Copyright (c) 2021,2022, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2021-2024, NVIDIA CORPORATION. All rights reserved.
 THIS_TASK := 10H-Graphs-sol
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1

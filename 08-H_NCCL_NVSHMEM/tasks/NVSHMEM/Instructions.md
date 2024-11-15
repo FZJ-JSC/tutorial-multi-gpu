@@ -4,6 +4,7 @@
 -   Location: B211, Atlanta Convention Center, Georgia, USA
 -   Program Link:
     https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
+
 ## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API

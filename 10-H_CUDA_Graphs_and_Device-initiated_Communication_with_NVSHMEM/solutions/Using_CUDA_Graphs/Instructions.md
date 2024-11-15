@@ -4,6 +4,7 @@
 -   Location: B211, Atlanta Convention Center, Georgia, USA
 -   Program Link:
     https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
+
 ## Hands-On 10B: Using CUDA Graphs
 
 ### Task: Combining CUDA Graphs with NCCL for Inter-GPU Communication

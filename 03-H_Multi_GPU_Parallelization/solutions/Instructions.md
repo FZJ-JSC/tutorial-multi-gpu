@@ -4,6 +4,7 @@
 -   Location: B211, Atlanta Convention Center, Georgia, USA
 -   Program Link:
     https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
+
 ## Hands-On 3: Multi-GPU Parallelization with CUDA-aware MPI
 
 ### Task: Parallelize Jacobi Solver for Multiple GPUs using CUDA-aware MPI

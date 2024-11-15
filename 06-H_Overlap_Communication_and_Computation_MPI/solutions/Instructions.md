@@ -4,6 +4,7 @@
 -   Location: B211, Atlanta Convention Center, Georgia, USA
 -   Program Link:
     https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
+
 ## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,

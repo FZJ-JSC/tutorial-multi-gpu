@@ -116,8 +116,6 @@ if [[ $- =~ "i" ]]; then
 	alias jsc-material-reset-10="rsync --archive --delete $JSCCOURSE_DIR_GROUP/common/material/10-* $JSCCOURSE_DIR_LOCAL"
 	alias jsc-material-reset-11="rsync --archive --delete $JSCCOURSE_DIR_GROUP/common/material/11-* $JSCCOURSE_DIR_LOCAL"
 
-	export MPI_HOME=$EBROOTPSMPI
-
 	echo ""
 	echo "*******************************************************************************"
 	echo "       Welcome to the SC24 Tutorial on Multi-GPU Computing for Exascale!       "

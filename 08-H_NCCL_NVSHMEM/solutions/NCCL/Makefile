@@ -1,5 +1,5 @@
 # Copyright (c) 2021-2024, NVIDIA CORPORATION. All rights reserved.
-THIS_TASK := 08H-NCCL-sol
+THIS_TASK := 08H-NCCL-task
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1
 NVCC=nvcc
@@ -41,6 +41,9 @@ sanitize: jacobi
 
 run: jacobi
 	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi
+
+run_user_buffer: jacobi
+	$(JSC_SUBMIT_CMD) -n $(NP) ./jacobi  -user_buffer_reg
 
 profile: jacobi
 	$(JSC_SUBMIT_CMD) -n $(NP) nsys profile --trace=mpi,cuda,nvtx -o $(OUTPUT_NAME).%q{SLURM_PROCID} ./jacobi -niter 10

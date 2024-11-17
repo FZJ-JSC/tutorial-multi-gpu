@@ -100,6 +100,7 @@ const int num_colors = sizeof(colors) / sizeof(uint32_t);
 #define NCCL_UB_SUPPORT 0
 #endif
 
+
 #define NCCL_CALL(call)                                                                     \
     {                                                                                       \
         ncclResult_t  ncclStatus = call;                                                    \
@@ -181,6 +182,7 @@ int main(int argc, char* argv[]) {
         user_buffer_reg = false;
     }
 #endif //NCCL_UB_SUPPORT == 0
+
     int local_rank = -1;
     {
         MPI_Comm local_comm;
@@ -233,12 +235,12 @@ int main(int argc, char* argv[]) {
 
     real* a;
     real* a_new;
-
 #if NCCL_UB_SUPPORT
     void* a_reg_handle;
     void* a_new_reg_handle;
     if (user_buffer_reg) {
     //TODO: Allocate the memory with ncclMemAlloc and register it for the commmunicatior
+
         NCCL_CALL(ncclMemAlloc( (void**) &a    , nx * (chunk_size + 2) * sizeof(real)));
         NCCL_CALL(ncclMemAlloc( (void**) &a_new, nx * (chunk_size + 2) * sizeof(real)));
         NCCL_CALL(ncclCommRegister(nccl_comm, a    , nx * (chunk_size + 2) * sizeof(real), &a_reg_handle));
@@ -249,6 +251,7 @@ int main(int argc, char* argv[]) {
     }
     else
 #endif //NCCL_UB_SUPPORT
+
     {
     CUDA_RT_CALL(cudaMalloc(&a, nx * (chunk_size + 2) * sizeof(real)));
     CUDA_RT_CALL(cudaMalloc(&a_new, nx * (chunk_size + 2) * sizeof(real)));

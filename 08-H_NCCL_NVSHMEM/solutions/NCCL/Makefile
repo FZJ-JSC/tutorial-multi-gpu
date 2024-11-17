@@ -1,5 +1,5 @@
 # Copyright (c) 2021-2024, NVIDIA CORPORATION. All rights reserved.
-THIS_TASK := 08H-NCCL-task
+THIS_TASK := 08H-NCCL-sol
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1
 NVCC=nvcc

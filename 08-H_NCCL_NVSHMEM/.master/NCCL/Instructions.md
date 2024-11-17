@@ -21,6 +21,10 @@ The purpose of this task is to use NCCL instead of MPI to implement a multi-GPU 
 - Fix output message to indicate nccl rather than mpi
 - Destroy NCCL communicator
 
+If you have time left:
+- Use ncclMemAlloc to allocate the buffers and register them for communication
+- Don`t forget to deregister and free the buffers correctly
+
 Compile with
 
 ``` {.bash}

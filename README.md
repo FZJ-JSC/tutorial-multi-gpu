@@ -18,7 +18,7 @@ The tutorial is an interactive tutorial with introducing lectures and practical 
 
 Walk-through:
 
-* Sign up at JuDoor: https://go.fzj.de/mg-jd
+* Sign up at JuDoor
 * Open Jupyter JSC: https://jupyter-jsc.fz-juelich.de
 * Create new Jupyter instance on JEDI, using training2446 account, on **LoginNode**
 * Source course environment: `source $PROJECT_training2446/env.sh`

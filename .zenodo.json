@@ -29,21 +29,21 @@
 
     "title": "Efficient Distributed GPU Programming for Exascale",
 
-    "publication_date": "2024-11-17",
+    "publication_date": "2025-06-13",
 
     "description": "<p>Over the past decade, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the recently deployed and upcoming Pre-Exascale and Exascale systems (JUPITER, LUMI, Leonardo; El Capitan, Frontier, Aurora): GPUs are chosen as the core computing devices to enter this next era of HPC.To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the proper skills and tools to understand, manage, and optimize distributed GPU applications.In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using a development system for JUPITER (JEDI), for interactive learning and discovery.</p>",
 
-    "notes": "Slides and exercises of tutorial presented at SC24 (The International Conference for High Performance Computing, Networking, Storage, and Analysis 2024); https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412",
+    "notes": "Slides and exercises of tutorial presented at ISC High Performance 2025; https://isc.app.swapcard.com/widget/event/isc-high-performance-2025/planning/UGxhbm5pbmdfMjU4MTc5Ng==",
 
     "access_right": "open",
 
-    "conference_title": "SC 2024",
-    "conference_acronym": "SC24",
-    "conference_dates": "17 November-22 November 2024",
-    "conference_place": "Atlanta, Georgia, USA",
-    "conference_url": "https://sc24.supercomputing.org/",
+    "conference_title": "ISC 2025",
+    "conference_acronym": "ISC25",
+    "conference_dates": "10 June-13 June 2025",
+    "conference_place": "Hamburg, Germany",
+    "conference_url": "https://www.isc-hpc.com/",
     "conference_session": "Tutorials",
-    "conference_session_part": "Day 1",
+    "conference_session_part": "Afternoon",
 
     "upload_type": "lesson"
 }

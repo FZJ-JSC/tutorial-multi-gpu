@@ -48,5 +48,5 @@ keywords:
   - NVSHMEM
   - Distributed Programming
 license: MIT
-version: '7.0-sc24'
-date-released: '2024-11-17'
+version: '8.0-isc25'
+date-released: '2025-06-13'

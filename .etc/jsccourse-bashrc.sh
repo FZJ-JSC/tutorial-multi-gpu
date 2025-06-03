@@ -11,10 +11,10 @@
 # Andreas Herten, >2017
 ################################################
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2446"
+	project="training2526"
 
 	export JSCCOURSE_DIR_GROUP=/p/project/$project
-	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/SC24-Multi-GPU-Tutorial
+	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC25-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"
 	export C_V_D="0,1,2,3"
@@ -23,8 +23,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 
 	res=""
 	currentday=$(date +%d)
-	if [[ "$currentday" == "17" ]]; then
-		res="--reservation sc24-multi-gpu"
+	if [[ "$currentday" == "13" ]]; then
+		res="--reservation isc25-mgpu"
 	fi
 	
 	export SLURM_NTASKS=1
@@ -47,12 +47,14 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			export NP=4
 			partition=${partition:-booster}
 			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--disable-dcgm"
+			export _JSCCOURSE_GPU_ARCH='80'
 			;;
 		jurecadc)
 			ngpus=4
 			export NP=4
 			partition=${partition:-dc-gpu}
 			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--disable-dcgm"
+			export _JSCCOURSE_GPU_ARCH='80'
 			;;
 		jedi)
 			ngpus=4

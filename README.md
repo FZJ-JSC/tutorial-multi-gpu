@@ -19,9 +19,9 @@ The tutorial is an interactive tutorial with introducing lectures and practical 
 Walk-through:
 
 * Sign up at JuDoor
-* Open Jupyter JSC: https://jupyter-jsc.fz-juelich.de
-* Create new Jupyter instance on JEDI, using training25XX account, on **LoginNode**
-* Source course environment: `source $PROJECT_training25XX/env.sh`
+* Open Jupyter JSC: https://jupyter.jsc.fz-juelich.de
+* Create new Jupyter instance on JUPITER, using training2526 account, on **LoginNode**
+* Source course environment: `source $PROJECT_training2526/env.sh`
 * Sync material: `jsc-material-sync`
 * Locally install NVIDIA Nsight Systems: https://developer.nvidia.com/nsight-systems
 

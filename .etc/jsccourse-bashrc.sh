@@ -56,10 +56,10 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 			JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--disable-dcgm"
 			export _JSCCOURSE_GPU_ARCH='80'
 			;;
-		jedi)
+		jupiter)
 			ngpus=4
 			export NP=4
-			partition=${parittion:-all}
+			partition=${parittion:-booster}
 			# JSC_SUBMIT_CMD_SYSTEM_SPECIFIC_OPTIONS="--gpus-per-task=1"
 			export _JSCCOURSE_GPU_ARCH='90'
 			;;

@@ -13,7 +13,7 @@
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	project="training2526"
 
-	export JSCCOURSE_DIR_GROUP=/p/project/$project
+	export JSCCOURSE_DIR_GROUP=/p/project1/$project
 	export JSCCOURSE_DIR_LOCAL=${JSCCOURSE_DIR_LOCAL_BASE:-$HOME}/ISC25-Multi-GPU-Tutorial
 
 	export _JSCCOURSE_ENV_SOURCED="$(date)"

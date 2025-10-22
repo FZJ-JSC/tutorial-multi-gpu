@@ -8,3 +8,4 @@ module load NCCL/default-CUDA-12 #2.22.3-1
 module load NVSHMEM/3.1.7-CUDA-12
 module load Nsight-Systems/2025.3.1
 module load MPI-settings/CUDA
+module use $JSCCOURSE_DIR_GROUP/common/modulefiles

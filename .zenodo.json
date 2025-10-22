@@ -24,26 +24,31 @@
             "orcid": "0000-0002-9670-5296",
             "affiliation": "FernUni Hagen",
             "name": "Oden, Lena"
+        },
+        {   
+            "orcid": "0000-0003-1433-9198",
+            "affiliation": "NVIDIA",
+            "name": "Appelhans, David"
         }
     ],    
 
     "title": "Efficient Distributed GPU Programming for Exascale",
 
-    "publication_date": "2025-06-13",
+    "publication_date": "2025-11-16",
 
-    "description": "<p>Over the past decade, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers (e.g. Summit, Sierra, JUWELS Booster). This trend continues in the recently deployed and upcoming Pre-Exascale and Exascale systems (JUPITER, LUMI, Leonardo; El Capitan, Frontier, Aurora): GPUs are chosen as the core computing devices to enter this next era of HPC.To take advantage of future GPU-accelerated systems with tens of thousands of devices, application developers need to have the proper skills and tools to understand, manage, and optimize distributed GPU applications.In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using a development system for JUPITER (JEDI), for interactive learning and discovery.</p>",
+    "description": "<p>Over the past decade, GPUs became ubiquitous in HPC installations around the world, delivering the majority of performance of some of the largest supercomputers, steadily increasing the available compute capacity. Finally, four exascale systems are deployed (Frontier, Aurora, El Capitan, JUPITER), using GPUs as the core computing devices for this era of HPC.  To take advantage of these GPU-accelerated systems with tens of thousands of devices, application developers need to have the proper skills and tools to understand, manage, and optimize distributed GPU applications.  In this tutorial, participants will learn techniques to efficiently program large-scale multi-GPU systems. While programming multiple GPUs with MPI is explained in detail, also advanced tuning techniques and complementing programming models like NCCL and NVSHMEM are presented. Tools for analysis are shown and used to motivate and implement performance optimizations. The tutorial teaches fundamental concepts that apply to GPU-accelerated systems of any vendor in general, taking the NVIDIA platform as an example. It is a combination of lectures and hands-on exercises, using the JUPITER system for interactive learning and discovery.</p>",
 
-    "notes": "Slides and exercises of tutorial presented at ISC High Performance 2025; https://isc.app.swapcard.com/widget/event/isc-high-performance-2025/planning/UGxhbm5pbmdfMjU4MTc5Ng==",
+    "notes": "Slides and exercises of tutorial presented at SC25 (The International Conference for High Performance Computing, Networking, Storage, and Analysis 2025); https://sc25.conference-program.com/presentation/?id=tut113&sess=sess252",
 
     "access_right": "open",
 
-    "conference_title": "ISC 2025",
-    "conference_acronym": "ISC25",
-    "conference_dates": "10 June-13 June 2025",
-    "conference_place": "Hamburg, Germany",
-    "conference_url": "https://www.isc-hpc.com/",
+    "conference_title": "SC 2025",
+    "conference_acronym": "SC25",
+    "conference_dates": "16 November-21 November 2025",
+    "conference_place": "St. Louis, Missouri, USA",
+    "conference_url": "https://sc25.supercomputing.org/",
     "conference_session": "Tutorials",
-    "conference_session_part": "Afternoon",
+    "conference_session_part": "Day 1",
 
     "upload_type": "lesson"
 }

@@ -1,10 +1,9 @@
-# SC24 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC25 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Sunday, November 17, 2024 8:30 AM to 5:30 PM
--   Location: B211, Atlanta Convention Center, Georgia, USA
+-   Sunday, November 16, 2025 8:30 AM to 5:00 PM
+-   Location: Room 127, St. Louis Convention Center, St. Louis, USA
 -   Program Link:
-    https://sc24.conference-program.com/presentation/?id=tut123&sess=sess412
-
+    https://sc25.conference-program.com/presentation/?id=tut113&sess=sess252
 ## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,

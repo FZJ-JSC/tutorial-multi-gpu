@@ -29,8 +29,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	jutil env activate -p $JSCCOURSE_PROJECT -A $JSCCOURSE_PROJECT
 
 	currentday=$(date +%d)
-	if [[ "$currentday" == "13" ]]; then
-		res="--reservation sc25-mgpu"
+	if [[ "$currentday" == "16" ]]; then
+		res="--reservation sc25-multigpu-tut"
 	fi
 	
 	export SLURM_NTASKS=1

@@ -1,6 +1,6 @@
 # SC25 Tutorial: Efficient Distributed GPU Programming for Exascale
 
-[![DOI](https://zenodo.org/badge/409504932.svg)](https://zenodo.org/badge/latestdoi/409504932)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5745504.svg)](https://doi.org/10.5281/zenodo.5745504)
 
 
 Repository with talks and exercises of our Efficient GPU Programming for Exascale tutorial, to be held at [SC25](https://sc25.conference-program.com/presentation/?id=tut113&sess=sess252).

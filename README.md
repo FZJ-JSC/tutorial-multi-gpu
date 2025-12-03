@@ -20,8 +20,8 @@ Walk-through (only possible on-site at SC25!):
 
 * Sign up at JuDoor
 * Open Jupyter JSC: https://jupyter.jsc.fz-juelich.de
-* Create new Jupyter instance on [JUWELS, using training2555 account, on **LoginNodeBooster**](https://jupyter.jsc.fz-juelich.de/workshops/sc25mg)
-* Source course environment: `source $PROJECT_training2555/env.sh`
+* Create new Jupyter instance on [JUWELS, using training26XX account, on **LoginNodeBooster**](https://jupyter.jsc.fz-juelich.de/workshops/sc25mg)
+* Source course environment: `source $PROJECT_training26XX/env.sh`
 * Sync material: `jsc-material-sync`
 * Locally install NVIDIA Nsight Systems: https://developer.nvidia.com/nsight-systems
 

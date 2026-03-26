@@ -22,9 +22,9 @@ ifdef DISABLE_CUB
 else
         NVCC_FLAGS = -DHAVE_CUB
 endif
-NVCC_FLAGS += -lineinfo $(GENCODE_FLAGS) -std=c++14
-MPICXX_FLAGS = -DUSE_NVTX -I$(CUDA_HOME)/include -std=c++14
-LD_FLAGS = -L$(CUDA_HOME)/lib64 -lcudart -lnvToolsExt
+NVCC_FLAGS += -lineinfo $(GENCODE_FLAGS) -std=c++17 -I$(CUDA_HOME)/include
+MPICXX_FLAGS = -DUSE_NVTX -I$(CUDA_HOME)/include -std=c++17
+LD_FLAGS = -L$(CUDA_HOME)/lib64 -lcudart 
 jacobi: Makefile jacobi.cpp jacobi_kernels.o
 	$(MPICXX) $(MPICXX_FLAGS) jacobi.cpp jacobi_kernels.o $(LD_FLAGS) -o jacobi
 

@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential openmpi-bin libopenmpi-dev
+      - name: Build first example
+        working-directory: 03-H_Multi_GPU_Parallelization/solutions
+        env:
+          MPI_HOME: /usr
+        run: |
+          make jacobi

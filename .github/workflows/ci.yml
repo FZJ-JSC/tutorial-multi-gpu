@@ -17,6 +17,6 @@ jobs:
       - name: Build first example
         working-directory: 03-H_Multi_GPU_Parallelization/solutions
         env:
-          MPI_HOME: /usr
-        run: |
+          MPI_HOME: /usr/lib/x86_64-linux-gnu/openmpi
+	run: |
           make jacobi

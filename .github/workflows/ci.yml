@@ -6,6 +6,15 @@ on:
     branches: [ main ]
 jobs:
   build:
+    strategy:
+      matrix:
+        exercise:
+          - 03-H_Multi_GPU_Parallelization/solutions
+          - 06-H_Overlap_Communication_and_Computation_MPI/solutions
+          - 08-H_NCCL_NVSHMEM/solutions/NCCL
+          - 08-H_NCCL_NVSHMEM/solutions/NVSHMEM
+          - /10-H_CUDA_Graphs_and_Device-initiated_Communication_with_NVSHMEM/solutions/Device-initiated_Communication_with_NVSHMEM/
+          - /10-H_CUDA_Graphs_and_Device-initiated_Communication_with_NVSHMEM/solutions/Using_CUDA_Graphs/
     runs-on: ubuntu-latest
     container:
       image: nvidia/cuda:13.2.0-devel-ubuntu24.04
@@ -15,7 +24,7 @@ jobs:
         run: |
           apt-get update && apt-get install -y build-essential openmpi-bin libopenmpi-dev
       - name: Build first example
-        working-directory: 03-H_Multi_GPU_Parallelization/solutions
+        working-directory: ${{ matrix.exercise }}
         env:
           MPI_HOME: /usr/lib/x86_64-linux-gnu/openmpi
         run: |

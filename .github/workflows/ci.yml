@@ -34,4 +34,5 @@ jobs:
       - name: Test Building
         working-directory: ${{ matrix.exercise }}
         run: |
+          printenv LD_LIBRARY_PATH
           make jacobi

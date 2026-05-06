@@ -1,0 +1,43 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        exercise:
+          - 03-H_Multi_GPU_Parallelization/solutions
+          - 06-H_Overlap_Communication_and_Computation_MPI/solutions
+          - 08-H_NCCL_NVSHMEM/solutions/NCCL
+          - 08-H_NCCL_NVSHMEM/solutions/NVSHMEM
+          - 10-H_CUDA_Graphs_and_Device-initiated_Communication_with_NVSHMEM/solutions/Device-initiated_Communication_with_NVSHMEM
+          - 10-H_CUDA_Graphs_and_Device-initiated_Communication_with_NVSHMEM/solutions/Using_CUDA_Graphs
+    runs-on: ubuntu-latest
+    container:
+      image: nvcr.io/nvidia/nvhpc:26.3-devel-cuda13.1-ubuntu24.04
+    env:
+      # NVHPC_ROOT: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3
+      CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1
+      MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/13.1/hpcx/latest/ompi/
+      # # MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/mpi
+      NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/
+      NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem
+      # # PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
+      # CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/include
+      # LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
+      LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Building
+        working-directory: ${{ matrix.exercise }}
+        run: |
+          source /usr/share/lmod/lmod/init/bash
+          module load nvhpc-hpcx
+          make jacobi

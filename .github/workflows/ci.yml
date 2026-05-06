@@ -24,11 +24,11 @@ jobs:
       CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1
       MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/13.1/hpcx/latest/ompi/
       # MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/mpi
-      NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/13.1/nccl
+      NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/
       NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem
       # PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
       CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/include
-      LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64
+      LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
     steps:
       - uses: actions/checkout@v3
       - name: Test Building

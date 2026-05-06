@@ -26,7 +26,7 @@ jobs:
       # MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/mpi
       NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/math_libs/nccl
       NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem
-      PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      # PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
       CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/include
       LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64
     steps:

@@ -38,6 +38,8 @@ jobs:
       - name: Test Building
         working-directory: ${{ matrix.exercise }}
         run: |
+          source /usr/share/lmod/lmod/init/bash
+          type module
           module load nvhpc-hpcx
           printenv NVHPC_ROOT
           make jacobi

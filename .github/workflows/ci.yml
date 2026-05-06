@@ -18,7 +18,7 @@ jobs:
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication_with_NVSHMEM/solutions/Using_CUDA_Graphs
     runs-on: ubuntu-latest
     container:
-      image: nvidia/cuda:13.2.0-devel-ubuntu24.04
+      image: nvcr.io/nvidia/nvhpc:26.3-devel-cuda13.1-ubuntu24.04
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies

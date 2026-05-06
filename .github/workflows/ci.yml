@@ -29,7 +29,7 @@ jobs:
       # PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
       CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/include
       LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
-      LIBRARY_PATH: ${{ env.LD_LIBRARY_PATH }}
+      LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
     steps:
       - uses: actions/checkout@v3
       - name: Test Building

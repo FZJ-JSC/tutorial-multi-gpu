@@ -6,6 +6,9 @@ on:
     branches: [ main ]
 jobs:
   build:
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:

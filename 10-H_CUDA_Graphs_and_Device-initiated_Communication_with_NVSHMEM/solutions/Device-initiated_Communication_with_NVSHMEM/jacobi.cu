@@ -231,7 +231,7 @@ int main(int argc, char* argv[]) {
 
     // ny - 2 rows are distributed amongst `size` ranks in such a way
     // that each rank gets either (ny - 2) / size or (ny - 2) / size + 1 rows.
-    // This optimizes load balancing when (ny - 2) % size != 0
+    // this optimizes load balancing when (ny - 2) % size != 0
     int chunk_size;
     int chunk_size_low = (ny - 2) / size;
     int chunk_size_high = chunk_size_low + 1;
@@ -273,7 +273,7 @@ int main(int argc, char* argv[]) {
     const int iy_top_lower_boundary_idx = (top < num_ranks_low) ? (chunk_size_low + 1) : (chunk_size_high + 1);
     const int iy_bottom_upper_boundary_idx = 0;
 
-    // Set diriclet boundary conditions on left and right boarder
+    // Set Dirichlet boundary conditions on left and right border
     initialize_boundaries<<<(chunk_size + 2) / 128 + 1, 128>>>(a, a_new, PI, iy_start_global - 1, nx, (chunk_size + 2), ny);
     CUDA_RT_CALL(cudaGetLastError());
     CUDA_RT_CALL(cudaDeviceSynchronize());
@@ -389,7 +389,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaFreeHost(l2_norm_h));
     CUDA_RT_CALL(cudaFree(l2_norm_d));
 
-    //TODO: Deallocated a_new and a from the NVSHMEM symmetric heap
+    //TODO: Deallocate a_new and a from the NVSHMEM symmetric heap
     nvshmem_free(a_new);
     nvshmem_free(a);
 
@@ -458,7 +458,7 @@ double single_gpu(const int nx, const int ny, const int iter_max, real* const a_
     CUDA_RT_CALL(cudaMemset(a, 0, nx * ny * sizeof(real)));
     CUDA_RT_CALL(cudaMemset(a_new, 0, nx * ny * sizeof(real)));
 
-    // Set diriclet boundary conditions on left and right boarder
+    // Set Dirichlet boundary conditions on left and right border
     initialize_boundaries<<<ny / 128 + 1, 128>>>(a, a_new, PI, 0, nx, ny, ny);
     CUDA_RT_CALL(cudaGetLastError());
     CUDA_RT_CALL(cudaDeviceSynchronize());

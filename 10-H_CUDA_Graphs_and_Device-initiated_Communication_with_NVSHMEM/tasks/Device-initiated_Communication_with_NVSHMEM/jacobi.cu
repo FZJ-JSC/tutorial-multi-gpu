@@ -256,7 +256,7 @@ int main(int argc, char* argv[]) {
 
     //TODO: calculate halo/boundary row index of top and bottom neighbors
 
-    // Set diriclet boundary conditions on left and right boarder
+    // Set Dirichlet boundary conditions on left and right border
     initialize_boundaries<<<(chunk_size + 2) / 128 + 1, 128>>>(a, a_new, PI, iy_start_global - 1, nx, (chunk_size + 2), ny);
     CUDA_RT_CALL(cudaGetLastError());
     CUDA_RT_CALL(cudaDeviceSynchronize());
@@ -393,7 +393,7 @@ int main(int argc, char* argv[]) {
     CUDA_RT_CALL(cudaFreeHost(l2_norm_h));
     CUDA_RT_CALL(cudaFree(l2_norm_d));
 
-    //TODO: Deallocated a_new and a from the NVSHMEM symmetric heap
+    //TODO: Deallocate a_new and a from the NVSHMEM symmetric heap
     CUDA_RT_CALL(cudaFree(a_new));
     CUDA_RT_CALL(cudaFree(a));
 
@@ -461,7 +461,7 @@ double single_gpu(const int nx, const int ny, const int iter_max, real* const a_
     CUDA_RT_CALL(cudaMemset(a, 0, nx * ny * sizeof(real)));
     CUDA_RT_CALL(cudaMemset(a_new, 0, nx * ny * sizeof(real)));
 
-    // Set diriclet boundary conditions on left and right boarder
+    // Set Dirichlet boundary conditions on left and right border
     initialize_boundaries<<<ny / 128 + 1, 128>>>(a, a_new, PI, 0, nx, ny, ny);
     CUDA_RT_CALL(cudaGetLastError());
     CUDA_RT_CALL(cudaDeviceSynchronize());

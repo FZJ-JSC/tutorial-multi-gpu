@@ -29,7 +29,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	jutil env activate -p $JSCCOURSE_PROJECT -A $JSCCOURSE_PROJECT
 
 	currentday=$(date +%d)
-	if [[ "$currentday" == "17" ]] || [[ "$currentday" == "18" ]] || [[ "$currentday" == "19" ]]; then
+	if [[ "$currentday" == "17" ]] || [[ "$currentday" == "18" ]] || [[ "$currentday" == "19" ]] || [[ "$currentday" == "20" ]]; then
 		res="--reservation summerschool"
 	fi
 	

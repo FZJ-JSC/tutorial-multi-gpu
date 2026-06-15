@@ -102,7 +102,7 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 fi
 
 if [[ $- =~ "i" ]]; then
-	for script_rel in modules_jupiter.sh; do
+	for script_rel in modules.sh; do
 		abs_script=$__SCRIPT_DIR/$script_rel
 		if [ -e $abs_script ]; then
 			source $abs_script

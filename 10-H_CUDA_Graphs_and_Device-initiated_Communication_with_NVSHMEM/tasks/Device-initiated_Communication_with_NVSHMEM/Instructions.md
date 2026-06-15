@@ -1,4 +1,9 @@
-# ISC26 Tutorial: Efficient Distributed GPU Programming for Exascale
+# Multi-GPU Tutorial: HPC Driving AI
+
+-   Wednesday, June 17, 2026 - Saturday, June 20, 2026.
+-   Location: TUM Campus Heilbronn, Bildungscampus 2, 74076 Heilbronn
+-   Program Link:
+    [https://chn.tum.de/study-programs/summer-school-on-hpc-driving-ai#c15072](https://chn.tum.de/study-programs/summer-school-on-hpc-driving-ai#c15072)
 
 ## Hands-On 10A: Device-initiated Communication with NVSHMEM
 
@@ -36,7 +41,7 @@ Study the performance by glimpsing at the profile generated with
 
 #### Note
 
-The Slurm installation on JEDI sets `CUDA_VISIBLE_DEVICES` automatically so that each spawned process only sees the GPU it should use (see [Hardware Configuration JUWELS](https://apps.fz-juelich.de/jsc/hps/juwels/configuration.html) or [Hardware Configuration JUPITER](https://apps.fz-juelich.de/jsc/hps/jupiter/configuration.html) in the user documentation). This is not supported for NVSHMEM. The automatic setting of `CUDA_VISIBLE_DEVICES` can be disabled by setting `CUDA_VISIBLE_DEVICES=0,1,2,3` in the shell that executes srun. With `CUDA_VISIBLE_DEVICES` set all spawned processes can see all GPUs listed. This is automatically done for the `sanitize`, `run` and `profile` make targets.
+The Slurm installation on JEDI sets `CUDA_VISIBLE_DEVICES` automatically so that each spawned process only sees the GPU it should use (see [Hardware Configuration](https://apps.fz-juelich.de/jsc/hps/jedi/configuration.html#hardware-configuration) in the JEDI user documentation). This is not supported for NVSHMEM. The automatic setting of `CUDA_VISIBLE_DEVICES` can be disabled by setting `CUDA_VISIBLE_DEVICES=0,1,2,3` in the shell that executes srun. With `CUDA_VISIBLE_DEVICES` set all spawned processes can see all GPUs listed. This is automatically done for the `sanitize`, `run` and `profile` make targets.
 
 ### Advanced Task: Use `nvshmemx_float_put_nbi_block`
 

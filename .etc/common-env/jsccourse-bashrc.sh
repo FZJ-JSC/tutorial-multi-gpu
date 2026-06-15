@@ -15,7 +15,7 @@
 
 
 if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
-	project="training2502"
+	project="training2630"
 	_JSCCOURSE_PROJECT=${JSCCOURSE_PROJECT:-$project}
 	_JSCCOURSE_SHORTNAME=${JSCCOURSE_SHORTNAME:-"GPU-Course"}
 	_JSCCOURSE_HUMANNAME=${JSCCOURSE_HUMANNAME:-"GPU Course"}
@@ -29,8 +29,8 @@ if [ -z "$_JSCCOURSE_ENV_SOURCED" ]; then
 	jutil env activate -p $JSCCOURSE_PROJECT -A $JSCCOURSE_PROJECT
 
 	currentday=$(date +%d)
-	if [[ "$currentday" == "16" ]]; then
-		res="--reservation sc25-multigpu-tut"
+	if [[ "$currentday" == "17" ]] || [[ "$currentday" == "18" ]] || [[ "$currentday" == "19" ]] || [[ "$currentday" == "20" ]]; then
+		res="--reservation summerschool"
 	fi
 	
 	export SLURM_NTASKS=1

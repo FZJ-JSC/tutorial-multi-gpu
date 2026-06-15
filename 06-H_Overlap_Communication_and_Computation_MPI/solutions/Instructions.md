@@ -1,9 +1,10 @@
-# SC25 Tutorial: Efficient Distributed GPU Programming for Exascale
+# Multi-GPU Tutorial: HPC Driving AI
 
--   Sunday, November 16, 2025 8:30 AM to 5:00 PM
--   Location: Room 127, St. Louis Convention Center, St. Louis, USA
+-   Wednesday, June 17, 2026 - Saturday, June 20, 2026.
+-   Location: TUM Campus Heilbronn, Bildungscampus 2, 74076 Heilbronn
 -   Program Link:
-    https://sc25.conference-program.com/presentation/?id=tut113&sess=sess252
+    [https://chn.tum.de/study-programs/summer-school-on-hpc-driving-ai#c15072](https://chn.tum.de/study-programs/summer-school-on-hpc-driving-ai#c15072)
+
 ## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,

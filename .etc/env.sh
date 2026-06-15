@@ -1,7 +1,8 @@
-export JSCCOURSE_PROJECT=training2555
-export JSCCOURSE_SHORTNAME=SC25-Multi-GPU-Tutorial
-export JSCCOURSE_HUMANNAME="SC25 Tutorial on Multi-GPU Computing for Exascale"
+export JSCCOURSE_PROJECT=training2630
+export JSCCOURSE_SHORTNAME=HPC-AI-Multi-GPU-Tutorial
+export JSCCOURSE_HUMANNAME="HPC Driving AI Tutorial on Multi-GPU Computing"
 
 # Note: Reservations are not properly supported
 
-source /p/project1/$JSCCOURSE_PROJECT/common/environment/common-env/jsccourse-bashrc.sh
+source /e/project1/$JSCCOURSE_PROJECT/common/environment/common-env/jsccourse-bashrc.sh
+

@@ -1,9 +1,9 @@
-# SC25 Tutorial: Efficient Distributed GPU Programming for Exascale
+# ISC26 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Sunday, November 16, 2025 8:30 AM to 5:00 PM
--   Location: Room 127, St. Louis Convention Center, St. Louis, USA
+-   Monday, July 22, 2025 9:00 AM to 6:00 PM
+-   Location: Hall X1, CCH Hamburg, Germany
 -   Program Link:
-    https://sc25.conference-program.com/presentation/?id=tut113&sess=sess252
+    https://app.swapcard.com/event/isc-high-performance-2026/planning/UGxhbm5pbmdfNDM5MDIyMg==
 ## Hands-On 6: Overlap Communication and Computation with MPI
 
 You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,

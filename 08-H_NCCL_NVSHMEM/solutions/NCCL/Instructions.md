@@ -1,9 +1,9 @@
-# ISC26 Tutorial: Efficient Distributed GPU Programming for Exascale
+# SC26 Tutorial: Efficient Distributed GPU Programming for Exascale
 
--   Monday, July 22, 2025 9:00 AM to 6:00 PM
--   Location: Hall X1, CCH Hamburg, Germany
+-   Sunday, November 15, 2026 9:30 AM to 5:00 PM
+-   Location: W190b, Chicago, USA
 -   Program Link:
-    https://app.swapcard.com/event/isc-high-performance-2026/planning/UGxhbm5pbmdfNDM5MDIyMg==
+    https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
 ## Hands-On 8-NCCL: Using NCCL for Inter-GPU Communication
 
 ### Task: Using NCCL

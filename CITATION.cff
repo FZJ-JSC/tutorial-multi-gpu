@@ -24,20 +24,11 @@ authors:
     email: jkraus@nvidia.com
     affiliation: NVIDIA
     orcid: 'https://orcid.org/0000-0002-5240-3317'
-  - given-names: Markus
-    family-names: Hrywniak
-    email: mhrywniak@nvidia.com
+  - given-names: Oded
+    family-names: Green
+    email: ogreen@nvidia.com
     affiliation: NVIDIA
-    orcid: 'https://orcid.org/0000-0002-6015-8788'
-  - given-names: David
-    family-names: Appelhans
-    email: dappelhans@nvidia.com
-    affiliation: NVIDIA
-    orcid: 'https://orcid.org/0000-0003-1433-9198'
-  - given-names: Laura
-    family-names: Morgenstern
-    email: lmorgenstern@nvidia.com
-    affiliation: NVIDIA
+    orcid: 'https://orcid.org/0000-0003-3658-1233'
 identifiers:
   - type: doi
     value: 10.5281/zenodo.5745504
@@ -57,5 +48,5 @@ keywords:
   - NVSHMEM
   - Distributed Programming
 license: MIT
-version: '10.0-isc26'
-date-released: '2026-06-22'
+version: '11.0-sc26'
+date-released: '2026-11-15'

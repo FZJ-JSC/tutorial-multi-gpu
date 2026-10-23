@@ -1,6 +1,6 @@
-export JSCCOURSE_PROJECT=training2628
-export JSCCOURSE_SHORTNAME=ISC26-Multi-GPU-Tutorial
-export JSCCOURSE_HUMANNAME="ISC26 Tutorial on Multi-GPU Computing for Exascale"
+export JSCCOURSE_PROJECT=training2660
+export JSCCOURSE_SHORTNAME=SC26-Multi-GPU-Tutorial
+export JSCCOURSE_HUMANNAME="SC26 Tutorial on Multi-GPU Computing for Exascale"
 
 # Note: Reservations are not properly supported
 

@@ -18,6 +18,7 @@ jobs:
           - 08-H_NCCL_NVSHMEM/solutions/NCCL
           - 08-H_NCCL_NVSHMEM/solutions/NVSHMEM
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NVSHMEM
+          - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NCCL
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Using_CUDA_Graphs
     runs-on: ubuntu-latest
     container:

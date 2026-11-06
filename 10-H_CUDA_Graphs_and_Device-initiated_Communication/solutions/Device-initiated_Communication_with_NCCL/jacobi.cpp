@@ -251,10 +251,10 @@ int main(int argc, char* argv[]) {
     //        ginConnectionType reported by the communicator properties is NCCL_GIN_CONNECTION_FULL
     //        (signals used to synchronize with peers reached via GIN, e.g. on other nodes).
     //      If force_gin is set, the communicator must report GIN support
-    //      (ginConnectionType != NCCL_GIN_TYPE_NONE), otherwise print an error and exit.
+    //      (ginConnectionType != NCCL_GIN_CONNECTION_NONE), otherwise print an error and exit.
     ncclDevComm nccl_dev_comm;
     {
-        if (force_gin && NCCL_GIN_TYPE_NONE == nccl_props.ginConnectionType) {
+        if (force_gin && NCCL_GIN_CONNECTION_NONE == nccl_props.ginConnectionType) {
             fprintf(stderr,"ERROR -force_gin requires GIN support, which is not available.\n");
             NCCL_CALL(ncclCommDestroy(nccl_comm));
             MPI_CALL(MPI_Finalize());

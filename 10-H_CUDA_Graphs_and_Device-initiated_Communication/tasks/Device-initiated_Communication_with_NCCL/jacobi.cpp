@@ -243,7 +243,7 @@ int main(int argc, char* argv[]) {
     //        ginConnectionType reported by the communicator properties is NCCL_GIN_CONNECTION_FULL
     //        (signals used to synchronize with peers reached via GIN, e.g. on other nodes).
     //      If force_gin is set, the communicator must report GIN support
-    //      (ginConnectionType != NCCL_GIN_TYPE_NONE), otherwise print an error and exit.
+    //      (ginConnectionType != NCCL_GIN_CONNECTION_NONE), otherwise print an error and exit.
 
     real* a_ref_h;
     CUDA_RT_CALL(cudaMallocHost(&a_ref_h, nx * ny * sizeof(real)));

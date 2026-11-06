@@ -221,7 +221,6 @@ int main(int argc, char* argv[]) {
     NCCL_CALL(ncclCommInitRank(&nccl_comm, size, nccl_uid, rank));
     int nccl_version = 0;
     NCCL_CALL(ncclGetVersion(&nccl_version));
-    // The NCCL device API requires NCCL 2.28 or newer.
     if ( nccl_version < 22800 ) {
         fprintf(stderr,"ERROR NCCL 2.28 or newer is required.\n");
         NCCL_CALL(ncclCommDestroy(nccl_comm));

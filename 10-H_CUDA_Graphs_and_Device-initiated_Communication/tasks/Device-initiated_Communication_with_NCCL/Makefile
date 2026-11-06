@@ -24,7 +24,6 @@ ifdef DISABLE_CUB
 else
         NVCC_FLAGS = -DHAVE_CUB
 endif
-# The NCCL device API requires NCCL 2.28 or newer.
 NVCC_FLAGS += -lineinfo $(GENCODE_FLAGS) -std=c++17 -I$(CUDA_HOME)/include -I$(NCCL_HOME)/include
 MPICXX_FLAGS = -DUSE_NVTX -I$(CUDA_HOME)/include -I$(NCCL_HOME)/include -std=c++17
 LD_FLAGS = -L$(CUDA_HOME)/lib64 -L$(NCCL_HOME)/lib -lcudart -ldl -lnccl

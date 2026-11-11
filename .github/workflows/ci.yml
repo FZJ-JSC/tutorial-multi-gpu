@@ -13,16 +13,15 @@ jobs:
       fail-fast: false
       matrix:
         exercise:
-          - 03-H_Multi_GPU_Parallelization/solutions
-          - 06-H_Overlap_Communication_and_Computation_MPI/solutions
-          - 08-H_NCCL_NVSHMEM/solutions/NCCL
-          - 08-H_NCCL_NVSHMEM/solutions/NVSHMEM
-          - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NVSHMEM
-          - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NCCL
-          - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Using_CUDA_Graphs
+          - 04-H_Overlap_Communication_and_Computation_MPI/solutions
+          - 07-H_NCCL_NVSHMEM/solutions/NCCL
+          - 07-H_NCCL_NVSHMEM/solutions/NVSHMEM
+          - 09-H_Device-initiated_Communication_and_CUDA_Graphs/solutions/Device-initiated_Communication_with_NVSHMEM
+          - 09-H_Device-initiated_Communication_and_CUDA_Graphs/solutions/Device-initiated_Communication_with_NCCL
+          - 09-H_Device-initiated_Communication_and_CUDA_Graphs/solutions/Using_CUDA_Graphs
     runs-on: ubuntu-latest
     # HPC SDK 26.9 ships NCCL 2.31.2, the first HPC SDK NCCL that has the GIN
-    # connection types used by hands-on 10C (needs >= 2.30; 26.3 had 2.29.3).
+    # connection types used by hands-on 9C (needs >= 2.30; 26.3 had 2.29.3).
     container:
       image: nvcr.io/nvidia/nvhpc:26.9-devel-cuda13.3-ubuntu24.04
     env:

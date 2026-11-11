@@ -29,8 +29,11 @@ jobs:
     container:
       image: nvcr.io/nvidia/nvhpc:26.9-devel-cuda13.3-ubuntu24.04
     env:
+      NVHPC_ROOT: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9
       CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/cuda
-      MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/mpi
+      # Full HPC-X Open MPI tree (include/mpi.h, lib/libmpi.so). comm_libs/mpi
+      # only holds the compiler wrappers in this image, it has no headers.
+      MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/13.3/hpcx/latest/ompi
       NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nccl
       NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nvshmem
       LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/cuda/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nvshmem/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nccl/lib
@@ -41,6 +44,24 @@ jobs:
           grep -E "^#define NCCL_(MAJOR|MINOR|PATCH) " "$NCCL_HOME/include/nccl.h" || true
           grep -rq ncclGin "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image has no GIN device API"; exit 1; }
           grep -rq NCCL_GIN_CONNECTION_FULL "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image lacks GIN connection types"; exit 1; }
+      - name: Resolve MPI_HOME
+        run: |
+          if [ -f "$MPI_HOME/include/mpi.h" ]; then
+            echo "MPI_HOME=$MPI_HOME"
+            exit 0
+          fi
+          # The HPC-X location carries the CUDA version directory and an HPC-X
+          # version symlink, so locate the real MPI installation instead of
+          # failing the build later with a missing mpi.h.
+          found=$(find -L "$NVHPC_ROOT/comm_libs" -maxdepth 8 -type f -path '*/include/mpi.h' | sort | head -n 1)
+          if [ -z "$found" ]; then
+            echo "ERROR: no include/mpi.h under $NVHPC_ROOT/comm_libs"
+            find -L "$NVHPC_ROOT/comm_libs" -maxdepth 3 -type d | sort
+            exit 1
+          fi
+          mpi_home=$(dirname "$(dirname "$found")")
+          echo "MPI_HOME=$mpi_home" >> "$GITHUB_ENV"
+          echo "MPI_HOME overridden: $mpi_home (header: $found)"
       - name: Test Building
         working-directory: ${{ matrix.exercise }}
         run: |
@@ -49,7 +70,7 @@ jobs:
             # Module names for the HPC-X MPI stack differ between HPC SDK releases
             # (nvhpc-hpcx, nvhpc-hpcx-cuda13, ...). The image itself already exports
             # the required PATH/LD_LIBRARY_PATH, so no module is not fatal.
-            for m in nvhpc-hpcx nvhpc-hpcx-cuda13 nvhpc; do
+            for m in nvhpc-hpcx-cuda13 nvhpc-hpcx nvhpc; do
               if module is-avail "$m" 2>/dev/null; then module load "$m"; echo "Loaded module: $m"; break; fi
             done
           fi

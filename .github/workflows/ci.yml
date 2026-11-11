@@ -21,24 +21,42 @@ jobs:
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NCCL
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Using_CUDA_Graphs
     runs-on: ubuntu-latest
+    # HPC SDK 26.9 ships NCCL 2.31.2, the first HPC SDK NCCL that has the GIN
+    # connection types used by hands-on 10C (needs >= 2.30; 26.3 had 2.29.3).
     container:
-      image: nvcr.io/nvidia/nvhpc:26.3-devel-cuda13.1-ubuntu24.04
+      image: nvcr.io/nvidia/nvhpc:26.9-devel-cuda13.3-ubuntu24.04
     env:
-      # NVHPC_ROOT: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3
-      CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1
-      MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/13.1/hpcx/latest/ompi/
-      # # MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/mpi
-      NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/
-      NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem
-      # # PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/compilers/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/bin:${{ github.workspace }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}
-      # CPATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/include
-      # LD_LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
-      LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.3/cuda/13.1/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nvshmem/lib/:/opt/nvidia/hpc_sdk/Linux_x86_64/26.3/comm_libs/nccl/lib/
+      CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/cuda
+      # Full HPC-X tree: comm_libs/mpi is a symlink to hpcx and carries only the
+      # compiler wrappers, no include/mpi.h.
+      MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/13.3/hpcx/latest/ompi
+      NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nccl
+      NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nvshmem
+      LIBRARY_PATH: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/cuda/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nvshmem/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nccl/lib
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Check NCCL GIN support
+        run: |
+          grep -E "^#define NCCL_(MAJOR|MINOR|PATCH) " "$NCCL_HOME/include/nccl.h" || true
+          grep -rq ncclGin "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image has no GIN device API"; exit 1; }
+          grep -rq NCCL_GIN_CONNECTION_FULL "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image lacks GIN connection types"; exit 1; }
+      - name: Check MPI headers
+        run: |
+          if [ ! -f "$MPI_HOME/include/mpi.h" ]; then
+            echo "ERROR: $MPI_HOME/include/mpi.h is missing."
+            echo "HPC-X lives under comm_libs/<cuda>/hpcx/<version>/ompi; candidates found:"
+            find -L /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs -maxdepth 6 -name mpi.h | sort
+            exit 1
+          fi
       - name: Test Building
         working-directory: ${{ matrix.exercise }}
         run: |
-          source /usr/share/lmod/lmod/init/bash
-          module load nvhpc-hpcx
+          if [ -f /usr/share/lmod/lmod/init/bash ]; then
+            source /usr/share/lmod/lmod/init/bash
+            # Module name varies by SDK release; the image already exports PATH
+            # and LD_LIBRARY_PATH, so finding none is not fatal.
+            for m in nvhpc-hpcx-cuda13 nvhpc-hpcx nvhpc; do
+              if module is-avail "$m" 2>/dev/null; then module load "$m"; echo "Loaded module: $m"; break; fi
+            done
+          fi
           make jacobi

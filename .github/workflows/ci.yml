@@ -21,18 +21,14 @@ jobs:
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Device-initiated_Communication_with_NCCL
           - 10-H_CUDA_Graphs_and_Device-initiated_Communication/solutions/Using_CUDA_Graphs
     runs-on: ubuntu-latest
-    # NVIDIA HPC SDK 26.9 (CUDA 13.3) is the newest HPC SDK container and ships
-    # NCCL 2.31.2. That is the first NCCL in an HPC SDK image with the GIN
-    # (GPU-initiated networking) connection types used by hands-on 10C
-    # (ncclCommQueryProperties, NCCL_GIN_CONNECTION_FULL, ncclGin); the previous
-    # 26.3 image had NCCL 2.29.3, which predates them.
+    # HPC SDK 26.9 ships NCCL 2.31.2, the first HPC SDK NCCL that has the GIN
+    # connection types used by hands-on 10C (needs >= 2.30; 26.3 had 2.29.3).
     container:
       image: nvcr.io/nvidia/nvhpc:26.9-devel-cuda13.3-ubuntu24.04
     env:
-      NVHPC_ROOT: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9
       CUDA_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/cuda
-      # Full HPC-X Open MPI tree (include/mpi.h, lib/libmpi.so). comm_libs/mpi
-      # only holds the compiler wrappers in this image, it has no headers.
+      # Full HPC-X tree: comm_libs/mpi is a symlink to hpcx and carries only the
+      # compiler wrappers, no include/mpi.h.
       MPI_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/13.3/hpcx/latest/ompi
       NCCL_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nccl
       NVSHMEM_HOME: /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs/nvshmem
@@ -44,32 +40,21 @@ jobs:
           grep -E "^#define NCCL_(MAJOR|MINOR|PATCH) " "$NCCL_HOME/include/nccl.h" || true
           grep -rq ncclGin "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image has no GIN device API"; exit 1; }
           grep -rq NCCL_GIN_CONNECTION_FULL "$NCCL_HOME/include" || { echo "ERROR: NCCL in this image lacks GIN connection types"; exit 1; }
-      - name: Resolve MPI_HOME
+      - name: Check MPI headers
         run: |
-          if [ -f "$MPI_HOME/include/mpi.h" ]; then
-            echo "MPI_HOME=$MPI_HOME"
-            exit 0
-          fi
-          # The HPC-X location carries the CUDA version directory and an HPC-X
-          # version symlink, so locate the real MPI installation instead of
-          # failing the build later with a missing mpi.h.
-          found=$(find -L "$NVHPC_ROOT/comm_libs" -maxdepth 8 -type f -path '*/include/mpi.h' | sort | head -n 1)
-          if [ -z "$found" ]; then
-            echo "ERROR: no include/mpi.h under $NVHPC_ROOT/comm_libs"
-            find -L "$NVHPC_ROOT/comm_libs" -maxdepth 3 -type d | sort
+          if [ ! -f "$MPI_HOME/include/mpi.h" ]; then
+            echo "ERROR: $MPI_HOME/include/mpi.h is missing."
+            echo "HPC-X lives under comm_libs/<cuda>/hpcx/<version>/ompi; candidates found:"
+            find -L /opt/nvidia/hpc_sdk/Linux_x86_64/26.9/comm_libs -maxdepth 6 -name mpi.h | sort
             exit 1
           fi
-          mpi_home=$(dirname "$(dirname "$found")")
-          echo "MPI_HOME=$mpi_home" >> "$GITHUB_ENV"
-          echo "MPI_HOME overridden: $mpi_home (header: $found)"
       - name: Test Building
         working-directory: ${{ matrix.exercise }}
         run: |
           if [ -f /usr/share/lmod/lmod/init/bash ]; then
             source /usr/share/lmod/lmod/init/bash
-            # Module names for the HPC-X MPI stack differ between HPC SDK releases
-            # (nvhpc-hpcx, nvhpc-hpcx-cuda13, ...). The image itself already exports
-            # the required PATH/LD_LIBRARY_PATH, so no module is not fatal.
+            # Module name varies by SDK release; the image already exports PATH
+            # and LD_LIBRARY_PATH, so finding none is not fatal.
             for m in nvhpc-hpcx-cuda13 nvhpc-hpcx nvhpc; do
               if module is-avail "$m" 2>/dev/null; then module load "$m"; echo "Loaded module: $m"; break; fi
             done

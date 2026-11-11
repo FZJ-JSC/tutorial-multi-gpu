@@ -4,14 +4,14 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 10B: Using CUDA Graphs
+## Hands-On 9B: Using CUDA Graphs
 
 ### Task: Combining CUDA Graphs with NCCL for Inter-GPU Communication
 
 #### Description
 
 The purpose of this task is to introduce [CUDA Graphs](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#cuda-graphs).
-For that, the NCCL version of the Jacobi solver developed in hands-on 8 is modified to use the
+For that, the NCCL version of the Jacobi solver developed in hands-on 7 is modified to use the
 [CUDA Graph Management API](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__GRAPH.html#group__CUDART__GRAPH)
 so that the CUDA API calls required in the main solver loop are minimized. You need to work on `TODOs` in `jacobi.cpp`:
 

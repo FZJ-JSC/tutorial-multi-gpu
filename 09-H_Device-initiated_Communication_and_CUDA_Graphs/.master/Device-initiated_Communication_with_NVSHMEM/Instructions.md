@@ -4,7 +4,7 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 10A: Device-initiated Communication with NVSHMEM
+## Hands-On 9A: Device-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API
 
@@ -12,7 +12,7 @@
 
 The purpose of this task is to use the NVSHMEM device API instead of MPI to implement a multi-GPU jacobi solver. The starting point of this task is the MPI variant of the jacobi solver. You need to work on `TODOs` in `jacobi.cu`:
 
-- Initialize NVSHMEM (same as in Hans-On 8-H):
+- Initialize NVSHMEM (same as in Hands-On 7-NVSHMEM):
   - Include NVSHMEM headers.
   - Initialize and shutdown NVSHMEM using `MPI_COMM_WORLD`.
   - Allocate work arrays `a` and `a_new` from the NVSHMEM symmetric heap. Take care of passing in a consistent size!

@@ -4,10 +4,10 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 6: Overlap Communication and Computation with MPI
+## Hands-On 4: Overlap Communication and Computation with MPI
 
-You are now going to apply the concepts you learned in the lectures 4 and 5: Using profiling tools,
-and applying them to implement overlapping MPI with GPU kernels. 
+You are now going to apply the concepts you learned in the lectures 3 and 5, optimization techniques
+and profiling tools, to implement overlapping MPI with GPU kernels. 
 
 Compile with
 

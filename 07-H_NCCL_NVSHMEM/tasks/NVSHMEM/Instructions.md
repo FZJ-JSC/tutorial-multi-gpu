@@ -4,7 +4,7 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 8-NVSHMEM: Host-initiated Communication with NVSHMEM
+## Hands-On 7-NVSHMEM: Host-initiated Communication with NVSHMEM
 
 ### Task: Using NVSHMEM device API
 

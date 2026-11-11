@@ -4,13 +4,13 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 10C: Device-initiated Communication with NCCL
+## Hands-On 9C: Device-initiated Communication with NCCL
 
 ### Task: Using the NCCL device API
 
 #### Description
 
-The purpose of this task is to use the NCCL device API instead of the NCCL host API to implement a multi-GPU jacobi solver. The starting point of this task is the NCCL variant of the jacobi solver developed in Hands-On 8 (`ncclSend` and `ncclRecv`). You need to work on `TODOs` in `jacobi.cpp` and `jacobi_kernels.cu`:
+The purpose of this task is to use the NCCL device API instead of the NCCL host API to implement a multi-GPU jacobi solver. The starting point of this task is the NCCL variant of the jacobi solver developed in Hands-On 7 (`ncclSend` and `ncclRecv`). You need to work on `TODOs` in `jacobi.cpp` and `jacobi_kernels.cu`:
 
 - Set up the NCCL device API in `jacobi.cpp`:
   - Query the communicator properties (`ncclCommQueryProperties`) and check that the communicator supports the device API. The check for NCCL 2.28 or newer is already provided.

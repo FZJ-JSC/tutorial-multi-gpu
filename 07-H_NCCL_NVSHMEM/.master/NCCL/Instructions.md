@@ -4,7 +4,7 @@
 -   Location: W190b, Chicago, USA
 -   Program Link:
     https://sc26.conference-program.com/presentation/?id=tut120&sess=sess190
-## Hands-On 8-NCCL: Using NCCL for Inter-GPU Communication
+## Hands-On 7-NCCL: Using NCCL for Inter-GPU Communication
 
 ### Task: Using NCCL
 

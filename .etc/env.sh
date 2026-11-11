@@ -5,10 +5,10 @@ export JSCCOURSE_HUMANNAME="SC26 Tutorial on Multi-GPU Computing for Exascale"
 # Note: Reservations are not properly supported
 
 # Determine base directory for jsccourse project
-if [ -d "/p/project1/$JSCCOURSE_PROJECT" ]; then
-  _BASEDIR="/p/project1/$JSCCOURSE_PROJECT"
-elif [ -d "/e/project1/$JSCCOURSE_PROJECT" ]; then
+if [ -d "/e/project1/$JSCCOURSE_PROJECT" ]; then
   _BASEDIR="/e/project1/$JSCCOURSE_PROJECT"
+elif [ -d "/p/project1/$JSCCOURSE_PROJECT" ]; then
+  _BASEDIR="/p/project1/$JSCCOURSE_PROJECT"
 fi
 
 if [ -n "${_BASEDIR:-}" ]; then

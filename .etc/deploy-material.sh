@@ -1,5 +1,6 @@
 if [[ ! $PWD == *"env"* ]]; then
 	for sys in "juwels-booster.fz-juelich.de:/p/" "login.jupiter.fz-juelich.de:/e/"; do
+		echo "Uploading to ${sys}"
 		rsync --archive --exclude="*minified.pdf" --exclude="tut*" --exclude=".*" --exclude="*-sc*.pdf"  --verbose "../" "${sys}/project1/training2660/common/material/"
 	done
 else

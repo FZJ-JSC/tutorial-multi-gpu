@@ -1,5 +1,5 @@
 # Copyright (c) 2017-2024, NVIDIA CORPORATION. All rights reserved.
-THIS_TASK := 06H-task
+THIS_TASK := 04H-task
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 1
 NVCC=nvcc

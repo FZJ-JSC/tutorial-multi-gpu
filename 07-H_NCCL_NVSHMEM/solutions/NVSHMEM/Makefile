@@ -1,5 +1,5 @@
 # Copyright (c) 2017-2024, All rights reserved.
-THIS_TASK := 08H-NVSHMEM-sol
+THIS_TASK := 07H-NVSHMEM-sol
 OUTPUT_NAME := jacobi.$(THIS_TASK)__$(shell date '+%Y%m%d-%H%M')
 NP ?= 4
 NVCC=nvcc

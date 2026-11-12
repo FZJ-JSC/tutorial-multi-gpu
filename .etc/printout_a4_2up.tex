@@ -1,0 +1,33 @@
+\documentclass{article}
+% Imposition sheet: two copies of the A5 flyer side by side on A4 landscape,
+% so one sheet can be printed on an office printer and cut down the middle.
+%
+% Build with ./build-printout.sh, which renders the A5 flyer, duplicates that
+% page to flyer_x2.pdf (pdfpages' own nup needs two logical pages) and then
+% runs this file. Two A5 widths are 296 mm, A4 is 297 mm: the copies are
+% centred, so each cut half is 148.5 mm wide -- half a millimetre more than A5,
+% which disappears inside the 11 mm margins.
+\usepackage[a4paper,landscape,margin=0pt]{geometry}
+\usepackage{pdfpages}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\definecolor{cutgray}{RGB}{170,170,170}
+\pagestyle{empty}
+
+\begin{document}
+
+% cutting guide: dashed hairline at the centre plus a tick at top and bottom
+\AddToShipoutPictureFG*{%
+	\AtPageCenter{\makebox[0pt]{%
+		\begin{tikzpicture}[overlay]
+			\draw[cutgray, dashed, line width=0.25pt] (0,-105mm) -- (0,105mm);
+			% \draw[cutgray, line width=0.7pt] (-6mm,103mm) -- (6mm,103mm);
+			% \draw[cutgray, line width=0.7pt] (-6mm,-103mm) -- (6mm,-103mm);
+		\end{tikzpicture}}}}
+
+\includepdf[pages=-,nup=2x1,frame=false,noautoscale=false,
+	delta=0mm 0mm, offset=0mm 0mm]{flyer_x2.pdf}
+
+\end{document}

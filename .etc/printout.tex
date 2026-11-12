@@ -1,64 +1,92 @@
-\documentclass{article}
-\usepackage[a4paper,margin=1cm,landscape]{geometry}
+\documentclass[12pt]{extarticle}
+% A5 flyer version of the Onboarding handout.
+% Same content as printout_new.tex; type is larger relative to the page, so
+% the sheet stays readable at A5. Printed two-up on A4 by printout_a4_2up.tex.
+\usepackage[a5paper,margin=11mm]{geometry}
 
 \usepackage{fontspec}
 \setmainfont{PT Sans}
 \newfontfamily{\ptsansnarrow}{PT Sans Narrow}
-\newfontfamily{\ptsanscaption}{PT Sans Caption}
 
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-\usetikzlibrary{fit}
 \usepackage{xcolor}
+\usepackage{enumitem}
 \usepackage{hyperref}
-\usepackage{relsize}
-\renewcommand\RSlargest{50pt}
+\hypersetup{hidelinks}
 
-\usepackage{lipsum}
-\usepackage{verbatim}
 \pagenumbering{gobble}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\raggedright
+\setlength{\parskip}{0pt}
+\linespread{1.15}
 
-\definecolor{fzjblue}{RGB}{2,61,107} % first color
-\definecolor{fzjlightblue}{RGB}{173,189,227} % second color
-\definecolor{fzjgray}{RGB}{235,235,235} % third color
-\definecolor{fzjred}{RGB}{235, 95, 115}  % FZJ raspberry red
-\definecolor{fzjgreen}{RGB}{185, 210, 95}  % FZJ grass green
-\definecolor{fzjyellow}{RGB}{250, 235, 90}  % FZJ citrus yellow
-\definecolor{fzjviolet}{RGB}{175, 130, 185}  % FZJ Hyacinth violet
-\definecolor{fzjorange}{RGB}{250, 180, 90}  % FZJ apricot orange
+% FZJ corporate colours
+\definecolor{fzjblue}{RGB}{2,61,107}
+\definecolor{fzjlightblue}{RGB}{173,189,227}
+\definecolor{fzjdark}{RGB}{40,40,40}
+\definecolor{fzjred}{RGB}{235, 95, 115}
 
-\newcommand{\highlight}[1]{\textcolor{fzjblue}{#1}}
+\usepackage{ulem}
+
+% ---------- type scale: three standard sizes, nothing bespoke ----------
+% extarticle 12 pt base: \normalsize = 12, \large = 14.4, \huge = 24.88
+\newcommand{\fBadge}{\ptsansnarrow\bfseries\normalsize}
+\newcommand{\fTitle}{\bfseries\huge}
+\newcommand{\fBody}{\normalsize}
+
+\newcommand{\kw}[1]{\textcolor{fzjblue}{\bfseries #1}}
+\newcommand{\lnk}[2]{\href{#1}{\textcolor{fzjblue}{\uline{\texttt{#2}}}}}
+\newcommand{\cmd}[1]{\colorbox{fzjlightblue!40}{\textcolor{fzjdark}{\texttt{#1}}}}
+\newcommand{\mono}[1]{\textcolor{fzjdark}{\texttt{#1}}}
+
 
 \begin{document}
-\relsize{4}
-\setlength{\parindent}{0pt}
-% \centering
-	% {\larger[3]\tikz{\node at (0, 0) [fill=black, text=white, text depth=0.25ex, font=\ptsansnarrow] {\textbf{Onboarding}};}
 
-	% \vspace*{0.3\baselineskip}
-	% \emph{\textbf{Efficient Distributed GPU Programming for Exascale}}}
+% ---------- label ----------
+\colorbox{fzjblue}{%
+	\parbox[c][7.5mm][c]{34mm}{%
+		\color{white}\fBadge\hspace*{2.5mm}Onboarding}}
 
-	\begin{tikzpicture}[every node/.style={outer sep=0pt}]
-		\node (onboarding) [fill=fzjblue, text=white, text depth=0.5ex, font=\ptsansnarrow\relsize{4}, yscale=2] {\textbf{Onboarding}};
-		\renewcommand{\baselinestretch}{0.9} 
-		\node (title) [right=of onboarding, font=\relsize{4}\bfseries, text width=0.66\pagewidth, color=fzjblue] {\emph{Efficient Distributed GPU\\Programming for Exascale}};
-		\node [draw=fzjblue, fit=(onboarding) (title), inner sep=0pt, outer sep=0pt, thick] {};
-	\end{tikzpicture}
+\vspace{4mm}
+{\color{fzjblue}\fTitle Efficient Distributed GPU\\[0.1mm] Programming for Exascale\par}
 
+% \vspace{4mm}
+{\color{fzjblue}\rule{\textwidth}{1pt}}
 
-	\vspace*{1\baselineskip}
-	The tutorial uses HPC resources at \textcolor{fzjred}{Jülich Supercomputing Centre}. The following steps need to be done to access the JUPITER machine. Feel free to start them as soon as you sit down, ask the Tutors in the room for help.\\
-	Tutorial repository (incl. slides): \href{https://go.fzj.de/mg-gh}{\texttt{go.fzj.de/mg-gh}}
+% ---------- repository band: the most important link ----------
+\vspace{3mm}
+\noindent\colorbox{fzjlightblue!45}{%
+	\parbox[c][10mm][c]{\dimexpr\textwidth-2\fboxsep\relax}{%
+		\centering\color{fzjblue}\bfseries\fBody Tutorial repository (incl.\ slides): \lnk{https://go.fzj.de/mg-gh}{go.fzj.de/mg-gh}%
+		}}
+\par\nointerlineskip
+\vspace{4.5mm}
 
-	\vspace*{1\baselineskip}
-	\begin{enumerate}
-		\item Create \highlight{\emph{JuDoor}} account, \highlight{join} \texttt{training2660} project: \href{https://go.fzj.de/mg-jd}{\texttt{go.fzj.de/mg-jd}}
-		\item Fill \highlight{usage agreement} (JUWELS Booster); wait at least 15 min for synchronization
-		\item Login to \highlight{Jupyter}: \href{https://go.fzj.de/mg-jup}{\texttt{https://go.fzj.de/mg-jup}} (JuDoor credentials like \texttt{usr1})
-		\item Create new Jupyter \highlight{instance} on JUWELS using \texttt{LoginNodeBooster} with training project (all pre-filled already)
-		\item Start Jupyter Terminal, \highlight{source} course environment\\
-		\verb|source $PROJECT_training2660/env.sh|
-		\item \highlight{Sync} course material: \verb|jsc-material-sync|
-		\item \emph{Optional}: Download, install \highlight{Nsight Systems}
-	\end{enumerate}
+% ---------- intro ----------
+{\fBody
+	The tutorial uses HPC resources at \textcolor{fzjred}{\bfseries Jülich Supercomputing Centre}.
+	The following steps are needed to access the JUPITER machine. Feel free to start
+	them as soon as you sit down. Ask the tutors in the room for help.\par}
+\vfill
+
+% ---------- the seven steps, one column ----------
+\begin{enumerate}[label={\color{fzjblue}\bfseries\arabic*.}, leftmargin=7mm,
+	itemsep=3mm, topsep=0pt, parsep=0pt, before={\fBody}]
+	\item Create a \kw{JuDoor} account and \kw{join} the \mono{training2660} project:
+	      \lnk{https://go.fzj.de/mg-jd}{go.fzj.de/mg-jd}
+	\item Fill in the \kw{usage agreement} (JUPITER); wait at least 15\,minutes for
+	      synchronization
+	\item Log in to \kw{Jupyter}: \lnk{https://go.fzj.de/mg-jup}{go.fzj.de/mg-jup}
+	      (JuDoor credentials such as \mono{usr1})
+	\item Create a new Jupyter \kw{instance} on JUPITER using \mono{LoginNode}
+	      and the training project (fields pre-filled)
+	\item In a Jupyter terminal, \kw{source} the course environment:\\
+	      \cmd{source \$PROJECT\_training2660/env.sh}
+	\item \kw{Sync} the course material:\\
+	      \cmd{jsc-material-sync}
+	\item \emph{Optional}: Download and install \kw{Nsight Systems}
+\end{enumerate}
+
+{\color{fzjblue}\rule{\textwidth}{0.6pt}}\par
+
 \end{document}

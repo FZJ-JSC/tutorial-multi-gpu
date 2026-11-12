@@ -1,1 +1,8 @@
 raw/*
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex*
+*.log
+*.out
+*.pdf

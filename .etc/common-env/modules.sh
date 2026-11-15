@@ -1,4 +1,4 @@
-ml use $OTHERSTAGES
+module use $OTHERSTAGES
 module load Stages/2027
 module purge
 module load GCC/15.2.0

@@ -1,0 +1,3 @@
+[submodule "10-L_Summary_Advanced/KokkosComm"]
+	path = 10-L_Summary_Advanced/KokkosComm
+	url = https://gitlab.jsc.fz-juelich.de/chawla2/kokkos-comm-example.git
